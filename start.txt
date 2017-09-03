@@ -1,0 +1,130 @@
+在C:\Windows\System32\drivers\etc/hosts
+127.0.0.1       localhost
+127.0.0.1       localhost
+127.0.0.1       test01.com
+127.0.0.1       test02.com
+
+打开时：http://localhost:90/test01/
+
+//9-3
+
+echo；输出
+”var_dump”函数可以将我们的变量的数据类型
+
+$love = "I love you!"; 
+$string1 = "慕课网,$love";
+$string2 = '慕课网,$love';
+echo $string1;//慕课网,I love you!
+echo "<br />";
+echo $string2;//慕课网,$love'
+
+
+
+//字符串很长时
+$string1=<<<GOD
+我有一只小毛驴，我从来也不骑。
+有一天我心血来潮，骑着去赶集。
+我手里拿着小皮鞭，我心里正得意。
+不知怎么哗啦啦啦啦，我摔了一身泥.
+GOD;
+
+ error_reporting(0); //禁止显示PHP警告提示
+ 
+ unset($var3)，//将变量“$var3”注销定义。
+ 
+	$p = "PII";
+	define('PI',3.14);
+	define($p,3.14);
+	echo PI;
+	echo $p;//PII
+	echo PII;//3.14
+	
+	define(name,value,case_insensitive)
+
+	参数	描述
+
+	name	必需。规定常量的名称。
+
+	value	必需。规定常量的值。
+
+	case_insensitive	
+
+	可选。规定常量的名称是否对大小写敏感。
+
+	若设置为 true，则对大小写不敏感。默认是 false（大小写敏感）。
+	
+	
+	
+	（1）__FILE__ :php程序文件名。它可以帮助我们获取当前文件在服务器的物理位置。
+
+	（2）__LINE__ :PHP程序文件行数。它可以告诉我们，当前代码在第几行。
+
+	（3）PHP_VERSION:当前解析器的版本号。它可以告诉我们当前PHP解析器的版本号，我们可以提前知道我们的PHP代码是否可被该PHP解析器解析。
+
+	（4）PHP_OS：执行当前PHP版本的操作系统名称。它可以告诉我们服务器所用的操作系统名称，我们可以根据该操作系统优化我们的代码。
+	
+	
+	
+		define("PI1",3.14);
+		$p = "PI1";
+		$r=1;
+		$area=constant($p)*$r*$r;
+		echo $area;
+	
+	
+	//defined()函数可以帮助我们判断一个常量是否已经定义
+	define("PI1",3.14);
+	$p = "PI1";
+	$is1 = defined($p);
+	$is2 = defined("PI2");
+	echo $is1;//1
+	echo $is2;//
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
