@@ -80,18 +80,37 @@ GOD;
 	echo $is1;//1
 	echo $is2;//
 	
+	$a = TRUE; //A同意
+	$b = TRUE; //B同意
+	$c = FALSE; //C反对
+	$d = FALSE; //D反对
+	//咱顺便复习下三元运算符
+	echo ($a and $b)?"通过":"不通过";
+	echo ($a or $c)?"通过":"不通过";
+	echo ($a xor $c xor $d)?"通过":"不通过";//异或，不同为真
+	echo !$c?"通过":"不通过";
+	echo $a && $d?"通过":"不通过";
+	echo $b||$c||$d?"通过":"不通过";
 	
 	
+	$a = "张先生";
+	$tip=$a.",欢迎你在慕课网学习PHP！";
 	
+    $b = "东边日出西边雨";	
+    $b.=",道是无晴却有晴";//'东边日出西边雨,道是无晴却有晴'
+    
+	$c = "东边日出西边雨";	
+    $c=$c.",道是无晴却有晴";
 	
+	//@放置在一个PHP表达式之前，该表达式可能产生的任何错误信息都被忽略掉；
+	$conn = @mysql_connect("localhost","username","password");
+	echo "出错了，错误原因是：".$php_errormsg;
 	
+	在PHP中foreach循环语句，
 	
+	foreach($students as  $v)//只取值，不取下标
 	
-	
-	
-	
-	
-	
+	数组 as 下标 => 值//同时取下标和值
 	
 	
 	
