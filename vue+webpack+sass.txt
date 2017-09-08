@@ -101,3 +101,11 @@ let theRequest = new Object();
 			theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
 		}
 	}
+
+	///背景图全屏
+	.imgbox{
+			 padding-top:XXX%; /*(图片高度/图片宽度)*100%*/
+			 background: url("../images/4.jpg") no-repeat;
+			  background-size:cover;
+			  background-position:center;
+		}

@@ -127,28 +127,281 @@ GOD;
 	$arr=array('0'=>'苹果');
 	$arr=array('苹果');
 	$arr[0]='苹果';
+	//isset检测变量是否设置 
 	if( isset($arr) ) {print_r($arr);}
 	
+	$fruit=array('苹果','香蕉','菠萝');
+	for($index=0; $index<3; $index++){
+		echo '<br>数组第'.$index.'值是：'.$fruit[$index];
+	}
+	///.$fruit[$index]
+	.连接字符串;
+	
+	//定义一个类
+	class Car {
+		var $name = '汽车';
+		function getName() {
+			return $this->name;
+		}
+	}
+
+	//实例化一个car对象
+	$car = new Car();
+	$car->name = '奥迪A6'; //设置对象的属性值
+	echo $car->getName();  //调用对象的方法 输出对象的名字
+	///或者。。。
+	$className='Car';
+	$car=new $className();
+	echo $car->getName();
+	
+	
+	class Car{
+		//在这里定义一个共有属性name
+		public $name='汽车';
+		protected $color='white';
+		private $price='10000';
+		public function getPrice(){
+			return $this->color;
+		}
+		
+	}
+	$car = new Car();
+	//在这里输出$car对象的name属性
+	echo $car->name;
+	echo $car->color;//错误 受保护的属性不允许外部调用
+	echo $car->price;//错误 私有属性不允许外部调用
+	echo $car->getPrice();
+	
+	
+	class Car {
+		public $speed = 0;
+		//增加speedUp方法，使speed加10
+		public function speedUp(){
+			$this->speed+=10;
+		}
+	}
+	
+	
+	public    表示全局的,在本类,外,子类都可以使用
+
+	protected 表示受保护的,只有本类或子类可以使用
+
+	private   表示私有的,只有本类可以使用
+	
+	
+	
+	
+	//请修改变量p的正则表达式，使他能够匹配苹果
+	$p = '/苹果/';
+	$str = "我喜欢吃苹果";
+	if (preg_match($p, $str)) {
+		echo '匹配成功';
+	}
+	
+	$p = 'http://';
+	$p = '/'.preg_quote($p, '/').'/';
+	echo $p;--->   /http\:\/\//
+	
+	$p = '/'.preg_quote($p, ':').'/'; --->   /http\:///
+	
+	$user = array(
+		'name' => 'spar',
+		'email' => 'spark@imooc.com',
+		'mobile' => '13312345678'
+	);
+	//count — 计算数组中的单元数目或对象中的属性个数
+	//进行一般性验证
+	if (empty($user)) {//检查一个变量是否为空 
+
+		die('用户信息不能为空');////////////////---exit()函数一样、、、
+	}
+	if (strlen($user['name']) < 6) {//strlen — 获取字符串长度 
+	
+		die('用户名长度最少为6位');
+	}
+	//用户名必须为字母、数字与下划线
+	if (!preg_match('/^\w+$/i', $user['name'])) {
+		die('用户名不合法');
+	}
+	//验证邮箱格式是否正确
+	if (!preg_match('/^[\w\.]+@\w+\.\w+$/i', $user['email'])) {
+		die('邮箱不合法');
+	}
+	//手机号必须为11位数字，且为1开头
+	if (!preg_match('/^1\d{10}$/i', $user['mobile'])) {
+		die('手机号不合法');
+	}
+	echo '用户信息验证成功';
+	
+	
+	$t=time();
+	echo($t . "<br>");//1504682312
+	echo(date("Y-m-d",$t));///2017-09-06
+	
+	ob_start();//打开缓冲区
+	setcookie('test',$value);//设置cookie
+	setcookie("user", "", time()-3600);//删除cookie
+	
+	//补充路径参数，实现有效路径的设置
+	setcookie('test', '1', 0,'/path');
+	
+	//开始使用session
+	session_start();
+	//设置一个session
+	$_SESSION['test'] = time();
+	//显示当前的session_id
+	echo "session_id:".session_id();
+	echo "<br>";
+
+	//读取session值
+	echo $_SESSION['test'];
+
+	//销毁一个session
+	unset($_SESSION['test']);
+	echo "<br>";
+	var_dump($_SESSION);
+	
+	session_start();
+	//假设用户登录成功获得了以下用户数据
+	$userinfo = array(
+		'uid'  => 10000,
+		'name' => 'spark',
+		'email' => 'spark@imooc.com',
+		'sex'  => 'man',
+		'age'  => '18'
+	);
+	header("content-type:text/html; charset=utf-8");
+
+	/* 将用户信息保存到session中 */
+	$_SESSION['uid'] = $userinfo['uid'];
+	$_SESSION['name'] = $userinfo['name'];
+	$_SESSION['userinfo'] = $userinfo;
+
+	//* 将用户数据保存到cookie中的一个简单方法 */
+	$secureKey = 'imooc'; //加密密钥
+	$str = serialize($userinfo); //将用户信息序列化
+	//用户信息加密前
+	$str = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, md5($secureKey), $str, MCRYPT_MODE_ECB));
+	//用户信息加密后
+	//将加密后的用户数据存储到cookie中
+	setcookie('userinfo', $str);
+	
+	//当需要使用时进行解密
+	$str = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, md5($secureKey), base64_decode($str), MCRYPT_MODE_ECB);
+	$uinfo = unserialize($str);
+	echo "解密后的用户信息：<br>";
+	print_r($uinfo);
+	
+	if(isset($_COOKIE["first"])) {
+		echo $_COOKIE["first"];}
+		echo '<br />';
+	if(isset($_COOKIE["second"])){
+		echo $_COOKIE["second"];}
+		echo '<br />';
+	if(isset($_COOKIE["third"])){
+		echo $_COOKIE["third"];        
+	}
 	
 	
 	
 	
 	
 	
+	//读取文件
+	$filename = '/data/webroot/usercode/resource/test.txt';
+	//编写代码读取$filename的文件内容
+	$content=file_get_contents($filename);
+	echo $content;
+	
+	
+	$filename = '/data/webroot/usercode/code/resource/test.txt';
+	//判断如果$filename文件存在的话 就输出文件内容
+	if(file_exists($filename)){
+		echo '文件存在';
+	}else{
+		echo '文件不存在';
+	}
+	//is_file是确切的判断给定的路径是否是一个文件。
+	is_readable与is_writeable在文件是否存在的基础上，判断文件是否可读与可写。
 	
 	
 	
+	$filename = '/data/webroot/usercode/resource/test.txt';
+	//取得文件的大小并输出
+	$size=filesize($filename);
+	$size =getsize($size, 'kb'); //进行单位转换
+	echo $size.'kb';
+	function getsize($size, $format = 'kb') {
+		$p = 0;
+		if ($format == 'kb') {
+			$p = 1;
+		} elseif ($format == 'mb') {
+			$p = 2;
+		} elseif ($format == 'gb') {
+			$p = 3;
+		}
+		$size /= pow(1024, $p);
+		return number_format($size, 3);
+	}
+	
+	pow ( number $base , number $exp )
+	返回 base 的 exp 次方的幂
+	
+	//number_format
+	本函数可以接受1个、2个或者4个参数（注意：不能是3个）: 
+
+	如果只提供第一个参数， number 的小数部分会被去掉 并且每个千位分隔符都是英文小写逗号"," 
+
+	如果提供两个参数， number 将保留小数点后的位数到你设定的值，其余同楼上 
+
+	如果提供了四个参数， number 将保留 decimals 个长度的小数部分, 小数点被替换为 dec_point ，千位分隔符替换为 thousands_sep 
+
+
+	
+	//unlink函数进行文件删除。
+	unlink($filename);
+	
+	rmdir($dir);//删除文件夹使用rmdir函数，文件夹必须为空，如果不为空或者没有权限则会提示失败。
+	
+	//如果文件夹中存在文件，可以先循环删除目录中的所有文件，然后再删除该目录，循环删除可以使用glob函数遍历所有文件。
+	
+	foreach (glob("*") as $filename) {
+	   unlink($filename);
+	}
 	
 	
+	$link = mysql_connect('127.0.0.1', 'code1', '') or die('数据库连接失败');
+	//连接数据库 mysql_connect--//如果连接失败就结束所有操作并提示：'数据库连接失败'
+	////数据库账号是code1，
+	//密码为空；
+	mysql_select_db('code1');
+	//连接数据库，库名为code1
+	mysql_query("set names 'utf8'");
+	//设置编码类型为utf8
+	$result = mysql_query('select * from user limit 1');
+	//发送数据库操作指令
+	$row = mysql_fetch_assoc($result);
+	////从查询的结果中取出一行
+	print_r($row);
 	
 	
+	表示从结果中n行开始取，一共取m行； 注意其中n是从0开始，即第一行的n为0。
+
+	limit 后只有一个数字 例如limit a   是（从结果第一行开始）取a行，等价于limit 0,a 
+
+	例如 limit 2,3  表示取结果中的第3、4、5行
+
+     limit 2 表示取第1、2行
+
 	
-	
-	
-	
-	
-	
-	
+	////连接数据库
+	mysql_connect('127.0.0.1', 'code1', '');
+	mysql_select_db('code1');
+	mysql_query("set names 'utf8'");
+	//在这里进行数据查询
+	$res=mysql_query('select * from user');
+	$row=mysql_fetch_array($res);
+	var_dump($row);
 	
 	
 	

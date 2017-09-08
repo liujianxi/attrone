@@ -1,0 +1,73 @@
+
+
+	//count — 计算数组中的单元数目或对象中的属性个数
+	
+	
+	//empty--检查一个变量是否为空 
+	
+	
+	//strlen — 获取字符串长度 
+	
+	
+	//isset — 检测变量是否设置 
+
+
+	//is_array — 检测变量是否是数组 
+
+	//is_float — 检测变量是否是浮点型 ---is_real — is_float() 的别名 
+
+
+
+	//is_int — 检测变量是否是整数 --is_integer — is_int() 的别名 
+
+	//is_string — 检测变量是否是字符串 
+
+
+	//is_object — 检测变量是否是一个对象 
+
+	//is_scalar — 检测变量是否是一个标量
+	
+	//标量变量是指那些包含了 integer 、 float 、 string 或 boolean 的变量，而 array 、 object 和 resource 则不是标量。
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
