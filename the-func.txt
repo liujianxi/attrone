@@ -29,17 +29,36 @@
 	
 	//标量变量是指那些包含了 integer 、 float 、 string 或 boolean 的变量，而 array 、 object 和 resource 则不是标量。
 	
+	//”var_dump”函数可以将我们的变量的数据类型
+	
+	//function_exists — Return TRUE if the given function has been defined 
+
+	if (function_exists('mysql_connect')) {
+		echo 'Mysql扩展已经安装';
+	}
 	
 	
+	//strval() 函数将变量转成字符串类型
 	
+	$a=2.01;
+	$b=$a*100;
+	$c=(int)strval($b);//201
+	$c=(int)($b);//200
+	var_dump($c);
 	
-	
-	
-	
-	
-	
-	
-	
+	//连接数据库
+	mysql_connect('127.0.0.1', 'code1', '');
+	mysql_select_db('code1');
+	mysql_query("set names 'utf8'");
+	//已知的数据变量有
+	$name = '李四';
+	$age = 18;
+	$class = '高三一班';
+	//在这里进行数据查询
+	$sql = "insert into user(name, age, class) values('$name', '$age', '$class')";
+	mysql_query($sql); //执行插入语句
+	$uid = mysql_insert_id();//在mysql中，执行插入语句以后，可以得到自增的主键id,通过PHP的mysql_insert_id函数可以获取该id。
+	echo $uid;
 	
 	
 	

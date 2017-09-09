@@ -384,7 +384,7 @@ GOD;
 	////从查询的结果中取出一行
 	print_r($row);
 	
-	
+	//limit
 	表示从结果中n行开始取，一共取m行； 注意其中n是从0开始，即第一行的n为0。
 
 	limit 后只有一个数字 例如limit a   是（从结果第一行开始）取a行，等价于limit 0,a 
@@ -400,7 +400,7 @@ GOD;
 	mysql_query("set names 'utf8'");
 	//在这里进行数据查询
 	$res=mysql_query('select * from user');
-	$row=mysql_fetch_array($res);
+	$row=mysql_fetch_array($res);//函数从结果集中取得一行作为关联数组
 	var_dump($row);
 	
 	
