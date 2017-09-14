@@ -1,0 +1,109 @@
+	
+	
+	
+	
+	mysql -V;
+	
+	
+	net start mysql;
+	-p;
+	
+	mysql>SELECT VERSION();
+
+	mysql>SELECT USER();
+
+	net stop mysql;
+	
+	mysql -uroot -p;
+	mysql>CREATE DATABASE t1;
+
+	mysql>SHOW DATABASES;
+	
+	mysql>CREATE DATABASE IF NOT EXITS t1;
+
+	mysql>SHOW CREATE DATABASE t1;
+
+	mysql>CREATE DATABASE IF NOT EXITS t2 CHARACTER SET gbk;
+
+	mysql>ALTER DATABASE t2 CHARACTER SET utf8;
+
+	mysql>DROP DATABASE t2;
+
+	mysql>DROP DATABASE IF EXISTS t2;
+	
+	mysql>SHOW WARNINGS;
+	
+	mysql>SELECT DATABASE();//显示打开的数据库
+	
+	USE test;
+	
+	mysql>SELECT DATABASE();//显示打开的数据库
+	
+	CREATE TABLE tb1(
+	username VARCHAR(20),
+	age TINYINT UNSIGNED,
+	salary FLOAT(8,2) UNSIGNED,
+	);
+	
+	SHOW TABLES;
+	SHOW COLUMNS FROM tb1;
+	
+	INSERT tb1 VALUES('Tom',25,6958.25);
+	
+	INSERT tb1(username,salary) VALUES('John',5896);
+	
+	SELECT * FROM tb1;
+	
+	CREATE TABLE tb2(
+	username VARCHAR(20) NOT NULL,
+	age TINYINT UNSIGNED NULL
+	);
+	
+	INSERT tb2 VALUES('LISI',NULL);
+	
+	CREATE TABLE tb3(
+	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(30) NOT NULL
+	);
+	SHOW COLUMNS FROM tb3;
+	INSERT tb3(username) VALUES('Tom');
+	INSERT tb3(username) VALUES('Jack');
+	INSERT tb3(username) VALUES('axi');
+	INSERT tb3(username) VALUES('Jhon');
+	
+	
+	id   username
+	1		Tom
+	2		Jack
+	3		axi
+	4		Jhon
+	
+	
+	CREATE TABLE tb5(
+	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(20) NOT NULL UNIQUE KEY,
+	age tinyint unsigned
+	);
+	
+	CREATE TABLE tb6(
+	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(20) NOT NULL UNIQUE KEY,
+	sex ENUM('1','2','3') DEFAULT '2'
+	);
+	
+	
+	INSERT tb6(username) VALUES('Tom');
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
