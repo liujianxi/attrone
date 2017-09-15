@@ -25,7 +25,7 @@
 
 	mysql>CREATE DATABASE IF NOT EXITS t2 CHARACTER SET gbk;
 
-	mysql>ALTER DATABASE t2 CHARACTER SET utf8;
+	mysql>ALTER DATABASE t2 CHARACTER SET utf8;//修改数据库编码
 
 	mysql>DROP DATABASE t2;
 
@@ -35,7 +35,7 @@
 	
 	mysql>SELECT DATABASE();//显示打开的数据库
 	
-	USE test;
+	USE test;//使用test这个数据库
 	
 	mysql>SELECT DATABASE();//显示打开的数据库
 	
@@ -46,23 +46,23 @@
 	);
 	
 	SHOW TABLES;
-	SHOW COLUMNS FROM tb1;
+	SHOW COLUMNS FROM tb1;//显示表的列
 	
-	INSERT tb1 VALUES('Tom',25,6958.25);
+	INSERT tb1 VALUES('Tom',25,6958.25);//给全部的属性赋值
 	
 	INSERT tb1(username,salary) VALUES('John',5896);
 	
 	SELECT * FROM tb1;
 	
 	CREATE TABLE tb2(
-	username VARCHAR(20) NOT NULL,
+	username VARCHAR(20) NOT NULL,//不准为空
 	age TINYINT UNSIGNED NULL
 	);
 	
 	INSERT tb2 VALUES('LISI',NULL);
 	
 	CREATE TABLE tb3(
-	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,//递增的索引
 	username VARCHAR(30) NOT NULL
 	);
 	SHOW COLUMNS FROM tb3;
@@ -81,29 +81,69 @@
 	
 	CREATE TABLE tb5(
 	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	username VARCHAR(20) NOT NULL UNIQUE KEY,
+	username VARCHAR(20) NOT NULL UNIQUE KEY,//唯一约束
 	age tinyint unsigned
 	);
 	
 	CREATE TABLE tb6(
 	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 	username VARCHAR(20) NOT NULL UNIQUE KEY,
-	sex ENUM('1','2','3') DEFAULT '2'
+	sex ENUM('1','2','3') DEFAULT '2'               //随机选择一个数，没有就选默认的
 	);
 	
 	
 	INSERT tb6(username) VALUES('Tom');
 	
 	
+	CREATE TABLE provinces(
+	id SMALLINT PRIMARY KEY AUTO_INCREMENT,
+	pname VARCHAR(20) NOT NULL
+	);
+	//外键约束
+	CREATE TABLE users(
+	id SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	username VARCHAR(10) NOT NULL,
+	pid SMALLINT,
+	FOREIGN KEY (pid) REFERENCES provinces(id)//与provinces中的id类型要一样
+	);
+	
+	SHOW INDEXES FROM provinces;
+	SHOW INDEXES FROM provinces\G;//
+	
+	外键约束的参照操作：
+	1.CASCADE:从父表删除或更新且自动删除或更新子表中匹配的行。
+	2.SET NULL:从父表删除或更新行，并设置子表中的外键列为NULL。如果使用该选项，必须保证子表列中没有指定NOT NULL。
+	3.RESTRICT：拒绝对父表的删除或更新操作。
+	4.NO ACTION：标准SQL的关键字，在MySQL中与RESTRICT相同。
 	
 	
+	//添加column
+	//默认添加到最后一列
+	ALTER TABLE users1 ADD age TINYINT UNSIGNED NOT NULL DEFAULT 10;
+	//插入到username后面
+	ALTER TABLE users1 ADD password VARCHAR(32) NOT NULL AFTER username;
+	//插入到最前面
+	ALTER TABLE users1 ADD truename VARCHAR(20) NOT NULL FIRST;
 	
+	//删除列
+	ALTER TABLE users1 DROP truename;//一列
 	
+	ALTER TABLE users1 DROP password,DROP age;//多列
 	
+	CREATE TABLE users2(
+	username VARCHAR(10) NOT NULL,
+	pid SMALLINT UNSIGNED
+	);
 	
+	ALTER TABLE users2 ADD id SMALLINT UNSIGNED;
 	
+	ALTER TABLE users2 ADD CONSTRAINT PK_users2_id PRIMARY KEY (id);//添加主键约束
 	
+	ALTER TABLE users2 ADD FOREIGN KEY (pid) REFERENCES provinces (id);
 	
+	ALTER TABLE users2 ALTER age SET DEFAULT 15;
+	
+	ALTER TABLE users2 ALTER age DROP DEFAULT;
 	
 	
 	
