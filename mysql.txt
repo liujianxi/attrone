@@ -33,8 +33,6 @@
 	
 	mysql>SHOW WARNINGS;
 	
-	mysql>SELECT DATABASE();//显示打开的数据库
-	
 	USE test;//使用test这个数据库
 	
 	mysql>SELECT DATABASE();//显示打开的数据库
@@ -144,6 +142,126 @@
 	ALTER TABLE users2 ALTER age SET DEFAULT 15;
 	
 	ALTER TABLE users2 ALTER age DROP DEFAULT;
+	
+	
+	//修改数据类型和在列的位置
+	ALTER TABLE users2 MODIFY id TINYINT UNSIGNED NOT NULL FIRST;
+	
+	//修改pid为p_id;
+	ALTER TABLE users2 CHANGE pid p_id TINYINT UNSIGNED NOT NULL;
+	
+	//数据表的修改-将users2改成users3
+	ALTER TABLE users2 RENAME users3;
+	
+	//数据表的修改-将users3改成users2
+	RENAME TABLE users3 TO users2;
+	
+	
+	
+	CREATE TABLE users(
+	id SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+	username VARCHAR(20) NOT NULL ,
+	password VARCHAR(32) NOT NULL ,
+	age tinyint unsigned NOT NULL DEFAULT 10,
+	sex BOOLEAN ,
+	);
+	
+	INSERT users VALUES(DEFAULT,'Jhon','123',25,1);
+	
+	INSERT users VALUES(DEFAULT,'Jhon','123',DEFAULT,1);
+	
+	//插入多条数据
+	INSERT users VALUES(DEFAULT,'Jhon','123',DEFAULT,1),(NULL,'Rose',md5('123'),NULL,0);
+	
+	
+	INSERT users SET username='Ben',password='456';
+	
+	//单表更新
+	UPDATE users set age=age+5;
+	
+	UPDATE users set age=age-id,sex=0;
+	
+	UPDATE users set age=age+10 WHERE id % 2 = 0;
+	
+	//删除
+	//id
+	//1
+	//2
+	//3
+	//4
+	//5
+	//6
+	DELETE FROM users WHERE id=6;
+	
+	INSERT users VALUES(NULL,'111','222',33,NULL);
+	//1
+	//2
+	//3
+	//4
+	//5
+	//7
+	
+	//select 语句
+	
+	SELECT id ,username FROM users;
+	
+	SELECT username ,id FROM users;
+	
+	SELECT users.username ,users.id FROM users;
+	
+	SELECT id AS userId,username AS uname FROM users;
+	
+	
+	
+	SELECT sex FROM users GROUP BY sex;
+	SELECT sex FROM users GROUP BY 1;
+	SELECT id,sex FROM users GROUP BY 2;//sex在第2个
+	
+	SELECT id,username,age,sex FROM users BY sex;
+	
+	SELECT sex FROM users GROUP BY 1 HAVING age>35;
+	
+	SELECT sex FROM users GROUP BY 1 HAVING count(id)>=2;
+	
+	ASC:升序
+	DESC:降序
+	
+	SELECT * FROM users ORDER BY id DESC;
+	
+	SELECT * FROM users ORDER BY age;
+	SELECT * FROM users ORDER BY age,id DESC;//先age排序，再id
+	
+	//1,2,3,4,5,7
+	
+	SELECT * FROM users LIMIT 2;//id 1-2
+	
+	SELECT * FROM users LIMIT 3,2;//4-5
+	
+	SELECT * FROM users LIMIT 2,2;//3-4
+	
+	SELECT * FROM users ORDER BY id DESC;
+	//7,5,4,3,2,1
+	
+	SELECT * FROM users LIMIT 2,2;//4-3
+	
+	//将users中age>=30的数据复制到test表中
+	INSERT test(username) SELECT username FROM users WHERE age>=30;
+	
+	
+	SELECT * FROM tdb_goods\G;//以结果集的形式展示
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
