@@ -251,12 +251,20 @@
 	SELECT * FROM tdb_goods\G;//以结果集的形式展示
 	
 	
+	SELECT AVG(goods_price) FROM tdb_goods;//求平均值
+	SELECT ROUND(AVG(goods_price),2) FROM tdb_goods;//求值后取两位小数
+	SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price>=5636.36;
+	SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price>=(SELECT ROUND(AVG(goods_price),2) FROM tdb_goods);//子查询
+	SELECT goods_price FROM tdb_goods WHERE goods_cate ='超级本';
+	SELECT * FROM tdb_goods WHERE goods_cate='超级本';
+	SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price>ALL(SELECT goods_price FROM tdb_goods WHERE goods_cate ='超级本');
+	SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price>ANY(SELECT goods_price FROM tdb_goods WHERE goods_cate ='超级本');
 	
-	
-	
-	
-	
-	
+	//显示字段名
+	DESC tdb_goods_cates;
+	SHOW COLUMNS FROM tdb_goods_cates;
+	//INSERT SELECT 语句
+	INSERT tdb_goods_cates(cate_name) SELECT goods_cate FROM tdb_goods GROUP BY goods_cate;
 	
 	
 	
