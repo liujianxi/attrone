@@ -266,7 +266,8 @@
 	//INSERT SELECT 语句
 	INSERT tdb_goods_cates(cate_name) SELECT goods_cate FROM tdb_goods GROUP BY goods_cate;
 	
-	
+	//多表更新
+	UPDATE tdb_goods INNER JOIN tdb_goods_cates ON goods_cate=cate_name SET goods_cate=cate_id;
 	
 	
 	
