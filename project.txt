@@ -1,0 +1,11 @@
+
+
+	zend studio:
+	//复制当前行
+	ctrl+alt+上/下
+	
+	//删除当前行
+	ctrl+d
+	
+	//上下行互换
+	alt+上/下
