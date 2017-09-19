@@ -411,6 +411,11 @@ GOD;
 	联系电话：18270630914
 	收件地址：江西省宜春市袁州区凤凰街道滩下路
 	
-	
-	
+	.img_loading {
+		background-color: #eeedeb;
+		border: 1px solid #eeedeb;
+		background-size: 22px;
+		background-position: center center;
+		background-repeat: no-repeat;
+	}
 	
