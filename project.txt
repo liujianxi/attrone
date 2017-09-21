@@ -9,3 +9,18 @@
 	
 	//上下行互换
 	alt+上/下
+	
+	//提示助手
+	alt+/
+	
+	//全文检索
+	ctrl+h
+	
+	//关闭页面
+	ctrl+w
+	
+	//格式化代码
+	ctrl+shift+f
+	
+	//所有的快捷方式
+	ctrl+shift+l
