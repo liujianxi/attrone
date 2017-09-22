@@ -419,3 +419,8 @@ GOD;
 		background-repeat: no-repeat;
 	}
 	
+	--http://dev.1-1dr.com/mobile/index.html#/banner02
+	
+	
+	
+	

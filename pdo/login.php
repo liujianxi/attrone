@@ -3,7 +3,6 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
-		<script src="jquery-1.11.3.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body>
 	<form action="doAction2.php" method='post'>
