@@ -2,7 +2,8 @@
   <div class="home">
     <div id="pageContain">
       <div class="page page1">
-        <h1>这是第一页</h1>
+        <div class="container">
+        </div>
       </div>
       <div class="page page2">
         <h1>这是第二页</h1>
@@ -17,7 +18,9 @@
 </template>
 
 <script>
+import richText from './richText.vue'
 export default {
+  components: { richText },
   name: 'home',
   data() {
     return {
@@ -36,7 +39,7 @@ export default {
   methods: {
     getSize() {
       let self = this;
-      window.onresize = function () {
+      window.onresize = function() {
         self.resiezeFlag = false;
         self.wHeight = document.body.clientHeight;
         self.getTransform();
@@ -92,6 +95,7 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='scss'>
+@import "../assets/global.scss";
 body,
 div,
 p,

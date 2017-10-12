@@ -111,5 +111,31 @@ let theRequest = new Object();
 		}
 		
 		
-		
+	知乎字体：	
 	font-family: Helvetica Neue,Helvetica,Roboto,Segoe UI,Arial,sans-serif
+	
+	
+	
+	ar content = $(‘div’). width();//只是获取content宽度
+
+	var contentWithPadding = $(‘div’). innerWidth();//获取content+padding的宽度
+
+	var withoutMargin = $(‘div’). outerWidth();//获取content+padding+border的宽度
+
+	var full = $(‘div’). outerWidth(true);//获取content+padding+border+margin的宽度
+	
+	
+	
+	<span gateId="{{item.id}}" gateNo="{{item.extraNO}}" class="entrance-click damage-check">
+		损坏登记
+	</span>
+	
+	chrome在preview处乱码时-----chrome版本问题
+	
+	http://www.attrone.com/images/compressImage.jpg
+	
+	
+	
+	
+	
+	
