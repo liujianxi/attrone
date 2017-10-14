@@ -54,9 +54,17 @@ $(function(){
 	})
 })
 
+主机管理控制台用户名： syu3038820001
 管理控制台登录密码：wwwattrone
+FTP登录主机地址： syu3038820001.my3w.com
+FTP登录用户名： syu3038820001
 ftp登录密码：liujianxi
 mysql：liujianxi199419
+ip:120.24.169.105
+端口：3306
+数据库用户名： sdm225894292
+数据库名称： sdm225894292_db
+数据库连接地址： sdm225894292.my3w.com
 ////// 举个栗子
 
 
@@ -133,6 +141,29 @@ let theRequest = new Object();
 	chrome在preview处乱码时-----chrome版本问题
 	
 	http://www.attrone.com/images/compressImage.jpg
+	
+	color:#32D3C3;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

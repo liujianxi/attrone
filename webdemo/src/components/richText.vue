@@ -28,7 +28,11 @@ export default {
         var E = require('wangeditor')  // 使用 npm 安装
         // 创建编辑器
         var editor = new E('#editor');
-        editor.customConfig.uploadImgServer = '/images'  // 上传图片到服务器
+        editor.customConfig.uploadImgShowBase64 = true   // 使用 base64 保存图片
+        editor.customConfig.uploadImgServer = '/php/upload/uploadImg.php';  // 上传图片到服务器
+        editor.customConfig.uploadFileName = 'myFile';
+        // 通过 url 参数配置 debug 模式。url 中带有 wangeditor_debug_mode=1 才会开启 debug 模式
+        editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0;
         editor.create();
     },
     activated() {

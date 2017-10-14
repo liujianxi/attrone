@@ -54,7 +54,7 @@ export default {
     },
     getTransform() {
       let self = this;
-      document.getElementById("pageContain").style.transform = "translateY(" + (-self.wHeight) * self.current + "px)";
+      // document.getElementById("pageContain").style.transform = "translateY(" + (-self.wHeight) * self.current + "px)";
       /* Opera、Chrome 和 Safari */
       document.getElementById("pageContain").style.WebkitTransform = "translateY(" + (-self.wHeight) * self.current + "px)";
       /* IE 9 */
