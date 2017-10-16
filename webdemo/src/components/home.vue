@@ -19,6 +19,7 @@
 
 <script>
 import richText from './richText.vue'
+import http from '../service/api.js'
 export default {
   components: { richText },
   name: 'home',
@@ -35,8 +36,15 @@ export default {
     let oDiv = document.getElementById('pageContain');
     this.addEvent(oDiv, 'mousewheel', this.onMouseWheel);
     this.addEvent(oDiv, 'DOMMouseScroll', this.onMouseWheel);
+    this.getData();
   },
   methods: {
+  	getData(){
+			http.post('getTagList.php')
+			.then((res)=>{
+			 	console.log(res);
+			})
+  	},
     getSize() {
       let self = this;
       window.onresize = function() {

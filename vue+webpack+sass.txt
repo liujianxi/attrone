@@ -148,7 +148,10 @@ let theRequest = new Object();
 	color:#32D3C3;
 	
 	
-	
+	INSERT taglist(tagname) VALUES('JAVASCRIPT');
+	INSERT taglist(tagname) VALUES('VUE');
+	INSERT taglist(tagname) VALUES('笔记');
+	INSERT taglist(tagname) VALUES('php');
 	
 	
 	

@@ -1,4 +1,4 @@
-import { Notification,Loading } from 'element-ui';
+import { Notification, Loading } from 'element-ui';
 export function setCookie(cook, expiredays, path) {      //按天数设置, encodeURIComponent加密需要服务器端解密, expire和max-age都是设置过期时间，max-age更新一些
 	var path = path || '';
 	for (var i in cook) {
@@ -44,23 +44,20 @@ class Http {
 		let self = this;
 		let xmlhttp = new XMLHttpRequest();
 		//sid设置在cookie不生效，如果不为空的和重新设置在请求头
-		let cookieSid = getCookie('sid');
+		// let cookieSid = getCookie('sid');
 		//         console.warn('api sid:' + cookieSid);
 		// console.log('post:' + cookieSid);
 		if (window.location.hostname != 'localhost') {
 			window.isPrd = true;
 		}
-		return new Promise((resolve, reject) => {
-			var timer = setTimeout(() => {				//请求500ms未结束显示indicator
-				let loadingInstance = Loading.service({
-					text:'拼命加载中'
-				});
-			}, 500);
+		return new Promise((resolve, reject) => {			//请求500ms未结束显示indicator
+			var loadingInstance= Loading.service({
+				text: '拼命加载中'
+			});
 			if (window.isPrd) {//线上环境
 				xmlhttp.onreadystatechange = () => {
 					if (xmlhttp.readyState == 4) {
 						if (xmlhttp.status == 200) {
-							clearTimeout(timer);
 							loadingInstance.close();
 							var temp = JSON.parse(xmlhttp.responseText);
 							if (temp.errorCode == 0) {
@@ -81,19 +78,18 @@ class Http {
 						}
 					}
 				};
-				xmlhttp.open("POST", url, true);
+				xmlhttp.open("POST", 'http://www.attrone.com/php/'+url, true);
 				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-				if (cookieSid ) {
-					xmlhttp.setRequestHeader("sid", decodeURIComponent(cookieSid));
-				}
+				// if (cookieSid ) {
+				// 	xmlhttp.setRequestHeader("sid", decodeURIComponent(cookieSid));
+				// }
 				xmlhttp.send(JSON.stringify(params));
 			} else {
-				setCookie({ 'sid': 'NnPd3LWCPlz%2FFX%2BwO9DOTjuQK7%2BYj6jUJvV%2BKyMe4dM%3D' });
+				// setCookie({ 'sid': 'NnPd3LWCPlz%2FFX%2BwO9DOTjuQK7%2BYj6jUJvV%2BKyMe4dM%3D' });
 				xmlhttp.onreadystatechange = () => {
 					if (xmlhttp.readyState == 4) {
 						if (xmlhttp.status == 200) {
-							clearTimeout(timer);
 							loadingInstance.close();
 
 							var temp = JSON.parse(xmlhttp.responseText);
@@ -116,10 +112,10 @@ class Http {
 						}
 					}
 				};
-				xmlhttp.open("POST", 'http://localhost/' + url, true);
+				xmlhttp.open("POST", 'http://www.attrone.com/php/' + url, true);
 				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-				xmlhttp.setRequestHeader("sid", decodeURIComponent("NnPd3LWCPlz%2FFX%2BwO9DOTjuQK7%2BYj6jUJvV%2BKyMe4dM%3D"));
+				// xmlhttp.setRequestHeader("sid", decodeURIComponent("NnPd3LWCPlz%2FFX%2BwO9DOTjuQK7%2BYj6jUJvV%2BKyMe4dM%3D"));
 				xmlhttp.send(JSON.stringify(params));
 			}
 		});
