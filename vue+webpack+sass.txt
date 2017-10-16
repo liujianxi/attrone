@@ -78,6 +78,9 @@ git pull --rebase origin master
 git push -u origin master			--第一次推送本地修改到远程gitlab
 git push origin master 		--推送本地修改到远程gitlab
 
+git branch -a 查看远程分支
+git checkout -b php 切换分支
+
 ///
 mounted(){
 	this.$nextTick(() => {

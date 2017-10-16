@@ -2,3 +2,16 @@
     width: 1024px;
     margin:0 auto;
 }
+.icon {
+   width: 1em; height: 1em;
+   vertical-align: -0.15em;
+   fill: currentColor;
+   overflow: hidden;
+}
+ul,li,dl,dd{
+    margin: 0;
+    padding: 0;
+}
+ul{
+    list-style: none;
+}

@@ -8,5 +8,5 @@ $fileInfo=$_FILES['myFile'];
 // echo $newName;
 //$allowExt='txt';
 $allowExt=array('jpeg','jpg','png','gif');
-$newName=uploadFile($fileInfo,'http://www.attrone.com/images',true,$allowExt);
+$newName=uploadFile($fileInfo,'././images',true,$allowExt);
 //echo $newName;
