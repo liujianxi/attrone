@@ -144,9 +144,11 @@ let theRequest = new Object();
 	chrome在preview处乱码时-----chrome版本问题
 	
 	http://www.attrone.com/images/compressImage.jpg
+	http://www.attrone.com/images/18-1.png
 	
 	color:#32D3C3;
 	
+	background-color: rgb(255, 255, 238); border: 1px solid rgb(255,208,168) !important; 
 	
 	INSERT taglist(tagname) VALUES('JAVASCRIPT');
 	INSERT taglist(tagname) VALUES('VUE');
@@ -154,10 +156,13 @@ let theRequest = new Object();
 	INSERT taglist(tagname) VALUES('php');
 	
 	
+	ALTER TABLE taglist ADD id SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENTm FIRST;
 	
+	// ？是懒惰模式，就是以短又小的长度匹配正则。
+	var reg = /\/html.*?\/(.*?)\//
+	url.match(reg)[1]
 	
-	
-	
+	书页背景图：http://mmbiz.qpic.cn/mmbiz/cZV2hRpuAPgQ1OsgaP0iaM2iaUqyHW5WSDAAyoNzDypWACqlvFpLAyJPgaC21pBkIjAvOrfkoVpGB8VWo4ydqElQ/0.png
 	
 	
 	

@@ -36,15 +36,8 @@ export default {
     let oDiv = document.getElementById('pageContain');
     this.addEvent(oDiv, 'mousewheel', this.onMouseWheel);
     this.addEvent(oDiv, 'DOMMouseScroll', this.onMouseWheel);
-    this.getData();
   },
   methods: {
-  	getData(){
-			http.post('getTagList.php')
-			.then((res)=>{
-			 	console.log(res);
-			})
-  	},
     getSize() {
       let self = this;
       window.onresize = function() {
@@ -62,11 +55,11 @@ export default {
     },
     getTransform() {
       let self = this;
-      // document.getElementById("pageContain").style.transform = "translateY(" + (-self.wHeight) * self.current + "px)";
+      document.getElementById("pageContain").style.transform = "translateY(" + (-self.wHeight) * self.current + "px)";
       /* Opera、Chrome 和 Safari */
-      document.getElementById("pageContain").style.WebkitTransform = "translateY(" + (-self.wHeight) * self.current + "px)";
+      // document.getElementById("pageContain").style.WebkitTransform = "translateY(" + (-self.wHeight) * self.current + "px)";
       /* IE 9 */
-      document.getElementById("pageContain").style.msTransform = "translateY(" + (-self.wHeight) * self.current + "px)";
+      // document.getElementById("pageContain").style.msTransform = "translateY(" + (-self.wHeight) * self.current + "px)";
     },
     onMouseWheel(ev) {/*当鼠标滚轮事件发生时，执行一些操作*/
       let self = this;

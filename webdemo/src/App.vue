@@ -39,7 +39,7 @@ body {
   width: 100%;
   height: 100%;
   *cursor: default;
-  overflow: hidden;
+  overflow-x: hidden;
   font: 16px/1.5 "Microsoft YaHei", Helvetica, STHeiti STXihei, Microsoft JhengHei, Arial;
 }
 
