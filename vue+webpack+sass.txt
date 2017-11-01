@@ -247,7 +247,7 @@ import 'echarts/lib/component/title';
 	
 	//93621349997608960
 	
-	
+	vim .gitignore
 	
 	
 	
