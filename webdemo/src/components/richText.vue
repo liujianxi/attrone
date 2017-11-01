@@ -100,8 +100,10 @@ export default {
 	},
 	activated() {
 		this.getData();
+		this.getScroll();
 	},
 	methods: {
+<<<<<<< HEAD
 		getHtml(){
 			let self=this;
 			let data={
@@ -122,6 +124,40 @@ export default {
 				return false;
 			}
 			console.log(data);
+=======
+		getScroll(){
+			let count=0;
+			window.onscroll=function(){
+				let e =e || window.event;
+				let scrolltop=document.documentElement.scrollTop||document.body.scrollTop;
+				if(document.querySelector('.w-e-toolbar').className=='w-e-toolbar'){
+					document.querySelector('.w-e-toolbar').setAttribute('id','curr-toolbar');
+				}
+				let editorTop=document.querySelector('#curr-toolbar').offsetTop;
+				let toolHeight=document.querySelector('#curr-toolbar').offsetHeight;
+				if(scrolltop>editorTop+toolHeight-1){
+					count++;
+					if(count==1){
+						let toolbar = document.querySelector('#curr-toolbar').cloneNode(true);
+						toolbar.setAttribute('id','fix-toolbar');
+						toolbar.className='w-e-toolbar fix-e-toolbar';
+						toolbar.style.position='fixed';
+						toolbar.style.top='0';
+						toolbar.style.width='660px';
+						toolbar.style.zIndex='10001';
+						let list=document.querySelector('#editor');
+						list.insertBefore(toolbar,list.childNodes[0]);
+					}
+				}else{
+					count=0;
+					let toolbar = document.querySelector('#fix-toolbar');
+					if(toolbar!=undefined){
+						let list=document.querySelector('#editor');
+						list.removeChild(toolbar);
+					}
+				}
+			};
+>>>>>>> b7761dd0ba3a1f5d7667c2b58f4ff339fa643a57
 		},
 		getData() {
 			let self = this;
@@ -152,6 +188,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='scss'>
 @import "../assets/global.scss";
+#fix-toolbar{
+	position: fixed;
+	top:0;
+}
 .list-item {
 	margin-bottom: 20px;
 	.item-detail {
