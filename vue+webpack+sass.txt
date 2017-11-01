@@ -81,6 +81,9 @@ git push origin master 		--推送本地修改到远程gitlab
 git branch -a 查看远程分支
 git checkout -b php 切换分支
 
+//vim .gitignore配置忽略文件
+git add .//提交
+
 ///
 mounted(){
 	this.$nextTick(() => {
@@ -246,8 +249,6 @@ import 'echarts/lib/component/title';
 	const arr2 = [...arr];
 	
 	//93621349997608960
-	
-	vim .gitignore
 	
 	
 	
