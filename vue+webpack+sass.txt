@@ -90,6 +90,7 @@ mounted(){
 }
 
 长护险下单人数
+ZY010000364242
 
 
 background-image: url('../assets/hospital-img-2.png');
@@ -164,12 +165,87 @@ let theRequest = new Object();
 	
 	书页背景图：http://mmbiz.qpic.cn/mmbiz/cZV2hRpuAPgQ1OsgaP0iaM2iaUqyHW5WSDAAyoNzDypWACqlvFpLAyJPgaC21pBkIjAvOrfkoVpGB8VWo4ydqElQ/0.png
 	
+	<li v-for="(item, index) in result.list" :key="index" :data-id="item.id" @click="goList($event,item.id)">
+	goList:function(event){
+        console.log(event.currentTarget.getAttribute("data-id"));
+    }
+	
+	
+	url(https://s.1-1dr.com/static/official/img/homeprice.png)
 	
 	
 	
 	
+    pageIf() {
+      let self = this;
+      var hiddenProperty =
+        "hidden" in document
+          ? "hidden"
+          : "webkitHidden" in document
+            ? "webkitHidden"
+            : "mozHidden" in document ? "mozHidden" : null;
+      var visibilityChangeEvent = hiddenProperty.replace(
+        /hidden/i,
+        "visibilitychange"
+      );
+      var onVisibilityChange = function() {
+        if (!document[hiddenProperty]) {
+          console.log("页面非激活");
+        } else {
+          console.log("页面激活");
+          // self.h5KinsInfo = window.getKinsInfoCallbackId;//从app返回的kins数据
+          // console.log('1235--------' + self.h5KinsInfo, window.getKinsInfoCallbackId);
+          // if (self.h5KinsInfo != '' && self.h5KinsInfo != undefined) {
+          //     self.initkins('callback');
+          // }
+        }
+      };
+      document.addEventListener(visibilityChangeEvent, onVisibilityChange);
+    },
 	
+	v-on:click
+	@click="getData()"      @click="getData";
 	
+	//加与不加括号的区别在于事件对象参数 event 的处理。不加括号时，函数第一个参数为 event，加了括号后，需要手动传入 $event 才能获得事件对象
+	
+	ios配置fiddler
+	本机:ipconfig     -10.0.0.26  
+	fiddler设置端口：--8888
+	pc与ios处于同一局域网下
+	在局域网下配置代理
+	ip:10.0.0.26
+	端口：8888
+	在safari中打开10.0.0.26:8888
+	安装证书，在设置-通用-关于本机-证书信用设置--启用所下的安装证书
+	
+	//echarts     3.38-3.80MB   3.0---3.41MB  2.38-2.77MB(图片处理)  2.1-2.47MB(mint-ui简化)  2.06-2.42MB(echarts简化)
+	// 引入 ECharts 主模块
+import echarts from 'echarts/lib/echarts';
+// 引入柱状图
+import 'echarts/lib/chart/pie';
+// 引入提示框和标题组件
+import 'echarts/lib/component/tooltip';
+import 'echarts/lib/component/title';
+	
+	//可视元素的最后一个
+	$("div:visible:last");
+	
+	let u = navigator.userAgent;
+	let isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端 
+	let isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端 
+	console.log('是否是Android：' + isAndroid);
+	console.log('是否是iOS：' + isiOS);
+	
+	//# joining arrays
+	const odd = [1, 3, 5 ];
+	const nums = [2 ,4 , 6, ...odd];
+	console.log(nums); // [ 2, 4, 6, 1, 3, 5 ]
+
+	# cloning arrays
+	const arr = [1, 2, 3, 4];
+	const arr2 = [...arr];
+	
+	//93621349997608960
 	
 	
 	

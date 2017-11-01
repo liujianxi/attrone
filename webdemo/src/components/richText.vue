@@ -11,7 +11,7 @@
 					</span>
 				</li>
 				<li>
-					<span>
+					<span @click="getHtml()">
 						<svg class="icon" aria-hidden="true">
 							<use xlink:href="#icon-fabiao"></use>
 						</svg>
@@ -23,7 +23,7 @@
 		<div class="container">
 			<div class="edit-text">
 				<div class="ta-editor">
-					<textarea placeholder="请输入标题"></textarea>
+					<textarea placeholder="请输入标题" v-model="textTitle"></textarea>
 				</div>
 				<div class="list-item">
 					<div class="item-detail">
@@ -44,7 +44,8 @@
 
 <script>
 import TaEditor from './TaEditor.vue';
-import http from '../service/api.js'
+import http from '../service/api.js';
+import { Notification, Loading } from 'element-ui';
 export default {
 	components: { TaEditor, },
 	name: 'richtext',
@@ -52,12 +53,15 @@ export default {
 		return {
 			tagList: [],
 			selectTag: '',//选中的tag
+			editorContent:'',
+			textTitle:'',
 		}
 	},
 	mounted() {
-		var E = require('wangeditor')  // 使用 npm 安装
+		let self=this;
+		let E = require('wangeditor')  // 使用 npm 安装
 		// 创建编辑器
-		var editor = new E('#editor');
+		let editor = new E('#editor');
 		// 自定义菜单配置
 		editor.customConfig.menus = [
 			'head',  // 标题
@@ -80,24 +84,51 @@ export default {
 		//      editor.customConfig.uploadFileName = 'myFile';
 		// 通过 url 参数配置 debug 模式。url 中带有 wangeditor_debug_mode=1 才会开启 debug 模式
 		//      editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0;
+		//获取内容
+		editor.customConfig.onchange = (html) => {
+          self.editorContent = html;
+       	};
+       	// 开启粘贴样式的过滤
+    	editor.customConfig.pasteFilterStyle = true;
 		editor.create();
-		document.querySelector('.w-e-text-container').style.height = 'auto';
-		document.querySelector('.w-e-text-container').style.minHeight = '300px';
+		document.querySelector('.w-e-text-container').style.height = '600px';
+//		document.querySelector('.w-e-text-container').style.minHeight = '300px';
 		document.querySelector('.w-e-text-container').style.border = '0';
 		document.querySelector('.w-e-text').style.overflow = 'auto';
-		document.querySelector('.w-e-text').style.height = 'auto';
-		document.querySelector('.w-e-text').style.minHeight = '300px';
+//		document.querySelector('.w-e-text').style.height = 'auto';
+//		document.querySelector('.w-e-text').style.minHeight = '300px';
 	},
 	activated() {
 		this.getData();
 	},
 	methods: {
+		getHtml(){
+			let self=this;
+			let data={
+				desc:self.editorContent,
+				title:self.textTitle,
+				tag:self.selectTag,
+			};
+			if(self.textTitle==''){
+				Notification.error({ message: '请输入标题', position: 'top', duration: 2000 });
+				return false;
+			}
+			if(self.selectTag==''){
+				Notification.error({ message: '请选择对应的tag', position: 'top', duration: 2000 });
+				return false;
+			}
+			if(self.editorContent==''){
+				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
+				return false;
+			}
+			console.log(data);
+		},
 		getData() {
 			let self = this;
 			http.post('getTagList.php')
-				.then((res) => {
-					self.tagList = res.body.tagList;
-				})
+			.then((res) => {
+				self.tagList = res.body.tagList;
+			})
 		},
 		tagSelect(index) {
 			let self = this;
@@ -114,7 +145,6 @@ export default {
 				}
 			})
 			self.selectTag = arr.join(',');
-			console.log(self.selectTag);
 		}
 	},
 }
@@ -174,7 +204,7 @@ export default {
 .rich-top {
 	height: 58px;
 	border-bottom: 1px solid rgba(0, 0, 0, .08);
-	margin-bottom: 47px;
+	margin-bottom: 20px;
 	ul {
 		width: 660px;
 		display: flex;
@@ -203,7 +233,7 @@ export default {
 .edit-text {
 	width: 660px;
 	margin: 0 auto;
-	padding-bottom: 200px;
+	padding-bottom: 30px;
 	.ta-editor {
 		margin-bottom: 16px;
 		background-color: #fff;
