@@ -103,7 +103,6 @@ export default {
 		this.getScroll();
 	},
 	methods: {
-<<<<<<< HEAD
 		getHtml(){
 			let self=this;
 			let data={
@@ -111,20 +110,22 @@ export default {
 				title:self.textTitle,
 				tag:self.selectTag,
 			};
-			if(self.textTitle==''){
-				Notification.error({ message: '请输入标题', position: 'top', duration: 2000 });
-				return false;
-			}
-			if(self.selectTag==''){
-				Notification.error({ message: '请选择对应的tag', position: 'top', duration: 2000 });
-				return false;
-			}
-			if(self.editorContent==''){
-				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
-				return false;
-			}
-			console.log(data);
-=======
+//			if(self.textTitle==''){
+//				Notification.error({ message: '请输入标题', position: 'top', duration: 2000 });
+//				return false;
+//			}
+//			if(self.selectTag==''){
+//				Notification.error({ message: '请选择对应的tag', position: 'top', duration: 2000 });
+//				return false;
+//			}
+//			if(self.editorContent==''){
+//				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
+//				return false;
+//			}
+			http.post('updateText.php',data).then((res)=>{
+				
+			})
+		},
 		getScroll(){
 			let count=0;
 			window.onscroll=function(){
@@ -157,7 +158,6 @@ export default {
 					}
 				}
 			};
->>>>>>> b7761dd0ba3a1f5d7667c2b58f4ff339fa643a57
 		},
 		getData() {
 			let self = this;

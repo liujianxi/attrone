@@ -31,6 +31,13 @@ export function delCookie(name) {
 	console.log('delcookie2:    ' + window.document.cookie);
 	window.document.cookie = name + '=;expires=' + new Date().toUTCString() + ';path="/mobile/"';
 }
+export function getParams(data){
+	var arr = [];
+	for (var name in data) {
+	  arr.push(encodeURIComponent(name) + '=' + encodeURIComponent(data[name]));
+	}
+	return arr.join('&');
+}
 /**
  * 自定义http请求
  */
@@ -91,7 +98,6 @@ class Http {
 					if (xmlhttp.readyState == 4) {
 						if (xmlhttp.status == 200) {
 							loadingInstance.close();
-
 							var temp = JSON.parse(xmlhttp.responseText);
 							if (temp.errorCode == 0) {
 								resolve(temp);
@@ -99,14 +105,9 @@ class Http {
 								//用户未登录
 								Notification.error({ message: '用户未登录', position: 'bottom', duration: 5000 });
 								reject(temp);
-							} else {
-								if (temp.msg != '订单已过期') {
-									Notification.error({ message: temp.msg, position: 'middle', duration: 2000 });
-								}
 							}
 						} else {
 							loadingInstance.close();
-							console.log('wr')
 							Notification.error({ message: '加载错误', position: 'bottom', duration: 5000 });
 							reject();
 						}
@@ -116,7 +117,9 @@ class Http {
 				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
 				// xmlhttp.setRequestHeader("sid", decodeURIComponent("NnPd3LWCPlz%2FFX%2BwO9DOTjuQK7%2BYj6jUJvV%2BKyMe4dM%3D"));
-				xmlhttp.send(JSON.stringify(params));
+				let data=getParams(params);
+				console.log(data);
+				xmlhttp.send(data);
 			}
 		});
 	}
