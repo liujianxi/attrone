@@ -43,10 +43,6 @@ class Http {
 	post(url, params) {
 		let self = this;
 		let xmlhttp = new XMLHttpRequest();
-		//sid设置在cookie不生效，如果不为空的和重新设置在请求头
-		// let cookieSid = getCookie('sid');
-		//         console.warn('api sid:' + cookieSid);
-		// console.log('post:' + cookieSid);
 		if (window.location.hostname != 'localhost') {
 			window.isPrd = true;
 		}
@@ -81,12 +77,8 @@ class Http {
 				xmlhttp.open("POST", 'http://www.attrone.com/php/'+url, true);
 				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-				// if (cookieSid ) {
-				// 	xmlhttp.setRequestHeader("sid", decodeURIComponent(cookieSid));
-				// }
 				xmlhttp.send(JSON.stringify(params));
 			} else {
-				// setCookie({ 'sid': 'NnPd3LWCPlz%2FFX%2BwO9DOTjuQK7%2BYj6jUJvV%2BKyMe4dM%3D' });
 				xmlhttp.onreadystatechange = () => {
 					if (xmlhttp.readyState == 4) {
 						if (xmlhttp.status == 200) {

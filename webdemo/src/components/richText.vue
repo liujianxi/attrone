@@ -43,11 +43,9 @@
 </template>
 
 <script>
-import TaEditor from './TaEditor.vue';
 import http from '../service/api.js';
 import { Notification, Loading } from 'element-ui';
 export default {
-	components: { TaEditor, },
 	name: 'richtext',
 	data() {
 		return {
@@ -100,13 +98,12 @@ export default {
 	},
 	activated() {
 		this.getData();
-		this.getScroll();
+		// this.getScroll();
 	},
 	methods: {
-<<<<<<< HEAD
 		getHtml(){
 			let self=this;
-			let data={
+			let params={
 				desc:self.editorContent,
 				title:self.textTitle,
 				tag:self.selectTag,
@@ -123,8 +120,7 @@ export default {
 				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
 				return false;
 			}
-			console.log(data);
-=======
+		},
 		getScroll(){
 			let count=0;
 			window.onscroll=function(){
@@ -157,7 +153,6 @@ export default {
 					}
 				}
 			};
->>>>>>> b7761dd0ba3a1f5d7667c2b58f4ff339fa643a57
 		},
 		getData() {
 			let self = this;
