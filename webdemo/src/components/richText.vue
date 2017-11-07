@@ -103,7 +103,7 @@ export default {
 	methods: {
 		getHtml(){
 			let self=this;
-			let params={
+			let data={
 				desc:self.editorContent,
 				title:self.textTitle,
 				tag:self.selectTag,
@@ -120,6 +120,7 @@ export default {
 				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
 				return false;
 			}
+			http.post('updateText.php',data);
 		},
 		getScroll(){
 			let count=0;

@@ -12,39 +12,31 @@ header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modi
 	$title=$_POST['title'];
 	$tag=$_POST['tag'];
 	$createtime=time();
-	file_put_contents('test.log', json_encode($_REQUEST), true);
-//	echo is_array($_POST);
+	print_r($desc);
+	print_r($title);
+	print_r($tag);
+	print_r($createtime);
 //	try{
 //		$pdo=new PDO('mysql:host=sdm225894292.my3w.com;dbname=sdm225894292_db','sdm225894292','liujianxi199419',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 //		$pdo->query("set names utf8");
-//		$sql="select * from taglist";
+//		$sql="insert into textlist(createtime,desc,title,tag) values(?,?,?,?)";
+//		$params=array($createtime,$desc,$title,$tag);
 //		$stmt=$pdo->prepare($sql);
-//		$stmt->execute();
-//		$res=$stmt->fetchAll(PDO::FETCH_ASSOC);
+//		$stmt->execute($params);
 //		$rows=$stmt->rowCount();
 //	}catch(PDOException $e){
 //		echo $e->getMessage();
 //	}
 //	if($rows){
-//		$arr=array(
-//			'tagList'=>$res,
-//		);
 //		$response=array(
-//			'body'=>$arr,
 //			'errorCode'=>0,
 //			'msg'=>'成功',
 //		);
 //	}else{
 //		$response=array(
 //			'errorCode'=>-1,
-//			'msg'=>'fail',
+//			'msg'=>'失败',
 //		);
 //	};
-	//4、返回最终的添加的结果
-//echo json_encode($response);
-//$response=array(
-//	'errno'  =>0,
-//	'errmsg' =>'success',
-//	'data'   =>$desc,
-//);
-//echo json_encode($response);
+//	//4、返回最终的添加的结果
+//	echo json_encode($response);

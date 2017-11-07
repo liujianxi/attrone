@@ -26,8 +26,8 @@ try {
 //		$sql="update shop_cart set num=num+? where userid=? and productid=?";
 //		$params=array($num,$userid,$productid);
 //	}else{//添加
-//		$sql="insert into shop_cart(productid,num,userid,price,createtime) values(?,?,?,?,?)";
-//		$params=array($productid,$num,$userid,$price,$createtime);
+		$sql="insert into shop_cart(productid,num,userid,price,createtime) values(?,?,?,?,?)";
+		$params=array($productid,$num,$userid,$price,$createtime);
 //	}
 //	$stmt=$pdo->prepare($sql);
 //	$stmt->execute($params);
