@@ -57,7 +57,7 @@ export default {
 	},
 	mounted() {
 		let self=this;
-		let E = require('wangeditor')  // 使用 npm 安装
+		let E = window.wangEditor;  // 使用 npm 安装
 		// 创建编辑器
 		let editor = new E('#editor');
 		// 自定义菜单配置
@@ -104,7 +104,7 @@ export default {
 		getHtml(){
 			let self=this;
 			let data={
-				desc:self.editorContent,
+				desc:encodeURIComponent(self.editorContent),
 				title:self.textTitle,
 				tag:self.selectTag,
 			};
@@ -120,7 +120,11 @@ export default {
 				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
 				return false;
 			}
-			http.post('updateText.php',data);
+			http.post('updateText.php',data).then((res)=>{
+				if(res.errorCode==0){
+					Notification.success({message: '添加成功'});
+				}
+			})
 		},
 		getScroll(){
 			let count=0;
@@ -205,6 +209,9 @@ export default {
 			outline: none;
 		}
 		ul {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
 			border-radius: 4px;
 			height: 100px;
 			background: #fff;
@@ -238,6 +245,9 @@ export default {
 }
 
 .rich-top {
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
 	height: 58px;
 	border-bottom: 1px solid rgba(0, 0, 0, .08);
 	margin-bottom: 20px;
