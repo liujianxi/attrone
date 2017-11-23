@@ -1,0 +1,103 @@
+
+单文件组件安装Vue脚手架：
+		
+		1.cmd 安装cnpm    百度输入 淘宝镜像  cnpm
+
+		npm install -g cnpm --registry=https://registry.npm.taobao.org
+		
+		2.前提条件：已安装node可以正常使用npm命令，并全局安装vue-cli工具。
+		
+		npm install vue-cli -g
+		
+		3.创建项目
+		
+		vue init webpack vuedemo01(ESlint:no)
+		
+		4.安装依赖
+		
+		cd vuedemo01
+		npm install
+		
+		5.运行项目npm run dev   调试运行
+
+		6. npm run build  发布
+		
+		
+
+sass的安装
+
+		1、安装loader
+
+			npm install --save-dev sass-loader style-loader css-loader
+
+			loader的作用是辅助webpack将符合条件的源文件转换为对应的目标格式文件。比如index.scss转换成index.css
+
+		2、需要node-sass做配合，所以下一步是安装node-sass
+
+			npm install --save-dev node-sass
+
+		3、安装extract-text-webpack-plugin，让webpack可以输出css格式的文件
+
+			npm install --save-dev extract-text-webpack-plugin
+
+			
+			
+
+			
+/*****如何让一个div可点击，并且div里面的a元素也能点击？******////
+
+<div class="box" style="width:100px;height:100px;border:1px solid red;"><a class="a_node">1234131</a></div>
+
+$(function(){
+	$('.a_node').on('click',function(e){
+		e.stopPropagation();//阻止冒泡
+	})
+})
+
+管理控制台登录密码：wwwattrone
+ftp登录密码：liujianxi
+mysql：liujianxi199419
+////// 举个栗子
+
+
+将本地的项目上传到GITHUB上
+
+git init
+git add 
+git commit '123'
+git remote add origin git@github.com:TheOneHomles/webdemo.git
+git pull --rebase origin master
+git push -u origin master			--第一次推送本地修改到远程gitlab
+git push origin master 		--推送本地修改到远程gitlab
+
+///
+mounted(){
+	this.$nextTick(() => {
+      this.createEditor();
+    })
+},
+}
+
+长护险下单人数
+
+
+background-image: url('../assets/hospital-img-2.png');
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;
+-webkit-background–size: cover;
+-moz-background–size: cover;
+-o-background–size: cover;
+
+//超出省略号
+white-space:nowrap; 
+text-overflow:ellipsis;
+
+//新建对象
+let theRequest = new Object();
+	if (str.indexOf("?") != -1) {
+		strs = str.split('?')[1].split('&');
+		for (let i = 0; i < strs.length; i++) {
+			theRequest[strs[i].split("=")[0]] = strs[i].split("=")[1];
+		}
+	}
