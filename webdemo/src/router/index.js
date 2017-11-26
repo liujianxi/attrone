@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home'
 const richText = () => import('@/components/richText')
+const textList = () => import('@/components/textlist')
 Vue.use(Router)
 
 export default new Router({
@@ -20,6 +21,11 @@ export default new Router({
       path: '/richtext',
       name: 'richtext',
       component: richText
+    },
+    {
+      path: '/textlist',
+      name: 'textlist',
+      component: textList
     }
   ]
 })
