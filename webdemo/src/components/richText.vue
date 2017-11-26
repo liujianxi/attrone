@@ -123,6 +123,7 @@ export default {
 			http.post('updateText.php',data).then((res)=>{
 				if(res.errorCode==0){
 					Notification.success({message: '添加成功'});
+					this.$router.push({ path: '/textlist'});
 				}
 			})
 		},

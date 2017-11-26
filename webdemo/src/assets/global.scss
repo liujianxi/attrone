@@ -2,6 +2,10 @@
     width: 1024px;
     margin:0 auto;
 }
+.container-fluid{
+    max-width: 90%;
+    margin: 0 auto;
+}
 .icon {
    width: 1em; height: 1em;
    vertical-align: -0.15em;
@@ -14,4 +18,25 @@ ul,li,dl,dd{
 }
 ul{
     list-style: none;
+}
+i{
+    font-style: normal;
+}
+.grey-back{
+    background: url(../assets/background.png) repeat;
+}
+article{
+    .text-title{
+        font-size: 24px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .icon-time{
+        position: absolute;
+        top:0;
+        left: 0;
+        text-decoration: underline;
+        padding: 4px 5px 0;
+        color: #999;
+    }        
 }

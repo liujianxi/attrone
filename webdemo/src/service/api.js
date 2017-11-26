@@ -110,7 +110,6 @@ class Http {
 				xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
 				// xmlhttp.setRequestHeader("sid", decodeURIComponent("NnPd3LWCPlz%2FFX%2BwO9DOTjuQK7%2BYj6jUJvV%2BKyMe4dM%3D"));
 				let data=getParams(params);
-				console.log(data);
 				xmlhttp.send(data);
 			}
 		});

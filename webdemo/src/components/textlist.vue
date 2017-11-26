@@ -1,0 +1,101 @@
+<template>
+	<div class="text-list grey-back">
+		<s-header></s-header>
+		<div class="container-fluid">
+			<article v-for="item in textList">
+				<i class="icon-time">{{item.textCreateTime | timeFilter}}</i>
+				<div class="text-title">
+					{{item.textTitle}}
+				</div>
+				<div class="text-mes">
+					{{item.textMes}}
+				</div>
+				<el-button type="primary" @click="linkDetail(item.Id)">查看更多<i class="el-icon-arrow-right"></i></el-button>
+				<ul class="tag-list">
+					<li v-for="tag in item.tagName.split(',')"><el-button type="text">{{tag}}</el-button></li>
+				</ul>
+			</article>
+		</div>
+	</div>
+</template>
+
+<script>
+import sHeader from './sHeader.vue'
+import http from '../service/api.js';
+import { Notification, Loading } from 'element-ui';
+export default {
+	components: {sHeader},
+	name: 'richtext',
+	data() {
+		return {
+			textList:[],
+			textMes:[{
+				'textContent':'首先放入一张效果图： 平时正常的border：1px dashed #0DD2AB，效果如下图 要达成上图的要求，如下： 1、没有ui帮的情况下，自己动手切图，就拿有加号的那张下手，切成如下图 2、使用css3，以此小图作为border-image,代码如下： border:2px solid #000;//没有border-…',
+			}]
+		}
+	},
+	activated() {
+		this.getData();
+	},
+	methods: {
+		getData() {
+			let self = this;
+			http.post('getTextList.php')
+			.then((res) => {
+				self.textList =res.body.textList;
+				self.textList.forEach((item,index)=>{
+					item['textMes']=self.textMes[index]['textContent'];
+				})
+				console.log(self.textList);
+			})
+		},
+		linkDetail(id){
+			this.$router.push({ path: '/textDetail',query:{id:id}});
+		},
+	},
+}
+</script>
+<style scoped lang='scss'>
+@import "../assets/global.scss";
+.text-list{
+	height: 100%;
+}
+article{
+	background: #fff;
+	position: relative;
+	max-width: 1024px;
+	margin: 0 auto;
+	text-align: center;
+	/*box-shadow: 5px 5px 25px #dadada;*/
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1), 0 4px 8px 0 rgba(0,0,0,0.2);
+	padding: 20px;
+	padding-bottom: 0;
+	margin-bottom: 20px;
+	.text-mes{
+		text-align: left;
+		color: #8391a5;
+		padding: 20px 10px;
+	}
+	.tag-list{
+		display: flex;
+		display: -webkit-flex;
+		padding: 10px;
+		li{
+			padding:0 10px;
+		}
+	}
+	pre{
+		margin: 10px 0;
+	    padding: 10px;
+	    overflow: auto;
+	    font-family: Menlo,Monaco,Consolas,Andale Mono,lucida console,Courier New,monospace;
+	    font-size: 14px;
+	    word-wrap: normal;
+	    background: #f6f6f6;
+	    border-radius: 4px;
+	}
+}
+article:hover{
+	box-shadow: 5px 5px 25px #97a8be;
+}
+</style>
