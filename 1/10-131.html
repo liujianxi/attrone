@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>       
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+				<div class="row service-type">
+					<ul class="data-analyse">
+						<li>
+							<span class="selected org-service">机构业务</span>
+							<span class="home-service">居家业务</span>
+							<i>(*请期待)</i>
+						</li>
+					</ul>
+					<div class="org-branch col-lg-12 form-group">
+						<label class="form-label">&nbsp;&nbsp;机构过滤：&nbsp;&nbsp;</label>
+						<select class="org_hos"></select>
+						<select class="org_branch"></select>
+						<button type="button" class="btn btn-sm" id="analyse-search">
+                			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+               			</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="data-sum col-md-12">
+						<div class="sum-title">
+							<p>汇总数据</p>
+						</div>
+						<div class="sum-content">
+							<ul style="display: flex;">
+								<li style="width: 210px;">
+									<span>订单总数</span>
+									<p>0</p>
+									<i></i>
+								</li>
+								<li style="width: 210px;">
+									<span>今日新增</span>
+									<p>0</p>
+									<i></i>
+								</li>
+								<li style="width: 210px;">
+									<span>服务中订单</span>
+									<p>0</p>
+									<i></i>
+								</li>
+								<li style="width: 210px;">
+									<span>已完成订单</span>
+									<p>0</p>
+									<i></i>
+								</li>
+								<li style="width: 210px;">
+									<span>护理员人数</span>
+									<p>0</p>
+									<i></i>
+								</li>
+								<li style="width: 210px;">
+									<span>服务中护理员数</span>
+									<p>0</p>
+									<i></i>
+								</li>
+								<li style="width: 210px;">
+									<span>服务评价分数</span>
+									<p>0</p>
+									<i></i>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="row mar-bottom">
+					<div class="data-pic">
+						<ul>
+							<li>
+								<p>订单数据</p>
+								<div class="pic-content">
+									<div id="chartpic1"></div>
+								</div>
+							</li>
+							<li>
+								<p>护理员数据</p>
+								<div class="pic-content">
+									<div id="chartpic2"></div>
+								</div>
+							</li>
+							<li class="service-comment">
+								<div class="pic-top">
+									<p>服务评价详情</p>
+									<div class="show-more">
+										<a href="javascript:void(0);" class="org_comment">查看更多&gt;&gt;</a>
+										<!--<ul>
+											<li>平台权限账号</li>
+											<li>机构权限账号（项目点主任）</li>
+											<li>科室权限账号（督导）</li>
+										</ul>-->
+									</div>
+								</div>
+								<div class="pic-content">
+									<dl>
+										<dd class="all-comment">
+											<span>总评价数</span>
+											<p><i>0</i>条</p>
+										</dd>
+										<dd class="aver-comment">
+											<span>平均分数</span>
+											<p><i>0</i>分</p>
+										</dd>
+									</dl>
+									<div id="chartpic3"></div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="order-mask-bg"></div>
+		<div id="order-mask">
+			<div class="ball_spin_fade">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+	</body>
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+</html>

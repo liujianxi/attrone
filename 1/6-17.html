@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+		<title></title>
+		<style type="text/css">
+			.header{
+				width:100%;
+				text-align: center;
+				background: red;
+				height:50px;
+				position: fixed;
+				top:0;
+				left:0;
+			}
+			.content{
+				margin-top: 200px;
+				background: blue;
+				text-align: center;
+				padding-bottom: 200px;
+			}
+			.footer{
+				position: fixed;
+				width:100%;
+				height:50px;
+				background: yellow;
+				text-align: center;
+				left:0;
+				bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<section class="header">header</section>
+			<section class="content">我们看到 fixed 定位好的元素跟随页面滚动了起来… fixed 属性失效了！
+
+这是为什么呢？简单解释下： ** 软键盘唤起后，页面的fixed 元素将失效（即无法浮动，也可以理解为变成了absolute定位），所以当页面超过一屏且滚动时，失效的 fixed 元素就会跟随滚动了**。
+
+这便是 iOS 上 fixed 元素和输入框的 bug 。其中不仅限于 type=text 的输入框，凡是软键盘（比如时间日期选择、select 选择等等）被唤起，都会遇到同样地问题。
+
+虽然 isScroll.js 可以很好的解决 fixed 定位滚动的问题，但是不在万不得已的情况下，我们尽量尝试一下不依赖第三方库的布局方案，以简化实现方式。这里抛砖引玉作为参考。
+
+解决思路：
+既然在 iOS 下由于软键盘唤出后，页面 fixed 元素会失效，导致跟随页面一起滚动，那么假如——页面不会过长出现滚动，那么即便 fixed 元素失效，也无法跟随页面滚动，也就不会出现上面的问题了。
+
+那么按照这个思路，如果使 fixed 元素的父级不出现滚动，而将原 body 滚动的区域域移到 main 内部，而 header 和 footer 的样式不变，代码如下：
+
+著作权归作者所有。
+商业转载请联系作者获得授权,非商业转载请注明出处。
+原文: https://www.w3cplus.com/mobile/mobile-fixed-layout.html © w3cplus.com>我们看到 fixed 定位好的元素跟随页面滚动了起来… fixed 属性失效了！
+
+这是为什么呢？简单解释下： ** 软键盘唤起后，页面的fixed 元素将失效（即无法浮动，也可以理解为变成了absolute定位），所以当页面超过一屏且滚动时，失效的 fixed 元素就会跟随滚动了**。
+
+这便是 iOS 上 fixed 元素和输入框的 bug 。其中不仅限于 type=text 的输入框，凡是软键盘（比如时间日期选择、select 选择等等）被唤起，都会遇到同样地问题。
+
+虽然 isScroll.js 可以很好的解决 fixed 定位滚动的问题，但是不在万不得已的情况下，我们尽量尝试一下不依赖第三方库的布局方案，以简化实现方式。这里抛砖引玉作为参考。
+
+解决思路：
+既然在 iOS 下由于软键盘唤出后，页面 fixed 元素会失效，导致跟随页面一起滚动，那么假如——页面不会过长出现滚动，那么即便 fixed 元素失效，也无法跟随页面滚动，也就不会出现上面的问题了。
+
+那么按照这个思路，如果使 fixed 元素的父级不出现滚动，而将原 body 滚动的区域域移到 main 内部，而 header 和 footer 的样式不变，代码如下：
+
+著作权归作者所有。
+商业转载请联系作者获得授权,非商业转载请注明出处。
+原文: https://www.w3cplus.com/mobile/mobile-fixed-layout.html © w3cplus.com</section>
+			<section class="footer">footer</section>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="jquery-1.11.3.js" ></script>
+		<style>
+			select{
+				-webkit-appearance: none;
+				-moz-appearance: none;
+				-ms-progress-appearance: none;
+				appearance: none;
+				background: url("http://ourjs.github.io/static/2015/arrow.png") no-repeat scroll right center transparent;
+				padding-right: 14px;
+			}
+			select::-ms-expand { display: none; }
+		</style>
+	</head>
+	<body>
+		<input type="text" name="" id="input" value="" placeholder="please"/>
+		<select name="">
+			<option value="zheshi1">zheshi1</option>
+			<option value="zheshi2">zheshi2</option>
+			<option value="zheshi3">zheshi3</option>
+			<option value="zheshi4">zheshi4</option>
+			<option value="zheshi5">zheshi5</option>
+		</select>
+	</body>
+</html>
+<script>
+	$(function(){
+		$('#input').val('12314');
+		$('#input').blur().focus();
+		window.setTimeout(function(){
+			$('#input').focus();
+		},0);
+		
+		let obj={
+			name:'wode',
+			func:function(){
+				let name="变量";
+				return function(){
+					let name='123';
+					console.log(this);
+				}
+				
+			}
+		}
+		obj.func()();
+	})
+</script>

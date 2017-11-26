@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="jquery-1.11.3.js" ></script>
+	</head>
+	<body>
+		<div class="box" style="transform: translateX(10px);width:100px;height:100px;border:1px solid red;margin:100px auto;"><a class="a_node">1234131</a></div>
+	</body>
+</html>
+<script>
+$(function(){
+	$('.box').on('click',function(e){
+		console.log('this is box');
+	})
+	$('.a_node').on('click',function(e){
+		console.log('this is a');
+		e.stopPropagation();
+	})
+})
+</script>

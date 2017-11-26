@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="//at.alicdn.com/t/font_241742_2auf42tjm140wwmi.css">
+		<script type="text/javascript" src="jquery-1.11.3.js" ></script>
+		<style type="text/css">
+			*{
+	            margin: 0;
+	            padding: 0;
+	        }
+	        input{
+	            border:0;
+	        }
+	        input:focus{
+                 outline: none;    
+            }
+	        input[type="color"]::-webkit-color-swatch-wrapper {
+	            padding: 0;
+	        }
+	        input[type="color"]::-webkit-color-swatch {
+	            border: 0;
+	        }
+	        .box{
+	        	line-height: 24px;
+	        	color:red;
+	        	text-align: center;
+	        	position: absolute;
+	        	top:100px;
+	        	left:50%;
+	        }
+		</style>
+	</head>
+	<body>
+		<!--<i class="iconfont icon-zititubiao2youjiao"></i>
+		<input type="color">-->
+		<div class="box">用户名不存在</div>
+		<script>
+			$(function(){
+				$(".box").on('click',function(){
+					$(".box").animate({left:"+=15px"},50)
+					.animate({left:"-=15px"},50)
+					.animate({left:"-=15px"},50)
+					.animate({left:"+=15px"},50)
+					.animate({left:"+=15px"},50)
+					.animate({left:"-=15px"},50,function(){
+						console.log('111');
+					});
+					
+				})
+			})
+		</script>
+	</body>
+</html>
+<script>
+</script>

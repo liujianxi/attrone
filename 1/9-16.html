@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="jquery-1.11.3.js"></script>
+</head>
+<body>
+            <select name="province"><option>请选择</option><option>1</option><option>2</option></select>
+            <select  name="city"><option>请选择</option></select>
+            <select  name="area"><option>请选择</option></select>
+</body> 
+  <script>
+//	$(function(){
+  		$('select[name="province"]').on('change',fn);
+	    function fn(){
+	        console.log($(this));
+	    }
+//	})
+  </script>
+</html>
