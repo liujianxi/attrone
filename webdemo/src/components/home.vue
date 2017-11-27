@@ -1,13 +1,16 @@
 <template>
   <div class="home">
     <div id="pageContain">
-      <div class="page page1">
+    	<div id="snow-back"></div>
+    	<div class="home-text"><p>This is T-one<span><i class="el-icon-location"></i><i class="el-icon-location-outline"></i><router-link to="/textlist">文章列表</router-link></span></p></div>
+      <!--<div class="page page1">
         <div class="container">
+        	
         </div>
-      </div>
-      <div class="page page2">
+      </div>-->
+      <!--<div class="page page2">
         <h1>这是第二页</h1>
-      </div>
+      </div>-->
     </div>
     <ul id="navBar">
       <li v-for='(item,index) in fullPageSize' :key="index" @click="changePage(index)">
@@ -25,7 +28,7 @@ export default {
   name: 'home',
   data() {
     return {
-      fullPageSize: 2,
+      fullPageSize: 1,
       current: 0,
       wHeight: '',
       resiezeFlag: true,
@@ -36,6 +39,7 @@ export default {
     let oDiv = document.getElementById('pageContain');
     this.addEvent(oDiv, 'mousewheel', this.onMouseWheel);
     this.addEvent(oDiv, 'DOMMouseScroll', this.onMouseWheel);
+    new JParticles.snow('#snow-back');
   },
   methods: {
     getSize() {
@@ -119,7 +123,11 @@ h1 {
   position: relative;
   overflow-y: hidden;
 }
-
+#snow-back{
+	width: 100%;
+	height: 100%;
+	background: url(../assets/background.png) repeat;
+}
 #navBar {
   position: absolute;
   top: 50%;
@@ -158,5 +166,55 @@ h1 {
   .page2 {
     background: red;
   }
+}
+.home-text{
+	border-radius: 8px;
+	background: #fff;
+	font-size: 20px;
+	position: absolute;
+	top:50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	height: 120px;
+	width: 500px;
+	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1), 0 4px 8px 0 rgba(0,0,0,0.2);
+	animation:moveBox 1s;
+	overflow: hidden;
+	text-align: left;
+	p{
+		padding-left: 20px;
+		position: relative;
+		line-height: 120px;
+		animation:moveKeys 1s 1s linear forwards;
+		opacity: 0;
+		filter: Alpha(opacity=0);
+		span{
+			position: absolute;
+			right: 20px;
+			top:50%;
+			transform: translateY(-50%);
+		}
+	}
+	&:hover{
+		box-shadow: 5px 5px 25px #97a8be;
+	}
+}
+@keyframes moveBox{
+    0%{
+        height: 0px;
+    }
+    100%{
+        height: 120px;
+    }
+}
+@keyframes moveKeys{
+    0%{
+    	opacity: 0;
+    	filter: Alpha(opacity=0);
+    	}
+    100%{
+      opacity: 1;
+      filter: Alpha(opacity=100);
+    }
 }
 </style>

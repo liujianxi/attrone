@@ -8,11 +8,11 @@ header('Access-Control-Allow-Credentials:true');
 header('Access-Control-Allow-Methods:GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers:x-requested-with,content-type');
 header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With');
-	$id=$_POST['textId'];
+	$textId=$_POST['textId'];
 	try{
 		$pdo=new PDO('mysql:host=sdm225894292.my3w.com;dbname=sdm225894292_db','sdm225894292','liujianxi199419',array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 		$pdo->query("set names utf8");
-		$sql="select * from textlist where id={$id}";
+		$sql="select * from textlist where id='$textId'";
 		$stmt=$pdo->prepare($sql);
 		$stmt->execute();
 		$res=$stmt->fetchAll(PDO::FETCH_ASSOC);

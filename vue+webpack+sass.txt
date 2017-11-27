@@ -280,7 +280,8 @@ import 'echarts/lib/component/title';
 		
 		
 	/**********webdemo***********/
-	
+	opacity: 1;
+    filter: Alpha(opacity=100);
 	
 	
 	
