@@ -22,6 +22,14 @@ ul{
 i{
     font-style: normal;
 }
+a{
+    color: #000;
+    text-decoration: none;
+    &:hover{
+        text-decoration: underline;
+        color: #1E88E5;
+    }
+}
 .grey-back{
     background: url(../assets/background.png) repeat;
 }

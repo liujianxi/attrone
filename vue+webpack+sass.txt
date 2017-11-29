@@ -256,6 +256,41 @@ import 'echarts/lib/component/title';
 	之前build--30277ms
 	使用DllReferencePlugin
 	build----13097ms----------------->dist文件夹630kb(664kb)
+	先删除node_modules 但建议不要手动删除有可能很慢 可以
+	npm install rimraf -g
+	rimraf node_modules
+
+	然后再进行 npm uninstall操作
+	
+	//分析包的大小	
+	npm install --save-dev webpack-bundle-analyzer
+	
+	
+	
+	
+	
+	/**********企业端***********/
+		///11-11优化vue项目----
+		1.68Mb(1.72Mb)--->base64图片,echarts-----1.26Mb(1.29Mb)---------->清除console.log--------1.25Mb(1.28Mb);
+		//
+		之前build--30277ms
+		使用DllReferencePlugin
+		build----13097ms----------------->dist文件夹630kb(664kb)
+	/**********企业端***********/
+	
+	/**********webdemo***********/
+		
+		之前：15894ms-------826kb(844kb)
+		
+		
+		
+		
+	/**********webdemo***********/
+	opacity: 1;
+    filter: Alpha(opacity=100);
+	
+	
+	
 	
 	//@focus="isAndroid?btn_flag=false:''" @blur="isAndroid?btn_flag=true:''
 	

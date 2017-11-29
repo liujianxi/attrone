@@ -10,7 +10,7 @@
 				<div class="text-mes">
 					{{item.textMes}}
 				</div>
-				<el-button type="primary" @click="linkDetail(item.Id)">查看更多<i class="el-icon-arrow-right"></i></el-button>
+				<el-button type="primary" @click="linkDetail(item.id)">查看更多<i class="el-icon-arrow-right"></i></el-button>
 				<ul class="tag-list">
 					<li v-for="tag in item.tagName.split(',')"><el-button type="text">{{tag}}</el-button></li>
 				</ul>
@@ -94,8 +94,8 @@ article{
 	    background: #f6f6f6;
 	    border-radius: 4px;
 	}
-}
-article:hover{
-	box-shadow: 5px 5px 25px #97a8be;
+	&:hover{
+		box-shadow: 5px 5px 25px #97a8be;
+	}
 }
 </style>

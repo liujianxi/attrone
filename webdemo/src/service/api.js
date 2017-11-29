@@ -84,7 +84,8 @@ class Http {
 				xmlhttp.open("POST", 'http://www.attrone.com/php/'+url, true);
 				xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 				xmlhttp.setRequestHeader("Accept", "application/json, text/javascript, */*; q=0.01");
-				xmlhttp.send(JSON.stringify(params));
+				let data=getParams(params);
+				xmlhttp.send(data);
 			} else {
 				xmlhttp.onreadystatechange = () => {
 					if (xmlhttp.readyState == 4) {
