@@ -1,6 +1,6 @@
 <template>
 	<div class="header">
-		<div class="container-fluid">
+		<div class="container-fluid svg-box">
 			<svg width="100%">
 			    <text text-anchor="middle" x="50%" y="50%" class="text text-1" @click="goHome()">
 			        T-one
@@ -64,5 +64,10 @@
   100% {
     stroke-dashoffset: -400;
   }
+}
+@media screen and (max-width: 765px){
+	.container-fluid.svg-box{
+		height: 120px;
+	}
 }
 </style>

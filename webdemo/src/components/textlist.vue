@@ -62,7 +62,14 @@ export default {
 <style scoped lang='scss'>
 @import "../assets/global.scss";
 .text-list{
-	height: 100%;
+	min-height: 100%;
+	height: auto;
+}
+.container-fluid{
+	padding-bottom: 40px;
+	article:nth-last-child(1){
+		margin-bottom: 0;
+	}
 }
 article{
 	background: #fff;
@@ -79,6 +86,7 @@ article{
 		text-align: left;
 		color: #8391a5;
 		padding: 20px 10px;
+		padding-top: 0;
 	}
 	.tag-list{
 		position: relative;

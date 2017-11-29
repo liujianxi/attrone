@@ -21,7 +21,7 @@ header('Access-Control-Allow-Headers:Origin, No-Cache, X-Requested-With, If-Modi
 	}
 	if($rows){
 		$arr=array(
-			'textList'=>$res,
+			'textList'=>array_reverse($res),
 		);
 		$response=array(
 			'body'=>$arr,

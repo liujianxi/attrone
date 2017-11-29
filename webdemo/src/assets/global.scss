@@ -49,3 +49,11 @@ article{
         color: #999;
     }        
 }
+/*移动端*/
+@media screen and (max-width: 765px){
+    article{
+        .text-title{
+            font-size: 20px;
+        }
+    }
+}

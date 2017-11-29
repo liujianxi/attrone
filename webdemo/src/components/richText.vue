@@ -99,6 +99,12 @@ export default {
 					item.style.textDecoration= 'underline';
 				})
 			}
+			if(document.querySelectorAll('.w-e-text img').length){
+				document.querySelectorAll('.w-e-text img').forEach((item)=>{
+					item.setAttribute('curr_height',item.clientHeight);
+					item.setAttribute('curr_width',item.clientWidth);
+				})
+			}
 			setTimeout((item)=>{
 				self.editorContent = html;
 			},100);
@@ -141,6 +147,7 @@ export default {
 //				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
 //				return false;
 //			}
+			console.log(self.editorContent);
 			console.log(encodeURIComponent(self.editorContent));
 //			http.post('updateText.php',data).then((res)=>{
 //				if(res.errorCode==0){
