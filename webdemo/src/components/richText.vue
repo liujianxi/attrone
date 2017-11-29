@@ -85,11 +85,19 @@ export default {
 		//获取内容
 		editor.customConfig.onchange = (html) => {
 			if(document.querySelectorAll('.w-e-text pre').length){
-				document.querySelector('.w-e-text pre').style.backgroundColor = '#eee';
-				document.querySelector('.w-e-text pre').style.overflowX = 'auto';
-				document.querySelector('.w-e-text pre').style.textAlign = 'left';
-				document.querySelector('.w-e-text pre').style.padding = '10px';
-				document.querySelector('.w-e-text pre').style.fontFamily = '"Source Code Pro",Consolas,Menlo,Monaco,"Courier New",monospace';
+				document.querySelectorAll('.w-e-text pre').forEach((item)=>{
+					item.style.backgroundColor = '#eee';
+					item.style.overflowX = 'auto';
+					item.style.textAlign = 'left';
+					item.style.padding = '10px';
+					item.style.fontFamily = '"Source Code Pro",Consolas,Menlo,Monaco,"Courier New",monospace';
+				})
+			}
+			if(document.querySelectorAll('.w-e-text a').length){
+				document.querySelectorAll('.w-e-text a').forEach((item)=>{
+					item.style.color= '#1c487f';
+					item.style.textDecoration= 'underline';
+				})
 			}
 			setTimeout((item)=>{
 				self.editorContent = html;
@@ -133,7 +141,6 @@ export default {
 //				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
 //				return false;
 //			}
-			console.log(self.editorContent);
 			console.log(encodeURIComponent(self.editorContent));
 //			http.post('updateText.php',data).then((res)=>{
 //				if(res.errorCode==0){

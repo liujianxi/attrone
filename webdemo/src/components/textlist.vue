@@ -34,7 +34,9 @@ export default {
 			textList:[],
 			textMes:[{
 				'textContent':'首先放入一张效果图： 平时正常的border：1px dashed #0DD2AB，效果如下图 要达成上图的要求，如下： 1、没有ui帮的情况下，自己动手切图，就拿有加号的那张下手，切成如下图 2、使用css3，以此小图作为border-image,代码如下： border:2px solid #000;//没有border-…',
-			}]
+			},{
+				'textContent':'通过使用webpack-bundle-analyzer可以看到项目各模块的大小，可以按需优化…'
+			},]
 		}
 	},
 	activated() {
@@ -49,7 +51,6 @@ export default {
 				self.textList.forEach((item,index)=>{
 					item['textMes']=self.textMes[index]['textContent'];
 				})
-				console.log(self.textList);
 			})
 		},
 		linkDetail(id){
