@@ -11,7 +11,7 @@
 					</span>
 				</li>
 				<li>
-					<span @click="getHtml()">
+					<span @click="getHtml()" id="text-submit">
 						<svg class="icon" aria-hidden="true">
 							<use xlink:href="#icon-fabiao"></use>
 						</svg>
@@ -84,11 +84,24 @@ export default {
 		//      editor.customConfig.debug = location.href.indexOf('wangeditor_debug_mode=1') > 0;
 		//获取内容
 		editor.customConfig.onchange = (html) => {
-          self.editorContent = html;
+			if(document.querySelectorAll('.w-e-text pre').length){
+				document.querySelector('.w-e-text pre').style.backgroundColor = '#eee';
+				document.querySelector('.w-e-text pre').style.overflowX = 'auto';
+				document.querySelector('.w-e-text pre').style.textAlign = 'left';
+				document.querySelector('.w-e-text pre').style.padding = '10px';
+				document.querySelector('.w-e-text pre').style.fontFamily = '"Source Code Pro",Consolas,Menlo,Monaco,"Courier New",monospace';
+			}
+			setTimeout((item)=>{
+				self.editorContent = html;
+			},100);
        	};
        	// 开启粘贴样式的过滤
     	editor.customConfig.pasteFilterStyle = true;
 		editor.create();
+		document.getElementById('text-submit').addEventListener('mouseenter', function () {
+	        // 如果未配置 editor.customConfig.onchange，则 editor.change 为 undefined
+	        editor.change && editor.change();
+	    })
 		document.querySelector('.w-e-text-container').style.height = '600px';
 //		document.querySelector('.w-e-text-container').style.minHeight = '300px';
 		document.querySelector('.w-e-text-container').style.border = '0';
@@ -108,24 +121,26 @@ export default {
 				title:self.textTitle,
 				tag:self.selectTag,
 			};
-			if(self.textTitle==''){
-				Notification.error({ message: '请输入标题', position: 'top', duration: 2000 });
-				return false;
-			}
-			if(self.selectTag==''){
-				Notification.error({ message: '请选择对应的tag', position: 'top', duration: 2000 });
-				return false;
-			}
-			if(self.editorContent==''){
-				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
-				return false;
-			}
-			http.post('updateText.php',data).then((res)=>{
-				if(res.errorCode==0){
-					Notification.success({message: '添加成功'});
-					this.$router.push({ path: '/textlist'});
-				}
-			})
+//			if(self.textTitle==''){
+//				Notification.error({ message: '请输入标题', position: 'top', duration: 2000 });
+//				return false;
+//			}
+//			if(self.selectTag==''){
+//				Notification.error({ message: '请选择对应的tag', position: 'top', duration: 2000 });
+//				return false;
+//			}
+//			if(self.editorContent==''){
+//				Notification.error({ message: '请输入内容', position: 'top', duration: 2000 });
+//				return false;
+//			}
+			console.log(self.editorContent);
+			console.log(encodeURIComponent(self.editorContent));
+//			http.post('updateText.php',data).then((res)=>{
+//				if(res.errorCode==0){
+//					Notification.success({message: '添加成功'});
+//					this.$router.push({ path: '/textlist'});
+//				}
+//			})
 		},
 		getScroll(){
 			let count=0;

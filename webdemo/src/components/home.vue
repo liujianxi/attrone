@@ -12,7 +12,7 @@
         <h1>这是第二页</h1>
       </div>-->
     </div>
-    <ul id="navBar">
+    <ul id="navBar" v-if="false">
       <li v-for='(item,index) in fullPageSize' :key="index" @click="changePage(index)">
         <span :class="current==index?'selected':''"></span>
       </li>
@@ -177,6 +177,7 @@ h1 {
 	transform: translate(-50%,-50%);
 	height: 120px;
 	width: 500px;
+	max-width: 90%;
 	box-shadow: 0 1px 2px 0 rgba(0,0,0,0.1), 0 4px 8px 0 rgba(0,0,0,0.2);
 	animation:moveBox 1s;
 	overflow: hidden;

@@ -71,4 +71,14 @@ article{
 .main-content{
 	padding-bottom: 40px;
 }
+/*移动端*/
+@media screen and (max-width: 765px){
+	article{
+		padding: 0;
+		padding-top: 20px;
+		section{
+			max-width: 90%;
+		}
+	}
+}
 </style>

@@ -12,6 +12,9 @@
 				</div>
 				<el-button type="primary" @click="linkDetail(item.id)">查看更多<i class="el-icon-arrow-right"></i></el-button>
 				<ul class="tag-list">
+					<svg class="icon icon-tag" aria-hidden="true">
+						<use xlink:href="#icon-tag"></use>
+					</svg>
 					<li v-for="tag in item.tagName.split(',')"><el-button type="text">{{tag}}</el-button></li>
 				</ul>
 			</article>
@@ -77,11 +80,20 @@ article{
 		padding: 20px 10px;
 	}
 	.tag-list{
+		position: relative;
 		display: flex;
 		display: -webkit-flex;
 		padding: 10px;
+		padding-left: 20px;
 		li{
 			padding:0 10px;
+		}
+		.icon-tag{
+			color: #9a4b4b;
+			position: absolute;
+			left: 10px;
+			top: 50%;
+			transform: translateY(-40%);
 		}
 	}
 	pre{
