@@ -101,6 +101,8 @@ export default {
 			}
 			if(document.querySelectorAll('.w-e-text img').length){
 				document.querySelectorAll('.w-e-text img').forEach((item)=>{
+					item.style.display='block';
+					item.style.margin='0 auto';
 					item.setAttribute('curr_height',item.clientHeight);
 					item.setAttribute('curr_width',item.clientWidth);
 				})
