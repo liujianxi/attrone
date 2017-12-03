@@ -43,24 +43,8 @@ export default {
 			.then((res) => {
 				self.textDetail=res.body.textDetail[0];
 				self.textFilter();
-				let sec_box=document.querySelector('#detail-content');
 				setTimeout((res)=>{
-					if(document.querySelectorAll('#detail-content img').length){
-						document.querySelectorAll('#detail-content img').forEach((item)=>{
-							console.log(item.getAttribute('curr_height'));
-							console.log(item.getAttribute('curr_width'));
-							console.log(sec_box.clientWidth);
-							item.style.display='block';
-							item.style.margin='0 auto';
-							item.style.minHeight=item.getAttribute('curr_height')+'px';
-							item.style.backgroundColor='black';
-							item.style.backgroundColor='black';
-							item.style.backgroundPosition='center center';
-							item.style.backgroundRepeat='no-repeat';
-							item.style.backgroundImage="url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif)";
-						})
-					}
-					self.imgLoad();
+					self.lazyLoadImg();
 				},500);
 			})
 		},
@@ -68,7 +52,31 @@ export default {
 			let self=this;
 			self.textDetail.textDesc=decodeURIComponent(self.textDetail.textDesc);
 		},
-		imgLoad(){
+		lazyLoadImg(){
+			let self=this;
+			let sec_box=document.querySelector('#detail-content');
+			if(document.querySelectorAll('#detail-content img').length){
+				document.querySelectorAll('#detail-content img').forEach((item)=>{
+					let isBigScreen=sec_box.clientWidth-item.getAttribute('curr_width');
+					if(isBigScreen>0){//屏幕的宽度比curr_width原尺寸大
+						item.style.width=item.getAttribute('curr_width')+'px';
+						item.style.minHeight=item.getAttribute('curr_height')+'px';
+					}else{//屏幕的宽度小于原尺寸--等比缩小CW/CH=BOXW/XH
+						item.style.width=sec_box.clientWidth+'px';
+						item.style.minHeight=((item.getAttribute('curr_height')*sec_box.clientWidth)/(item.getAttribute('curr_width')*1)).toFixed(2)+'px';
+					}
+					item.style.display='block';
+					item.style.margin='0 auto';
+					item.style.backgroundColor='#eeedeb';
+					item.style.backgroundPosition='center center';
+					item.style.backgroundSize='22px';
+					item.style.backgroundRepeat='no-repeat';
+					item.style.backgroundImage="url(http://www.attrone.com/images/loading_circle.gif)";
+				})
+			}
+			self.imgLoaded();
+		},
+		imgLoaded(){
 			var imgLoad = imagesLoaded( document.querySelector('#detail-content') );
 			imgLoad.on( 'progress', function( instance, image ) {
 				image.img.style.minHeight='auto';
@@ -100,8 +108,12 @@ article{
 	padding-bottom: 40px;
 }
 .is-loading {
+	display: block;
+	margin: 0 auto;
   	background-color: black;
   	background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif');
+  	background-position: center center;
+  	background-repeat: no-repeat;
 }
 /*移动端*/
 @media screen and (max-width: 765px){
