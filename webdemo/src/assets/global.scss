@@ -1,8 +1,18 @@
 .container{
     width: 1024px;
     margin:0 auto;
+    position: relative;
+}
+.container.abs{
+    position: absolute;
+    max-width: 90%;
+    min-height: 10px;
+    left: 50%;
+    top: 75px;
+    transform: translateX(-50%);
 }
 .container-fluid{
+    position: relative;
     max-width: 90%;
     margin: 0 auto;
 }

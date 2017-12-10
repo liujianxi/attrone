@@ -2,6 +2,9 @@
   <div class="home">
     <div id="pageContain">
     	<div id="snow-back"></div>
+    	<div class="container abs">
+				<qq-login></qq-login>
+			</div>
     	<div class="home-text"><p>This is T-one<span><i class="el-icon-location"></i><i class="el-icon-location-outline"></i><router-link to="/textlist">文章列表</router-link></span></p></div>
       <!--<div class="page page1">
         <div class="container">
@@ -17,14 +20,15 @@
         <span :class="current==index?'selected':''"></span>
       </li>
     </ul>
+    <p class="getQQMes" @click="getQQMes()">获得</p>
   </div>
 </template>
 
 <script>
-import richText from './richText.vue'
 import http from '../service/api.js'
+import qqLogin from './qqLogin.vue'
 export default {
-  components: { richText },
+  components: { qqLogin },
   name: 'home',
   data() {
     return {
@@ -42,6 +46,9 @@ export default {
     new JParticles.snow('#snow-back');
   },
   methods: {
+  	getQQMes(){
+  		alert(window.qqMes.nickname);
+  	},
     getSize() {
       let self = this;
       window.onresize = function() {
@@ -101,6 +108,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang='scss'>
 @import "../assets/global.scss";
+.getQQMes{
+	position: absolute;
+	top: 10px;
+}
 body,
 div,
 p,

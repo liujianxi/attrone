@@ -6,6 +6,8 @@ import router from './router'
 import 'element-ui/lib/theme-default/index.css'
 import { Button} from 'element-ui'
 import {textFilter,timeFilter} from './filter/filter.js';
+//qq-登录信息
+window.qqMes={};
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 /*

@@ -1,6 +1,9 @@
 <template>
 	<div class="text-list grey-back">
 		<s-header></s-header>
+		<div class="container abs">
+			<qq-login></qq-login>
+		</div>
 		<div class="container-fluid">
 			<article v-for="item in textList">
 				<i class="icon-time">{{item.textCreateTime | timeFilter}}</i>
@@ -26,8 +29,9 @@
 import sHeader from './sHeader.vue'
 import http from '../service/api.js';
 import { Notification, Loading } from 'element-ui';
+import qqLogin from './qqLogin.vue'
 export default {
-	components: {sHeader},
+	components: {sHeader,qqLogin},
 	name: 'richtext',
 	data() {
 		return {
@@ -74,7 +78,7 @@ export default {
 article{
 	background: #fff;
 	position: relative;
-	max-width: 1024px;
+	max-width: 984px;
 	margin: 0 auto;
 	text-align: center;
 	/*box-shadow: 5px 5px 25px #dadada;*/
