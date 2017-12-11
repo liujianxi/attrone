@@ -290,9 +290,9 @@ import 'echarts/lib/component/title';
     filter: Alpha(opacity=100);
 	
 	
-	
+	../assets
 	
 	//@focus="isAndroid?btn_flag=false:''" @blur="isAndroid?btn_flag=true:''
 	
-	
-	
+	1.97(2.28)-----1.76(2.07)  --1.62(1.92)---1.43(1.58)
+	happypack
