@@ -139,6 +139,7 @@ let theRequest = new Object();
 
 	var full = $(‘div’). outerWidth(true);//获取content+padding+border+margin的宽度
 	
+	document.querySelector('.a').offsetHeight;
 	
 	
 	<span gateId="{{item.id}}" gateNo="{{item.extraNO}}" class="entrance-click damage-check">
@@ -282,13 +283,13 @@ import 'echarts/lib/component/title';
 		
 		之前：15894ms-------826kb(844kb)
 		
+		https://dev.1-1dr.com/mobile/index.html#/rechargePrepare?orderid=107311637219770368  108468435234586624
 		
-		
-		
+		https://dev.1-1dr.com/mobile/index.html#/checkdetail?orderid=  93540928869892096
 	/**********webdemo***********/
 	opacity: 1;
     filter: Alpha(opacity=100);
-	
+	//window.devicePixelRatio
 	
 	../assets
 	
