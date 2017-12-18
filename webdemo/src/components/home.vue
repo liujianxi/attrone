@@ -20,7 +20,7 @@
         <span :class="current==index?'selected':''"></span>
       </li>
     </ul>
-    <p class="getQQMes" @click="getQQMes()">获得</p>
+    <!--<p class="getQQMes" @click="getQQMes()">获得</p>-->
   </div>
 </template>
 

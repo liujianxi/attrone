@@ -17,6 +17,12 @@ Vue.filter('textFilter', textFilter);
 Vue.filter('timeFilter', timeFilter);
 // 引入组件
 Vue.component(Button.name, Button);
+let curr_url = location.hash.match(/#\/([^?]*)/i)[1];
+if(curr_url=='basketball'){
+	document.querySelector('title').innerHTML="科比--青春不说再见";
+}else{
+	document.querySelector('title').innerHTML="webdemo";
+}
 new Vue({
   el: '#app',
   router,

@@ -4,6 +4,7 @@ import Home from '@/components/home'
 const richText = () => import('@/components/richText')
 const textList = () => import('@/components/textlist')
 const textDetail = () => import('@/components/textDetail')
+const basketball = () => import('@/components/basketball')
 Vue.use(Router)
 
 export default new Router({
@@ -32,6 +33,11 @@ export default new Router({
       path: '/textdetail',
       name: 'textdetail',
       component: textDetail
+    },
+    {
+      path: '/basketball',
+      name: 'basketball',
+      component: basketball
     }
   ]
 })
