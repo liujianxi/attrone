@@ -6,12 +6,12 @@
 			</div>
 		</div>
 		<div id="back-music" :class="['back-music',musicFlag0||musicFlag1?'active':'']" @click="updateMusic()"></div>
-		<video id="music_mp3_1">
+		<video id="music_mp3_1" controls="controls" preload="auto">
             <source src="http://www.attrone.com/images/basketball/Breath-and-Life.mp3" type="video/mp3" >
             <source src="http://www.attrone.com/images/basketball/Breath-and-Life.ogg" type="video/ogg" >
             Your browser does not support HTML5 video.
         </video>
-        <video id="music_mp3_0" autoplay="autoplay">
+        <video id="music_mp3_0" controls="controls" preload="auto">
             <source src="http://www.attrone.com/images/basketball/number24.mp3" type="video/mp3" >
             <source src="http://www.attrone.com/images/basketball/number24.ogg" type="video/ogg" >
             Your browser does not support HTML5 video.
@@ -64,6 +64,7 @@
 			this.addEvent(oDiv, 'DOMMouseScroll', this.onMouseWheel);
 			this.getTouchEvent(oDiv);
 			this.checkMusicEnd();
+			document.querySelector('#music_mp3_0').play();
 		},
 		methods: {
 			checkMusicEnd(){
@@ -321,6 +322,7 @@
 		height: 100%;
 		transition: all .5s linear;
 		.page {
+			overflow: hidden;
 			position: relative;
 			width: 100%;
 			height: 100%;
