@@ -282,16 +282,10 @@ import 'echarts/lib/component/title';
 	/**********webdemo***********/
 		
 		之前：15894ms-------826kb(844kb)
-		
-		https://dev.1-1dr.com/mobile/index.html#/rechargePrepare?orderid=107311637219770368  108468435234586624
-		
-		https://dev.1-1dr.com/mobile/index.html#/checkdetail?orderid=  93540928869892096
 	/**********webdemo***********/
 	opacity: 1;
     filter: Alpha(opacity=100);
 	//window.devicePixelRatio
-	
-	../assets
 	
 	//@focus="isAndroid?btn_flag=false:''" @blur="isAndroid?btn_flag=true:''
 	
