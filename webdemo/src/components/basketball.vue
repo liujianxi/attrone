@@ -2,20 +2,21 @@
 	<div class="home">
 		<div id="pageContain">
 			<div class="page grey-back" v-for="(item,index) in urlList">
-				<img :src="item.src"/>
+				<img v-if="!item.select" src="base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGBgAAAABQABh6FO1AAAAABJRU5ErkJggg=="/>
+				<img v-if="item.select" :src="item.src"/>
 			</div>
 		</div>
-		<div id="back-music" :class="['back-music',musicFlag0||musicFlag1?'active':'']" @click="updateMusic()"></div>
-		<video id="music_mp3_1" controls="controls" preload="auto">
+		<div id="back-music" :class="['back-music',musicFlag0?'active':'']" @click="updateMusic()"></div>
+		<audio id="music_mp3_1">
             <source src="http://www.attrone.com/images/basketball/Breath-and-Life.mp3" type="video/mp3" >
             <source src="http://www.attrone.com/images/basketball/Breath-and-Life.ogg" type="video/ogg" >
             Your browser does not support HTML5 video.
-        </video>
-        <video id="music_mp3_0" controls="controls" preload="auto">
+        </audio>
+        <audio id="music_mp3_0" loop autoplay="autoplay">
             <source src="http://www.attrone.com/images/basketball/number24.mp3" type="video/mp3" >
             <source src="http://www.attrone.com/images/basketball/number24.ogg" type="video/ogg" >
             Your browser does not support HTML5 video.
-        </video>
+        </audio>
         <div :class="current==fullPageSize-1?'down-arrow':'arrow'"></div>
 	</div>
 </template>
@@ -26,45 +27,83 @@
 		data() {
 			return {
 				urlList:[{
-					src:'http://www.attrone.com/images/basketball/begin1.jpg',
+					src:'http://www.attrone.com/images/basketball/begin1-s.jpg',
+					select:true,
 				},{
-					src:'http://www.attrone.com/images/basketball/81.jpg'
+					src:'http://www.attrone.com/images/basketball/81-s.jpg',
+					select:true,
 				},{
-					src:'http://www.attrone.com/images/basketball/dunk.png'
+					src:'http://www.attrone.com/images/basketball/dunk-s.png',
+					select:false,
 				},{
-					src:'http://www.attrone.com/images/basketball/winner.png'
+					src:'http://www.attrone.com/images/basketball/winner-s.png',
+					select:false,
 				},{
-					src:'http://www.attrone.com/images/basketball/finger.jpg'
+					src:'http://www.attrone.com/images/basketball/finger-s.jpg',
+					select:false,
 				},{
-					src:'http://www.attrone.com/images/basketball/world.jpg'
+					src:'http://www.attrone.com/images/basketball/world-s.jpg',
+					select:false,
 				},{
-					src:'http://www.attrone.com/images/basketball/cup.png'
+					src:'http://www.attrone.com/images/basketball/cup-s.png',
+					select:false,
 				},{
-					src:'http://www.attrone.com/images/basketball/24-8-data.png'
+					src:'http://www.attrone.com/images/basketball/world-s.jpg',
+					select:false,
 				},{
-					src:'http://www.attrone.com/images/basketball/24-8.png'
+					src:'http://www.attrone.com/images/basketball/24-8-data-s.png',
+					select:false,
 				},{
-					src:'http://www.attrone.com/images/basketball/header.png'
+					src:'http://www.attrone.com/images/basketball/career-s.jpg',
+					select:false,
+				},{
+					src:'http://www.attrone.com/images/basketball/24-8-s.png',
+					select:false,
+				},{
+					src:'http://www.attrone.com/images/basketball/header-s.png',
+					select:false,
 				}
 				],
-				fullPageSize: 10,
+				fullPageSize: 12,
 				current: 0,
 				wHeight: '',
 				resiezeFlag: true,
-				picSize:2,
 				musicFlag0:true,
 				musicFlag1:false,
 				checkFlag:false,
 			}
 		},
-		activated() {
+		mounted(){
+			let self=this;
 			this.getSize();
+			let musicEle0=document.querySelector('#music_mp3_0');
+			let musicEle1=document.querySelector('#music_mp3_1');
+			musicEle0.src="http://www.attrone.com/images/basketball/number24-s.mp3";
 			let oDiv = document.getElementById('pageContain');
 			this.addEvent(oDiv, 'mousewheel', this.onMouseWheel);
 			this.addEvent(oDiv, 'DOMMouseScroll', this.onMouseWheel);
 			this.getTouchEvent(oDiv);
-			this.checkMusicEnd();
-			document.querySelector('#music_mp3_0').play();
+			this.getImg();
+//			this.checkMusicEnd();
+			//--创建页面监听，等待微信端页面加载完毕 触发音频播放
+			document.addEventListener('DOMContentLoaded', function () {
+			    function audioAutoPlay() {
+			        var musicEle0 = document.getElementById('music_mp3_0');
+			            musicEle0.play();
+			        document.addEventListener("WeixinJSBridgeReady", function () {
+			            musicEle0.play();
+			        }, false);
+			    }
+			    audioAutoPlay();
+			});
+			//--创建触摸监听，当浏览器打开页面时，触摸屏幕触发事件，进行音频播放
+			document.addEventListener('touchstart', function () {
+			    function audioAutoPlay() {
+			        var musicEle0 = document.getElementById('music_mp3_0');
+			            musicEle0.play();
+			    }
+			    audioAutoPlay();
+			});
 		},
 		methods: {
 			checkMusicEnd(){
@@ -82,11 +121,12 @@
 				let self=this;
 				let musicEle0=document.querySelector('#music_mp3_0');
 				let musicEle1=document.querySelector('#music_mp3_1');
-				if(!self.checkFlag){//第一首
-					self.musicFlag0=!self.musicFlag0;
-				}else{//第二首
-					self.musicFlag1=!self.musicFlag1;
-				}
+				self.musicFlag0=!self.musicFlag0;
+//				if(!self.checkFlag){//第一首
+//					
+//				}else{//第二首
+//					self.musicFlag1=!self.musicFlag1;
+//				}
 				var el = document.getElementById("back-music");
 				var st = window.getComputedStyle(el, null);
 				var tr = st.getPropertyValue("-webkit-transform") ||
@@ -100,19 +140,20 @@
 				var b = values[1];
 				var angle = Math.round(Math.atan2(b, a) * (180 / Math.PI));
 				el.style.transform="rotate("+angle+"deg)";
-				if(!self.checkFlag){//第一首
-					if(self.musicFlag0){
-						musicEle0.play();
-					}else{
-						musicEle0.pause();
-					}
-				}else{//第二首
-					if(self.musicFlag1){
-						musicEle1.play();
-					}else{
-						musicEle1.pause();
-					}	
+				if(self.musicFlag0){
+					musicEle0.play();
+				}else{
+					musicEle0.pause();
 				}
+//				if(!self.checkFlag){//第一首
+//					
+//				}else{//第二首
+//					if(self.musicFlag1){
+//						musicEle1.play();
+//					}else{
+//						musicEle1.pause();
+//					}	
+//				}
 			},
 			getTouchEvent(oDiv) {
 				let self=this;
@@ -157,6 +198,7 @@
                 if(this.resiezeFlag) {
 					this.wHeight = document.body.clientHeight;
 				}
+                self.getImg();
                 self.getTransform();
             },
 			getSize() {
@@ -189,6 +231,7 @@
 						self.current = self.current - 1;
 					}
 				}
+				self.getImg();
 				if(this.resiezeFlag) {
 					this.wHeight = document.body.clientHeight;
 				}
@@ -197,6 +240,13 @@
 					ev.preventDefault(); // 阻止默认事件  
 				}
 				return false;
+			},
+			getImg(){
+				let self=this;
+				if(self.current<=self.urlList.length-2){
+					self.urlList[self.current]['select']=true;
+					self.urlList[self.current+1]['select']=true;
+				}
 			},
 			addEvent(obj, xEvent, fn) {
 				if(obj.attachEvent) {
@@ -225,7 +275,7 @@
 		position:absolute;
 		top:10px;
 		right:10px;
-		background-image: url('http://www.attrone.com/images/basketball/music-1.png');
+		background-image: url('http://www.attrone.com/images/basketball/music-1-s.png');
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
@@ -235,7 +285,7 @@
 	}
 	.back-music.active{
 		animation:music_move 5s linear infinite;
-		background-image: url('http://www.attrone.com/images/basketball/music-0.png');
+		background-image: url('http://www.attrone.com/images/basketball/music-0-s.png');
 	}
 	@keyframes arrow_move{
 		0% {
@@ -261,7 +311,7 @@
 	}
 	.down-arrow{
 		animation:down_arrow_move 1s linear infinite;
-		transition: all 1s linear;
+		transition: all .2s linear;
 		width: 37px;
 		height: 24px;
 		position: absolute;
@@ -269,7 +319,7 @@
 		left: 50%;
 		transform: rotate(180deg) translateX(-50%);
 		transform-origin: 0 0;
-		background-image: url('http://www.attrone.com/images/basketball/arrow.png');
+		background-image: url('http://www.attrone.com/images/basketball/arrow-s.png');
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
@@ -286,7 +336,7 @@
 		left: 50%;
 		bottom: 10px;
 		transform: translateX(-50%);
-		background-image: url('http://www.attrone.com/images/basketball/arrow.png');
+		background-image: url('http://www.attrone.com/images/basketball/arrow-s.png');
 		background-repeat: no-repeat;
 		background-position: center;
 		background-size: cover;
