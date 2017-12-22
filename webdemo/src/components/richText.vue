@@ -103,8 +103,26 @@ export default {
 				document.querySelectorAll('.w-e-text img').forEach((item)=>{
 					item.style.display='block';
 					item.style.margin='0 auto';
+					item.style.maxWidth='auto';
 					item.setAttribute('curr_height',item.clientHeight);
 					item.setAttribute('curr_width',item.clientWidth);
+				})
+			}
+			if(document.querySelectorAll('.w-e-text blockquote').length){
+				document.querySelectorAll('.w-e-text blockquote').forEach((item)=>{
+					item.style.display='block';
+					item.style.margin='10px 0';
+					item.style.borderLeft='8px solid #d0e5f2';
+					item.style.padding='5px 10px';
+					item.style.padding='5px 10px';
+					item.style.lineHeight='1.4';
+					item.style.fontSize='100%';
+					item.style.backgroundColor='#f1f1f1';
+				})
+			}
+			if(document.querySelectorAll('.w-e-text p').length){
+				document.querySelectorAll('.w-e-text p').forEach(item=>{
+					item.style.padding='10px 0';
 				})
 			}
 			setTimeout((item)=>{
