@@ -1,0 +1,115 @@
+
+@import './global.scss';
+
+.order-fix-bot{
+    position:fixed;
+    background-color:#fff;
+    width:100%;
+    height:px2rem(100px);
+    line-height:px2rem(100px);
+    box-sizing: border-box;
+    padding: 0 px2rem(30px);
+    text-align:right;
+    bottom:0;
+}
+.order-pay{
+    position:fixed;
+    background: -webkit-linear-gradient(left, #14ccc8, #39ddb0);
+    width:100%;
+    height:px2rem(100px);
+    line-height:px2rem(100px);
+    box-sizing: border-box;
+    padding: 0 px2rem(30px);
+    text-align:center;
+    bottom:0;
+    color:white;
+    font-size: px2rem(36px);
+}
+.order-pay.grayBac{
+    background:#ccc;
+}
+.sbtn{
+    height: px2rem(64px);
+    line-height: px2rem(45px);
+    font-size: px2rem(32px);
+    background-color:#fff;
+    padding: 0 px2rem(30px);
+    margin-left: px2rem(40px);
+    vertical-align: middle;
+}
+.sbtn.orange{
+    border: 1px solid $orange;
+    border-radius: px2rem(8px);
+}
+.sbtn.black{
+    border: 1px solid $black;
+    border-radius: px2rem(8px);
+}
+.sbtn.red{
+    border: 1px solid $red;
+    border-radius: px2rem(8px);
+}
+.sbtn.green{
+    border: 1px solid $green;
+    border-radius: px2rem(8px);
+}
+.sbtn.gray{
+    border: 1px solid $green;
+    border-radius: px2rem(8px);
+}
+
+.fb, .sb, .tb, .fourb, .fiveb{
+    padding-left: px2rem(30px);
+    padding-right: px2rem(30px);
+    margin-bottom: px2rem(22px);
+    background-color:#fff; 
+    text-align:left;        
+}
+.fb{
+    font-size: px2rem(30px);
+    color: #333;
+    height: px2rem(72px);
+    line-height: px2rem(72px);    
+
+    span:last-child{
+        color: #ff5454;
+        float:right;
+    }
+}
+.sb{
+    padding-top: px2rem(25px);
+    padding-bottom: px2rem(25px);
+    
+    p:first-child{
+        color: #333;
+        font-size: px2rem(30px);
+        margin-bottom: px2rem(20px);
+    }
+    p:last-child{
+        color: #666;
+        font-size: px2rem(24px);
+        line-height: px2rem(35px);
+    }
+}
+.tb{
+    font-size: px2rem(30px);
+    color: #333;
+    height: px2rem(100px);
+    line-height: px2rem(100px); 
+
+    >span:last-child{
+        color:#55dbc6;
+        float:right; 
+
+        i{
+            display:inline-block;
+            width:px2rem(14px);
+            height:px2rem(26px);
+            background:url('https://s.1-1dr.com/static/mobile/img/wechat/more1.png') no-repeat;
+            background-size: auto 100%;
+            vertical-align:middle; 
+
+            margin-left: px2rem(12px);
+        }         
+    }
+}

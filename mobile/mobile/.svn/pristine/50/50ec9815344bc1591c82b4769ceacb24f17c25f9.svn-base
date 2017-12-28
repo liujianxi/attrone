@@ -1,0 +1,76 @@
+.pay-tit{
+    padding: px2rem(60px) 0 px2rem(25px) px2rem(30px);
+    font-size: px2rem(32px);
+    color: #666;
+}
+.sure-m{
+    height:px2rem(130px);
+    line-height:px2rem(130px);    
+    text-align:center;
+    background-color: #fff;
+    color: #333;
+
+    .m-num{
+        color:#ffc360;
+        font-size: px2rem(48px);
+    }
+}
+.remark{
+    height: px2rem(98px);
+    line-height: px2rem(40px);
+    background-color: #fff;
+    color:#999;
+    padding: px2rem(20px) px2rem(70px);
+    border-top: 1px solid #ebebeb;
+}
+.qb, .wx, .ali{
+    height: px2rem(96px);
+    line-height: px2rem(96px);
+    padding: 0 px2rem(30px);
+    color: #333;
+    background-color: #fff;
+}
+.qb, .wx, .ali{
+    border-bottom: 1px solid #e5e5e5;
+}
+.qb-i, .wx-i, .ali-i{
+    display:inline-block;
+    width: px2rem(41px);
+    height: px2rem(41px);
+    vertical-align: middle;    
+}
+.yu-e{
+    display:inline-block;
+    height: px2rem(30px);
+    line-height: px2rem(30px);    
+    font-size: px2rem(16px);
+    color:white;
+    background-color: #ffb502;
+    border: 1px solid #ffb502;
+    border-radius: px2rem(15px);
+    vertical-align:middle;
+    padding: 0 px2rem(10px);    
+}
+.qb-i{
+    position:relative;
+    top:-2px;
+    background:url('https://s.1-1dr.com/static/mobile/img/wechat/qb.png') no-repeat center center;
+    background-size: 100% auto;
+}
+.unpaid{
+    color:#ccc;
+    .qb-i{
+        background:url('https://s.1-1dr.com/static/mobile/img/wechat/qb-unpaid.png') no-repeat center center;
+        background-size: 100% auto;
+    }
+}
+.wx-i{
+    position:relative;
+    top:-2px;
+    background:url('https://s.1-1dr.com/static/mobile/img/wechat/weixin.png') no-repeat center center;
+    background-size: 100% auto;
+}
+.ali-i{
+    background:url('https://s.1-1dr.com/static/mobile/img/wechat/zhifubao.png') no-repeat center center;
+    background-size: 100% auto;
+}

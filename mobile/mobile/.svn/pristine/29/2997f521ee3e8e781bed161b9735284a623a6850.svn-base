@@ -1,0 +1,76 @@
+@import './global.scss';
+
+.ser-input{
+    height: px2rem(75px);
+    width: 100%;
+    // display:none;
+    input{
+        width:100%;
+        display:block;
+        padding:0;
+        height:100%;
+        font-size: px2rem(30px);
+        border:none;
+        text-indent: px2rem(40px);
+    }
+}
+.right{
+    float:right;
+}
+.ser-input.show{
+    display:none;
+}
+dl{
+    dd{
+        background-color:#fff;
+        // height:px2rem(195px);
+        padding: px2rem(35px) px2rem(40px);
+        border-top:1px solid #ccc;
+        text-align:left;
+
+        .name{
+            font-size:px2rem(36px);
+            line-height: px2rem(36px);
+        }
+        .huli{
+            font-size:px2rem(28px);
+            color:#999;
+            padding:px2rem(20px) 0 px2rem(16px) 0; 
+        }
+        .class{
+            font-size:px2rem(24px);
+            color:#666;
+            line-height: px2rem(36px);
+        }
+        .distance{
+            font-size:px2rem(24px);
+            color:#999;            
+        }
+    }
+}
+.zhuanpei{
+    min-width: px2rem(86px);
+    line-height: px2rem(26px);
+    height: px2rem(26px);
+    border-radius:px2rem(18px);
+    text-align:center;
+    font-size: px2rem(18px);
+    display:inline-block;
+    margin-top: px2rem(10px);
+    margin-right: px2rem(10px);
+    color: white;
+    padding: px2rem(5px) px2rem(8px);
+}
+.zhuanpei.orange{
+    color: #ffb93f;
+    border:1px solid #ffb93f;
+    margin-right: px2rem(15px);
+}
+.zhuanpei.green{
+    color: #2bd6bd;
+    border: 1px solid #2bd6bd;
+}
+.dis{
+    font-size: px2rem(26px);
+    color:#999;
+}

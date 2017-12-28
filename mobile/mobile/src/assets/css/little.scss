@@ -1,0 +1,219 @@
+@import './global.scss';
+.color-line1 {
+  height: px2rem(8px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/colline1.png') repeat-x;
+  background-size: auto 100%;
+}
+
+.color-line2 {
+  height: px2rem(8px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/colline2.png') repeat-x;
+  background-size: auto 100%;
+}
+
+.r-more,
+.r-more-select {
+  display: block;
+  width: px2rem(14px);
+  height: px2rem(26px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/more.png') no-repeat;
+  background-size: auto 100%; //  float:right;
+  //  margin-top: px2rem(37px);
+  position: absolute;
+  right: px2rem(26px);
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.r-more-select {
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/more-select.png') no-repeat;
+  background-size: auto 100%;
+}
+
+.r-more-green {
+  display: inline-block;
+  width: px2rem(14px);
+  height: px2rem(26px);
+  position: relative;
+  top: pxrem(1px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/more1.png') no-repeat;
+  background-size: auto 100%;
+}
+
+.l-more-black {
+  display: block;
+  width: px2rem(14px);
+  height: px2rem(26px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/back.png') no-repeat;
+  background-size: auto 100%;
+}
+
+.r-more-black {
+  display: block;
+  width: px2rem(14px);
+  height: px2rem(26px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/more2.png') no-repeat;
+  background-size: auto 100%;
+}
+
+.r-edit {
+  display: inline-block;
+  font-size: 0;
+  width: px2rem(30px);
+  height: px2rem(31px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/mko_edit.png') no-repeat;
+  background-size: auto 100%;
+  float: right;
+  margin-top: px2rem(35px);
+}
+
+
+/*大号radio*/
+
+.tc_radio {
+  width: 16px;
+  height: 16px;
+  box-sizing: border-box;
+  border: 1px solid #999;
+  border-radius: 9px;
+  display: -webkit-inline-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  vertical-align: -.25ex;
+  .tc_radio_inside {
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+}
+
+.tc_radio.select {
+  .tc_radio_inside {
+    background-color: #2bd6bd;
+  }
+}
+
+
+/* 小号radio */
+
+.rc-radio {
+  width: 12px;
+  height: 12px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  vertical-align: -.25ex;
+  display: -webkit-inline-box;
+  -webkit-box-align: center;
+  -webkit-box-pack: center;
+  i {
+    display: block;
+    background-color: #2bd6bd;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    visibility: hidden;
+  }
+}
+
+.rc-radio.select {
+  border: 1px solid #2bd6bd;
+  border-radius: 5px;
+  i {
+    visibility: visible;
+  }
+}
+
+.gou {
+  display: block;
+  height: px2rem(40px);
+  width: px2rem(40px);
+  background-image: url('https://s.1-1dr.com/static/mobile/img/wechat/gou2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-background–size: cover;
+  -moz-background–size: cover;
+  -o-background–size: cover;
+  margin-top: px2rem(27px);
+  float: right;
+}
+
+.gou.select,
+.gou-left.select {
+  background-image: url('https://s.1-1dr.com/static/mobile/img/wechat/gou2-selected.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-background–size: cover;
+  -moz-background–size: cover;
+  -o-background–size: cover;
+}
+
+.default-addr.gou-left {
+  left: 0;
+}
+
+.gou-left {
+  display: block;
+  height: px2rem(40px);
+  width: px2rem(40px);
+  background-image: url('https://s.1-1dr.com/static/mobile/img/wechat/gou2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-background–size: cover;
+  -moz-background–size: cover;
+  -o-background–size: cover;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: px2rem(30px);
+}
+
+.edit-black {
+  display: inline-block;
+  width: px2rem(30px);
+  height: px2rem(31px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/edit.png') no-repeat;
+  background-size: 100% auto;
+  vertical-align: -.25ex;
+}
+
+.edit-blue {
+  display: inline-block;
+  width: px2rem(30px);
+  height: px2rem(31px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/edit@2x.png') no-repeat;
+  background-size: 100% auto;
+  vertical-align: -.25ex;
+}
+
+.del-black {
+  display: inline-block;
+  width: px2rem(29px);
+  height: px2rem(31px);
+  background: url('https://s.1-1dr.com/static/mobile/img/wechat/icon_delete.png') no-repeat;
+  background-size: 100% auto;
+  position: relative;
+  top: px2rem(6px);
+}
+
+.check-i {
+  display: inline-block;
+  width: px2rem(30px);
+  height: px2rem(30px);
+  border: 1px solid #ccc;
+  border-radius: px2rem(2px);
+}
+
+.check-i.select {
+  border: none;
+  border-radius: px2rem(2px);
+  background-color: #2bd6bd;
+  background-image: url('https://s.1-1dr.com/static/mobile/img/wechat/gou.png');
+  background-size: 80% auto;
+  background-repeat: no-repeat;
+  background-position: center center;
+}

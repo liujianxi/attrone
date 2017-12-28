@@ -1,0 +1,92 @@
+/*==================== 公共变量 ====================*/
+
+
+/*表单背景颜色*/
+
+$form-bgcolor:#F1F2F6;
+
+/*金额字体颜色*/
+
+$money-font:#FFC360;
+
+/*按钮的渐变*/
+
+$gradient:(to right, #14cbc9 0%, #18d9bc 40%, #3addb0 100%);
+
+/*分割线*/
+
+$separate-color:#E5E5E5;
+$btn-disable-color:#999;
+
+/*主体色*/
+
+$theme-color:#2bd6bd;
+$orange: #ffc360;
+$red: #ff5454;
+$green: #2bd6bd;
+$black: #333333;
+$gray: #ccc;
+.red {
+  color: $red;
+}
+
+.green {
+  color: $green;
+}
+
+.gray {
+  color: $gray;
+}
+
+.orange {
+  color: $orange;
+}
+
+.black {
+  color: $black
+}
+
+.line-left {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 5px;
+  height: 100%;
+}
+
+.orangebg {
+  background: #fcab53;
+}
+
+.greenbg {
+  background: #50d2c2;
+}
+
+.purplebg {
+  background: #d667cd;
+}
+
+.bluebg {
+  background: #8c88ff;
+}
+
+.blackbg {
+  background: #6563a4;
+}
+
+
+/*==================== 公共方法 ====================*/
+
+
+/*像素转换tem*/
+
+@function px2rem($px) {
+  $rem: 37.5px;
+  @return ($px/$rem/2)+rem;
+}
+
+@function pxrem($px) {
+  $rem: 37.5px;
+  @return ($px/$rem)+rem;
+}

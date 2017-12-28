@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0" name="viewport">
+  <!-- <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan id='cnzz_stat_icon_1262958241'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol +
+      "s19.cnzz.com/z_stat.php%3Fid%3D1262958241%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));
+    document.querySelector('#cnzz_stat_icon_1262958241').style.display = 'none';
+
+  </script> -->
+  <!-- start Dplus -->
+  <script type="text/javascript">
+    ! function (a, b) {
+      if (!b.__SV) {
+        var c, d, e, f;
+        window.dplus = b, b._i = [], b.init = function (a, c, d) {
+            function g(a, b) {
+              var c = b.split(".");
+              2 == c.length && (a = a[c[0]], b = c[1]), a[b] = function () {
+                a.push([b].concat(Array.prototype.slice.call(arguments, 0)))
+              }
+            }
+            var h = b;
+            for ("undefined" != typeof d ? h = b[d] = [] : d = "dplus", h.people = h.people || [], h.toString =
+              function (a) {
+                var b = "dplus";
+                return "dplus" !== d && (b += "." + d), a || (b += " (stub)"), b
+              }, h.people.toString = function () {
+                return h.toString(1) + ".people (stub)"
+              }, e =
+              "disable track track_links track_forms register unregister get_property identify clear set_config get_config get_distinct_id track_pageview register_once track_with_tag time_event people.set people.unset people.delete_user"
+              .split(" "), f = 0; f < e.length; f++) g(h, e[f]);
+            b._i.push([a, c, d])
+          }, b.__SV = 1.1, c = a.createElement("script"), c.type = "text/javascript", c.charset = "utf-8", c.async = !0,
+          c.src = "//w.cnzz.com/dplus.php?id=1265942789", d = a.getElementsByTagName("script")[0], d.parentNode.insertBefore(
+            c, d)
+      }
+    }(document, window.dplus || []), dplus.init("1265942789");
+
+  </script>
+  <!-- end Dplus -->
+  <!-- <script>
+    //声明_czc对象:
+    var _czc = _czc || [];
+    //绑定siteid，请用您的siteid替换下方"XXXXXXXX"部分
+    _czc.push(["_setAccount", "1262958241"]);
+
+  </script> -->
+  <script>
+    var html = document.documentElement;
+    var w = html.getBoundingClientRect().width;
+    html.style.fontSize = w / 10 + 'px';
+
+  </script>
+  <title>护理易</title>
+  <link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=76995f30ba8965c259c624c3a3fa5777&plugin=AMap.Geocoder,AMap.PlaceSearch,AMap.Autocomplete"></script>
+</head>
+
+<body>
+  <div id="app"></div>
+  <script src="./static/js/vendor.dll.js"></script>
+  <!-- built files will be auto injected -->
+</body>
+
+</html>

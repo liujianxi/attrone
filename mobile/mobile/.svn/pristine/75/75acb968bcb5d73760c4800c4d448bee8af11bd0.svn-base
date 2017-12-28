@@ -1,0 +1,148 @@
+@import './global.scss';
+.grey {
+  color: #ccc;
+}
+
+.addr {
+  position: relative;
+  font-size: px2rem(32px);
+  //  height:px2rem(110px);
+  line-height: px2rem(90px);
+  background-color: #fff;
+  color: #CCCCCC;
+  /*color:#2bd6bd;*/
+  padding: 0 px2rem(30px);
+  text-align: left;
+  i:first-child {
+    margin-right: 20px;
+    display: inline-block;
+    background: url('https://s.1-1dr.com/static/mobile/img/wechat/mko_row1.png') no-repeat;
+    background-size: 100% auto;
+    width: px2rem(23px);
+    height: px2rem(27px);
+  }
+}
+
+.addr .address {
+  line-height: px2rem(30px);
+  padding: px2rem(30px) 0;
+  position: relative;
+  margin-right: 0;
+}
+
+.addr .address .r-more {
+  right: 0;
+}
+
+.addr .address span:nth-child(1) {
+  margin-right: px2rem(63px);
+}
+
+.addr p {
+  line-height: px2rem(44px);
+  padding-bottom: px2rem(20px);
+}
+
+.row {
+  position: relative;
+  height: px2rem(90px);
+  line-height: px2rem(100px);
+  padding: 0 px2rem(30px);
+  background-color: #fff;
+  text-align: left;
+}
+
+span.service-type {
+  padding-left: px2rem(80px);
+}
+
+.phone,
+.people {
+  border-top: 1px solid #ebebeb;
+}
+
+.time {
+  font-size: px2rem(32px);
+  color: #cccccc;
+  i:first-child {
+    display: inline-block;
+    background: url('https://s.1-1dr.com/static/mobile/img/wechat/mko_row2.png') no-repeat;
+    background-size: 100% auto;
+    width: px2rem(24px);
+    height: px2rem(24px);
+    margin-right: pxrem(8px);
+  }
+}
+
+.phone {
+  font-size: px2rem(32px);
+  color: #cccccc;
+  i:first-child {
+    display: inline-block;
+    background: url('https://s.1-1dr.com/static/mobile/img/wechat/mko_row3.png') no-repeat;
+    background-size: 100% auto;
+    width: px2rem(24px);
+    height: px2rem(24px);
+    margin-right: pxrem(8px);
+  }
+  input {
+    font-size: px2rem(32px);
+    color: #333;
+    height: 100%;
+  }
+}
+
+.people {
+  font-size: px2rem(32px);
+  color: #cccccc;
+  i:first-child {
+    display: inline-block;
+    background: url('https://s.1-1dr.com/static/mobile/img/wechat/mko_row4.png') no-repeat;
+    background-size: 100% auto;
+    width: px2rem(24px);
+    height: px2rem(24px);
+    margin-right: pxrem(8px);
+  }
+}
+
+.ser-choose-tit {
+  line-height: px2rem(60px);
+  font-size: px2rem(32px);
+  padding: 0 px2rem(30px);
+  text-align: left;
+  color: #666;
+}
+
+.set-item {
+  border-top: pxrem(1px) solid #ebebeb;
+  color: #000;
+  font-size: px2rem(32px);
+  position: relative;
+}
+
+.ser-price {
+  display: inline;
+  position: absolute;
+  right: px2rem(80px);
+  top: 0;
+}
+
+.yuyue {
+  display: -webkit-box;
+  height: px2rem(100px);
+  line-height: px2rem(100px);
+  font-size: px2rem(36px);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  .yy-txt {
+    -webkit-box-flex: 1;
+    color: #2bd6bd;
+    background-color: #fff;
+  }
+  .yy-btn {
+    width: px2rem(270px);
+    color: #fff;
+    background-color: #2bd6bd;
+  }
+}
