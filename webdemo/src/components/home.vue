@@ -5,7 +5,7 @@
     	<div class="container abs">
 				<qq-login></qq-login>
 			</div>
-    	<div class="home-text"><p>This is T-one<span><i class="el-icon-location"></i><i class="el-icon-location-outline"></i><router-link to="/textlist">文章列表</router-link></span></p></div>
+    	<div v-drag class="home-text"><p>This is T-one<span><router-link to="/textlist">文章列表</router-link></span></p></div>
       <!--<div class="page page1">
         <div class="container">
         	
@@ -62,7 +62,7 @@ export default {
       if (this.resiezeFlag) {
         this.wHeight = document.body.clientHeight;
       }
-      this.getTransform();
+//    this.getTransform();
     },
     getTransform() {
       let self = this;

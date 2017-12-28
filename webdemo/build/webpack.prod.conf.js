@@ -38,7 +38,7 @@ const webpackConfig = merge(baseWebpackConfig, {
 			  // Host that will be used in `server` mode to start HTTP server.
 			  analyzerHost: '127.0.0.1',
 			  // Port that will be used in `server` mode to start HTTP server.
-			  analyzerPort: 8889,
+			  analyzerPort: 8886,
 			  // Path to bundle report file that will be generated in `static` mode.
 			  // Relative to bundles output directory.
 			  reportFilename: 'report.html',

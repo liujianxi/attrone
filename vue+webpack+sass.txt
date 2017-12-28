@@ -303,4 +303,17 @@ import 'echarts/lib/component/title';
 	}else{
 		 alert("你正在刷新页面");
 	}
-}
+	
+	// 注册一个全局自定义指令 `v-focus`
+	Vue.directive('focus', {
+	  // 当被绑定的元素插入到 DOM 中时……
+	  inserted: function (el) {
+		// 聚焦元素
+		el.focus();
+	  }
+	})
+	
+	node版本问题：window下直接覆盖-----npm install
+	npm install 错误 安装 chromedriver 失败的解决办法:npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
+	
+	git add所有，忽略其中一个：git add -u -except main/dontcheckmein.txt

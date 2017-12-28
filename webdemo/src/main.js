@@ -23,6 +23,41 @@ if(curr_url=='basketball'){
 }else{
 	document.querySelector('title').innerHTML="webdemo";
 }
+// 注册一个全局自定义指令 `v-drag`
+Vue.directive('drag', {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) {
+	el.onmousedown = function(e) {
+		e.preventDefault();
+		var e = e || window.event;
+		var posX = e.clientX - el.offsetLeft;
+		var posY = e.clientY - el.offsetTop;
+		document.onmousemove = function(e) {
+			var e = e || window.event;
+			var winW = document.documentElement.clientWidth;
+			var winH = document.documentElement.clientHeight;
+			var left = e.clientX - posX;
+			var top = e.clientY - posY;
+			if(left < 50) {
+				left = 0;
+			} else if(left > winW - el.offsetWidth - 50) {
+				left = winW - el.offsetWidth;
+			}
+			if(top < 50 ) {
+				top = 0;
+			} else if (top > winH - el.offsetHeight - 50) {
+				top = winH - el.offsetHeight;
+			}
+			el.style.left = left + 'px';
+			el.style.top = top + 'px';
+		}
+		document.onmouseup = function(e) {
+			document.onmousemove = null;
+			document.onmouseup = null;
+		}
+	}
+  }
+})
 new Vue({
   el: '#app',
   router,

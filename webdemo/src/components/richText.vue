@@ -145,7 +145,6 @@ export default {
 	},
 	activated() {
 		this.getData();
-		// this.getScroll();
 	},
 	methods: {
 		getHtml(){
@@ -175,40 +174,7 @@ export default {
 //					this.$router.push({ path: '/textlist'});
 //				}
 //			})
-		},
-		getScroll(){
-			let count=0;
-			window.onscroll=function(){
-				let e =e || window.event;
-				let scrolltop=document.documentElement.scrollTop||document.body.scrollTop;
-				if(document.querySelector('.w-e-toolbar').className=='w-e-toolbar'){
-					document.querySelector('.w-e-toolbar').setAttribute('id','curr-toolbar');
-				}
-				let editorTop=document.querySelector('#curr-toolbar').offsetTop;
-				let toolHeight=document.querySelector('#curr-toolbar').offsetHeight;
-				if(scrolltop>editorTop+toolHeight-1){
-					count++;
-					if(count==1){
-						let toolbar = document.querySelector('#curr-toolbar').cloneNode(true);
-						toolbar.setAttribute('id','fix-toolbar');
-						toolbar.className='w-e-toolbar fix-e-toolbar';
-						toolbar.style.position='fixed';
-						toolbar.style.top='0';
-						toolbar.style.width='660px';
-						toolbar.style.zIndex='10001';
-						let list=document.querySelector('#editor');
-						list.insertBefore(toolbar,list.childNodes[0]);
-					}
-				}else{
-					count=0;
-					let toolbar = document.querySelector('#fix-toolbar');
-					if(toolbar!=undefined){
-						let list=document.querySelector('#editor');
-						list.removeChild(toolbar);
-					}
-				}
-			};
-		},
+	},
 		getData() {
 			let self = this;
 			http.post('getTagList.php')

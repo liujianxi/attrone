@@ -51,6 +51,7 @@ export default {
 		textFilter(){
 			let self=this;
 			self.textDetail.textDesc=decodeURIComponent(self.textDetail.textDesc);
+			document.title=self.textDetail.textTitle
 		},
 		lazyLoadImg(){
 			let self=this;
