@@ -36,50 +36,16 @@
 				};
 			},
 			backTop(){
-//				document.documentElement.scrollTop=0;
-//				document.body.scrollTop=0;
 				let ele=document.documentElement||document.body;
-				let self=this;
-				self.animate(ele,{scrollTop:0},10, 0.01);
-			},
-			animate(obj, json, interval, sp, fn){
-				clearInterval(obj.timer);
-			    function getStyle(obj, arr) {
-			    	console.log(window.getComputedStyle(obj,null));
-			        if(window.getComputedStyle){
-						return getComputedStyle(obj,null)[arr];
+				let speed=100;
+				let timer=setInterval((res)=>{
+					if(ele.scrollTop>0){
+						ele.scrollTop=ele.scrollTop-speed;
+					}else{
+						ele.scrollTop=0;
+						clearInterval(timer);
 					}
-					return obj.currentStyle[arr];
-			    }
-			    obj.timer = setInterval(function(){
-			        var flag = true;
-			        for(var arr in json) {
-			            var icur = 0;
-			            if(arr == "opacity") {
-			                icur = Math.round(parseFloat(getStyle(obj, arr))*100);
-			            } else {
-			                icur = parseInt(getStyle(obj, arr));
-			            }
-			            var speed = (json[arr] - icur) * sp;
-			            speed = speed > 0 ? Math.ceil(speed): Math.floor(speed);
-			            if(icur != json[arr]){
-			                flag = false;
-			            } 
-			            if(arr == "opacity"){
-			                obj.style.filter = "alpha(opacity : '+(icur + speed)+' )";
-			                obj.style.opacity = (icur + speed)/100;
-			            }else {
-			                obj.style[arr] = icur + speed + "px";
-			            }
-			        }
-			
-			        if(flag){
-			            clearInterval(obj.timer);
-			            if(fn){
-			                fn();
-			            }
-			        }
-			    },interval);
+				},10)
 			},
 		}
 	}
