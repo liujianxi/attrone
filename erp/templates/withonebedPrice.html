@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link href="../js/bootstrap-editable/bootstrap-editable.css"  rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+		<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+		<link  href="../css/app.css" rel="stylesheet" />
+		<link href="../js/bootstrap-editable/bootstrap-editable.css"  rel="stylesheet" />
+		<style type="text/css">
+			.pop-entrance{
+				position: relative;
+				top:3px;
+				width: 17px;
+				height: 17px;
+				display: inline-block;
+				background: url(../images/infos.png);
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				-webkit-background–size: cover;
+				-moz-background–size: cover;
+				-o-background–size: cover;
+			}
+		</style>
+	</head>            
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+					<div class="row m-bot15 " style="color: #000; padding: 10px;">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<label class="form-label">&nbsp;&nbsp;时间：</label>
+								<input type="text" class="form-control input-large" name="daterange-start" value="年/月/日" />
+								<label class="form-label">&nbsp;至&nbsp;</label>
+								<input type="text" class="form-control input-large" name="daterange-end" value="年/月/日" />
+								<label class="form-label">&nbsp;&nbsp;机构过滤：&nbsp;&nbsp;</label>
+								<select class="form-control org_hos" style="padding-top: 0; padding-bottom: 0;"></select>
+								<select class="form-control org_branch" style="padding-top: 0; padding-bottom: 0;"></select>
+								<label class="form-label">&nbsp;&nbsp;处理状态：&nbsp;&nbsp;</label>
+								<select class="form-control service-status" style="padding-top: 0; padding-bottom: 0;">
+									<option value="-1">全部</option>
+									<option value="0" selected="selected">未审核</option>
+									<option value="1">已审核</option>
+								</select>
+								<button type="button" class="btn btn-primary btn-sm" id="bed-search">
+	                    			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+	                   			</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="m-bot15">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group bed-info">
+								<p>租借总数：<i>0</i> 张</p>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="ServiceLivingListTable" style="margin-bottom: 0px;">
+							<thead>
+								<tr>
+									<th>租借日期<i class="popover-rel" data-container="body" data-content="当天23：30后审核当天的陪人床租借记录" data-toggle="popover" data-placement="right"></i></th>
+									<th>机构</th>
+									<th>科室</th>
+									<th>陪人床租借</th>
+									<th>状态</th>
+									<th>审核护士</th>
+									<th>审核时间</th>
+									<th style="width: 300px;">备注</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="bedListContent">
+								<tr>
+									<td colspan="10" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row panel-body">
+							<ul class="pagination" id="pagination"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="order-mask-bg"></div>
+		<div id="order-mask">
+			<div class="ball_spin_fade">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<script type="text/html" id="bedListTemplate">
+			{{if praiseList.length > 0}} {{each praiseList as item i}}
+				<tr>
+					<td>{{item.serviceDate}}</td>
+					<td>{{item.orgName}}</td>
+					<td>{{item.branchName}}</td>
+					<td style="color: red;">{{item.number}}</td>
+					<td>{{item.typeStr}}</td>
+					<td>{{item.hgName}}</td>
+					<td>{{item.auditTimeStr}}</td>
+					<td>{{item.auditRemark}}</td>
+					<td>
+						<a status="{{item.auditShowStatus}}" href="javascript:void(0);" title="陪人床租借明细" link="templates/bedDetail.html" time="{{item.serviceDate}}" branchid="{{item.branchId}}" orgid="{{item.orgId}}" class="entrance-click bed-detail">查看</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						{{if item.auditShowStatus==1}}
+						<a branchid="{{item.branchId}}" orgid="{{item.orgId}}" time="{{item.serviceDate}}" href="javascript:void(0);" class="entrance-click bed-comment">审核</a>&nbsp;&nbsp;&nbsp;&nbsp;
+						{{/if}}
+						{{if item.auditRemark==''||item.auditRemark==undefined}}
+						<a remark="{{item.auditRemark}}" branchid="{{item.branchId}}" orgid="{{item.orgId}}" time="{{item.serviceDate}}" href="javascript:void(0);" class="entrance-click bed-remark" title="添加备注">添加备注</span>	
+						{{/if}}
+						{{if item.auditRemark!=''&&item.auditRemark!=undefined}}
+						<a remark="{{item.auditRemark}}" branchid="{{item.branchId}}" orgid="{{item.orgId}}" time="{{item.serviceDate}}" href="javascript:void(0);" class="entrance-click bed-remark" title="修改备注">修改备注</span>	
+						{{/if}}
+					</td>
+				</tr>
+				{{/each}} {{/if}} {{if praiseList.length == 0}}
+				<tr>
+					<td colspan="10" class="text-center">
+						暂无数据
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+		
+
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+		<script src="../js/app/order_date.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/app/withonebedPrice.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+	</body>
+
+</html>

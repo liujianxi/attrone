@@ -16,7 +16,7 @@
 		name: 'app',
 		data(){
 			return{
-				topFlag:false,
+				topFlag:false,//是否显示回到顶部
 			}
 		},
 		created(){
@@ -28,14 +28,14 @@
 				window.onscroll=function(){
 					let e =e || window.event;
 					let scrolltop=document.documentElement.scrollTop||document.body.scrollTop;
-					if(scrolltop>100){
+					if(scrolltop>100){//超过100就显示回到顶部
 						self.topFlag=true;
 					}else{
 						self.topFlag=false;
 					}
 				};
 			},
-			backTop(){
+			backTop(){//回到顶部
 				let ele=document.documentElement||document.body;
 				let speed=100;
 				let timer=setInterval((res)=>{

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link href="../js/bootstrap-editable/bootstrap-editable.css"  rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+		<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+		<link  href="../css/app.css" rel="stylesheet" />
+		<style type="text/css">
+			.entrance-info{
+				color:black;
+			}
+			.entrance-info em{
+				color:red;
+			}
+			.pop-entrance{
+				position: relative;
+				top:3px;
+				width: 17px;
+				height: 17px;
+				display: inline-block;
+				background: url(../images/infos.png);
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				-webkit-background–size: cover;
+				-moz-background–size: cover;
+				-o-background–size: cover;
+			}
+		</style>
+	</head>            
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+					<div class="row m-bot15 " style="color: #000; padding: 10px;">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<label class="form-label">&nbsp;&nbsp;日期过滤：</label>
+								<input type="text" class="form-control input-large" name="daterange-start" value="年/月/日" />
+								<label class="form-label">&nbsp;至&nbsp;</label>
+								<input type="text" class="form-control input-large" name="daterange-end" value="年/月/日" />
+								<button type="button" class="btn btn-primary btn-sm" id="entrance-search">
+	                    			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+	                   			</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="ServiceLivingListTable" style="margin-bottom: 0px;">
+							<thead>
+								<tr>
+									<th style="text-align: center; ">机构</th>
+									<th style="text-align: center; ">SAAS端结束订单</th>
+									<th style="text-align: center; ">企业端结束订单</th>
+								</tr>
+							</thead>
+							<tbody id="orderFinishListContent">
+								<tr>
+									<td colspan="6" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row panel-body">
+							<ul class="pagination" id="pagination"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="order-mask-bg"></div>
+		<div id="order-mask">
+			<div class="ball_spin_fade">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<script type="text/html" id="orderFinishListTemplate">
+			{{if finishArray.length > 0}} 
+				{{each finishArray as item i}}
+					<tr>
+						<td><a link="templates/orderFinishDetail.html" orgname='{{item.orgName}}' orgid="{{item.orgId}}" href="javascript:void(0);" class="finish-detail">{{item.orgName}}</a></td>
+						<td>{{item.saas + "（" + (item.sum != 0 ? (item.saas/item.sum*100).toFixed(2) + "%" : "0.00%") + "）"}}</td>
+						<td>{{item.saasAPP + "（" + (item.sum != 0 ? (item.saasAPP/item.sum*100).toFixed(2) + "%" : "0.00%") + "）"}}</td>
+					</tr>
+				{{/each}}
+			{{/if}}
+			{{if finishArray.length <= 0}} 
+				<tr>
+					<td colspan="6" class="text-center">
+						暂无数据...
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+		<script src="../js/app/order_date.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/app/orderFinish.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+	</body>
+
+</html>

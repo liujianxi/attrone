@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+	<style type="text/css">
+		.row {
+			position: relative;
+		}
+
+		.sure-service {
+			position: absolute;
+			top: 50%;
+			right: 100px;
+			transform: translateY(-50%);
+		}
+
+		.sure-service i {
+			color: red;
+			font-weight: bold;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row">
+				<form class="form-inline m-bot15" role="form">
+					<div class="row">
+						<!--<p class="sure-service">当前未确认服务：<i>0</i>条</p>-->
+						<div class="col-lg-12 form-group">
+							<span class="btn btn-success btn-sm export">导出报表</span>
+						</div>
+						<!--<div class="form-group btn-toolbar" style="min-width:1400px;margin-left: -5px;">
+								<label class="handle_title">督导：</label>
+								<div class="btn-group js_div_channels"><button type="button" class="btn icon-angle-left btn-default js-pbc-left" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px;margin: -5px 0 0 -5px;border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(45deg);"></span></button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn js-all-btn select blue" id="-1">全部</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="24">王五</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="35">一发店长</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="1">周慧</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="23">test</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20025">搜索</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20024">34</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="3">二哥2</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20">王玮</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="19">test1111</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="26">张三</button><button type="button" class="btn icon-angle-right btn-default js-pbc-right" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px; margin: -5px 0 0 -5px; border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(-135deg);"></span></button></div>
+							</div>
+							<div class="form-group btn-toolbar" style="min-width:1400px;margin-left: -5px;">
+								<label class="handle_title">科室：</label>
+								<div class="btn-group js_div_channels"><button type="button" class="btn icon-angle-left btn-default js-pbc-left" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px;margin: -5px 0 0 -5px;border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(45deg);"></span></button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn js-all-btn select blue" id="-1">全部</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="24">王五</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="35">一发店长</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="1">周慧</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="23">test</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20025">搜索</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20024">34</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="3">二哥2</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20">王玮</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="19">test1111</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="26">张三</button><button type="button" class="btn icon-angle-right btn-default js-pbc-right" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px; margin: -5px 0 0 -5px; border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(-135deg);"></span></button></div>
+							</div>-->
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="adv-table much-table">
+					<table class="display table table-bordered table-striped dynamic-table">
+						<thead>
+							<tr>
+								<th style="width: 12.33%;">支付时间</th>
+								<th style="width: 12.33%;">合作伙伴</th>
+								<th style="width: 16.33%;">订单号</th>
+								<th style="width: 12.33%;">服务类型</th>
+								<th style="width: 12.33%;">服务名称</th>
+								<th style="width: 12.33%;">护理员</th>
+								<th style="width: 8.33%;">数量</th>
+								<th style="width: 12.33%;">单价</th>
+								<th style="width: 12.33%;">支付金额</th>
+								<th style="width: 12.33%;">订单状态</th>
+								<th style="width: 12.33%;">用户账号</th>
+								<th style="width: 12.33%;">收款人</th>
+							</tr>
+						</thead>
+						<tbody id="homeContent">
+							<tr>
+								<td colspan="12" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="order-mask-bg"></div>
+	<div id="order-mask">
+		<div class="ball_spin_fade">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<script type="text/html" id="homeTemplate">
+		{{if expenditureList.length > 0}} {{each expenditureList as item i}}
+		<tr>
+			<td>{{item.payTimeStr}}</td>
+			<td>{{item.companyName}}</td>
+			<td><a title="订单详情-{{item.fullName}}" class="js-addTab-link" link="templates/orderDetail.html?orderId={{item.orderId}}" href="javascript:void(0);">{{item.orderId}}</a></td>
+			<td>{{item.serviceType}}</td>
+			<td>{{item.serviceItem}}</td>
+			<td>{{item.hgName}}</td>
+			<td>{{item.num}}</td>
+			<td>{{item.priceDesc}}</td>
+			<td>{{item.feeStr}}</td>
+			<td>{{item.orderStatusStr}}</td>
+			<td><a title="用户信息" link="templates/userInfo.html?key={{item.userId}}" class="js-addTab-link" href="javascript:void(0);">{{item.phone}}</a></td>
+			<td>{{item.receiver}}</td>
+		</tr>
+		{{/each}} {{/if}} {{if expenditureList.length
+		<=0 }} <tr>
+			<td colspan="12" class="text-center">
+				暂无数据...
+			</td>
+			</tr>
+			{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script src="../js/app/commonFunc.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function () {
+			//获取url中的参数
+			function getUrlParam(name) {
+				let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				let r = window.location.search.substr(1).match(reg); //匹配目标参数
+				if (r != null) return unescape(r[2]);
+				return null; //返回参数值
+			}
+			//实例化请求帮助类
+			var httpUtilObj = new HttpUtil();
+			var initParam = httpUtilObj.getTabParams();
+			let startDate = initParam.startDate;
+			let endDate = initParam.endDate;
+			let orderType = initParam.orderType;
+			let isAll = initParam.isAll;
+			let type = initParam.type;
+			let data = {
+				startDate: startDate,
+				endDate: endDate,
+				orderType: orderType,
+				isAll: isAll,
+				priceType: type,
+			}
+			data['companyId'] = initParam.companyId;
+			data['orgId'] = initParam.orgId;
+			data['branchId'] = initParam.branchId;
+			httpUtilObj.ajax({
+				url: '/adminjson/SAASExpenditureDetailJG',
+				params: data
+			}).then((res) => {
+				$('#order-mask-bg').css('display', 'none');
+				$('#order-mask').css('display', 'none');
+				refreshList(res.body);
+			})
+			let target = $("div.ttt_item_tit.selected", parent.document);
+			let urlStr = target.attr("data-path");
+			urlStr = urlStr.split('?')[1];
+			let _flag = true;
+			$('.export').off('click').on('click', function () {
+				if (!_flag) {
+					return false;
+				}
+				_flag = false;
+				let _url = 'https://'+window.location.host+'/getExpenditureDetailExcelServlet';
+				location.href = _url + '?' + urlStr;
+				setTimeout(function () {
+					_flag = true;
+				}, 500);
+			})
+			function refreshList(data) {
+				var fundsHtml = template('homeTemplate', data);
+				$("#homeContent").empty().html(fundsHtml);
+				//固定表头的方法--传入固定的table
+				commonFunc.staticTable($('.dynamic-table'));
+			}
+		})
+	</script>
+</body>
+
+</html>

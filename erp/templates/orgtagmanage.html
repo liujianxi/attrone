@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link  href="../css/app.css"/>
+		<style type="text/css">
+			.target-font {
+				font-size: 14px;
+				border: 1px solid;
+				padding: 1px;
+				border-radius: 8px;
+				margin-right: 2px;
+			}
+		</style>
+	</head>
+
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+				<div class="row">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="m-bot15 col-lg-12 form-group">
+								<button type="button" class="btn btn-success btn-sm m-bot15" id="orgOrgTagItemDeal" onclick="orgTagItemModule.addOrgTagItem()"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增标签</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<!-- search form end-->
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="dynamic-table">
+							<thead>
+								<tr>
+									<th>标签</th>
+									<th>创建时间</th>
+									<th>创建人</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="orgTagItemListContent">
+								<tr>
+									<td colspan="5" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<ul class="pagination" id="pagination"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="addOrgTagItem_panel" class="r_panel">
+			<div class="panel-header">
+				<button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+				<h4 id="desc4Add" class="modal-title">新增标签</h4>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<form class="form-horizontal" role="form" name="showOrgForm">
+						<div class="form-group">
+							<label class="col-sm-3 control-label">标签名称 *</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" placeholder="标签名称" id="addOrgTagItem_tagName">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">标签颜色 *</label>
+							<div class="col-sm-7" id="serviceState">
+								<input type="radio" name="add_colorStrRadio" id="colorStr1" value="1"/><label for="colorStr1" style="background-color: #FFC362;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input type="radio" name="add_colorStrRadio" id="colorStr2" value="2"/><label for="colorStr2" style="background-color: #2BD6BD;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input type="radio" name="add_colorStrRadio" id="colorStr3" value="3"/><label for="colorStr3" style="background-color: #FD6565;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input type="radio" name="add_colorStrRadio" id="colorStr4" value="4"/><label for="colorStr4" style="background-color: #333333;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input type="radio" name="add_colorStrRadio" id="colorStr5" value="5"/><label for="colorStr5" style="background-color: #48A0DC;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-8" style="text-align:right;">
+								<button type="button" class="btn btn-default rp_close">取消</button>
+								<button type="button" class="btn btn-success" onclick="orgTagItemModule.saveOrgTagItem()">保存</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div id="showOrgTagItem_panel" class="r_panel">
+			<div class="panel-header">
+				<button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+				<h4 id="desc4Add" class="modal-title">修改标签</h4>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<form class="form-horizontal" role="form" name="showOrgForm">
+						<input type="hidden" name="id" id="showCompanyInfo_id" />
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">标签名称 *</label>
+							<div class="col-sm-5">
+								<input type="text" disabled="disabled" class="form-control" placeholder="标签名称" id="orgTagItem_tagName">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">标签颜色 *</label>
+							<div class="col-sm-7" id="serviceState">
+								<input  disabled="disabled" type="radio" name="colorStrRadio2" id="colorStr11" value="1"/><label for="colorStr11" style="background-color: #FFC362;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input  disabled="disabled" type="radio" name="colorStrRadio2" id="colorStr21" value="2"/><label for="colorStr21" style="background-color: #2BD6BD;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input  disabled="disabled" type="radio" name="colorStrRadio2" id="colorStr31" value="3"/><label for="colorStr31" style="background-color: #FD6565;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input  disabled="disabled" type="radio" name="colorStrRadio2" id="colorStr41" value="4"/><label for="colorStr41" style="background-color: #333333;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+								<input  disabled="disabled" type="radio" name="colorStrRadio2" id="colorStr51" value="5"/><label for="colorStr51" style="background-color: #48A0DC;height: 40%;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-8" style="text-align:right;">
+								<button type="button" class="btn btn-default hidden" id="cancelEditBtn" onclick="orgTagItemModule.cancelEditItem()">取消</button>
+								<button type="button" class="btn btn-success hidden" id="updateItemBTN" onclick="orgTagItemModule.updateOrgTagItem()">保存</button>
+								<button type="button" class="btn btn-success" id="EditItemBTN" onclick="orgTagItemModule.toEditItem()">编辑</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/html" id="orgTagItemListTemplate">
+			{{if tagList.length != 0}} {{each tagList as item i}}
+			<tr>
+				<td>
+					<font class="target-font" color="{{item.colorStr}}">{{item.tagName}}</font>
+				</td>
+				<td>
+					{{item.createTime}}
+				</td>
+				<td>
+					{{item.createStaffName}}
+				</td>
+				<td>
+					<a href="javascript:void(0);" onclick="orgTagItemModule.editItem({{item.id}})">编辑</a>
+					&#124;
+					<a href="javascript:void(0);" onclick="orgTagItemModule.deleteItem({{item.id}})">删除</a>
+				</td>
+			</tr>
+			{{/each}} {{/if}} {{if tagList.length == 0}}
+			<tr>
+				<td colspan="5" class="text-center">
+					数据载入中...
+				</td>
+			</tr>
+			{{/if}}
+		</script>
+
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" defer async="true" src="https://webapi.amap.com/maps?v=1.3&key=76995f30ba8965c259c624c3a3fa5777"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/app/orgtagmanage.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,483 @@
+.end-order .panel-infos{
+	color:red;
+}
+.end-order .content-text ul li{
+	margin-bottom: 40px;
+	position: relative;
+}
+.end-order .li-right{
+	position: absolute;
+	right:50%;
+	top:0;
+	display: flex;
+	display: -webkit-flex;
+	width:200px;
+}
+.end-order .service-item li>p{
+	position: absolute;
+	right:20%;
+	top:0;
+	color:red;
+}
+.end-order .content-text{
+	padding-left:15px;
+}
+.end-order .content-text >div{
+	position: relative;
+	margin-bottom: 30px;
+}
+.end-order .totalfee i{
+	font-size: x-large;
+	color:red;
+}
+.end-order .content-text ul li .li-right i{
+	display: block;
+	text-align: center;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+.end-order .content-text ul li .li-right i:nth-child(1){
+	flex:1;
+	-webkit-flex: 1;
+}
+.end-order .content-text ul li .li-right i:nth-child(1) input{
+	width:100px;
+}
+.end-order .content-text ul li .li-right i:nth-child(2),.end-order .content-text ul li .li-right i:nth-child(3){
+	width:40px;
+	font-size: 24px;
+	color: white;
+    background: #2bd6bd;
+    border-radius: 4px;
+}
+#extraService .content-text ul li .li-right i:nth-child(2),#extraService .content-text ul li .li-right i:nth-child(3){
+	cursor: pointer;
+}
+.end-order .content-text ul li .li-right i:nth-child(2){
+	margin-right:10px;
+}
+.extra_auto_text{
+	display: none;
+	padding-left:15px;
+}
+.extra_auto_text textarea{
+	width: 350px;
+	height:100px;
+}
+#checkTypeBox-endorder-mask{
+	position: absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	width:100%;
+	height:100%;
+	background: rgba(125,125,125,0.5);
+	display: block;
+	z-index: 1033;
+}
+#checkTypeBox-endorder{
+	width:350px;
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+	background: #fff;
+	display: block;
+	z-index: 1034;
+}
+#checkTypeBox-endorder .endorder-header{
+	line-height: 40px;
+    padding-left: 15px;
+    border-bottom: 1px solid #E4E4E4;
+}
+#checkTypeBox-endorder .endorder-content{
+	padding: 10px 10px 10px 40px;
+}
+#checkTypeBox-endorder .endorder-content p{
+	padding: 20px 10px;
+    margin-bottom: 0px;
+}
+#checkTypeBox-endorder .endorder-footer ul{
+	display: -webkit-flex;
+    border-top: 1px solid #E4E4E4;
+    padding: 0;
+    margin: 0;
+}
+#checkTypeBox-endorder .endorder-footer ul li {
+    flex: 1;
+    line-height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
+#checkTypeBox-endorder .endorder-footer ul li:nth-child(1){
+	border-right: 1px solid #E4E4E4;
+}
+#getInCash .panel-center section>p{
+	height: 32px;
+    line-height: 32px;
+    text-align: left;
+    padding-left: 15px;
+    background: #e5e5e5;
+    margin: 0;
+    font-size: 16px;
+}
+#getInCash .panel-center .orderInfos>div ul li.bytype{
+	display: none;
+}
+#getInCash .panel-center .orderInfos>div .getInCash-end-time{
+	display: none;
+}
+.panel-center .orderInfos>div,.panel-center .payInfos>div{
+	padding:15px 15px 40px 15px;
+}
+.panel-center .payInfos.hg-fee>div,.panel-center .payInfos.hgRebate-fee>div{
+	padding-bottom: 0;
+}
+#getInCash .panel-center .orderInfos ul li,#getInCash .panel-center .payInfos ul li,div.setcion-content ul li{
+	padding:5px 0;
+}
+section.whithone-fee{
+	margin-top:30px ;
+}
+.panel-center .hg-extra-fee .afterService{
+	padding-bottom: 0;
+}
+div.setcion-content{
+	padding:15px 15px 40px 35px;
+}
+div.setcion-content ul li{
+	display: flex;
+}
+div.setcion-content ul li span{
+	display: block;
+	width: 40%;
+}
+div.setcion-content .form-inline label{
+	margin-right: 200px;
+	margin-top:0px;
+}
+div.setcion-content .form-inline select{
+	width: 150px;
+}
+.order-red{
+	color: red;
+}
+p.order-red{
+	margin:20px 0;
+}
+div.setcion-content .extra-cash span{
+	font-weight: bold;
+}
+div.setcion-content .extra-cash i{
+	font-weight: bold;
+}
+.feeback-type{
+	padding: 0;
+	width: 150px;
+}
+#getInCash .afterService-order{
+	display: none;
+	margin-top: 20px;
+}
+#getInCash .afterService-order>p{
+	margin-left: 40px;
+}
+#getInCash .afterService-order .return-money{
+	margin-top: 20px;
+    color: red;
+}
+#getInCash .panel-center .payInfos .willService{
+	display: none;
+}
+#getInCash .panel-center .payInfos .willService ul li.allcounts{
+	font-size: 18px;
+	padding-top: 20px;
+}
+#getInCash .panel-center .payInfos .willService ul li.allcounts em{
+	color:red;
+}
+#getInCash .panel-center .payInfos .onService{
+	display: none;
+}
+#getInCash .panel-center .payInfos .onService ul li{
+	display: flex;
+	display: -webkit-flex;
+}
+#getInCash .panel-center .payInfos .onService ul.onService-title li span:nth-child(1){
+	cursor: pointer;
+}
+#getInCash .panel-center .payInfos .onService ul.onService-title li span:nth-child(1) em{
+	margin-left:20px;
+}
+#getInCash .panel-center .payInfos .onService ul li span{
+	flex:1;
+	-webkit-flex:1;
+	position: relative;
+}
+#getInCash .panel-center .payInfos .onService ul li span i{
+	position: absolute;
+	left:0;
+	top:50%;
+	transform: translateY(-50%);
+}
+#getInCash .panel-center .payInfos .onService ul.onService-detail li{
+	cursor: pointer;
+}
+#getInCash .panel-center .payInfos .afterService{
+	display: none;
+}
+#getInCash .panel-center .payInfos .afterService .payfee .payfee-needpay,#getInCash .panel-center .payInfos .afterService .payfee .allcounts,#getInCash .panel-center .payInfos .afterService .payfee .allcounts-left{
+	font-weight: bold;
+}
+#getInCash .afterService-order ul{
+	display: flex;
+	display:-webkit-flex;
+	padding-left: 40px;
+	flex-wrap: wrap;
+}
+#getInCash .afterService-order ul li{
+	width: 25%;
+}
+#getInCash .afterService-order ul li:nth-last-child(1){
+	margin-top: 10px;
+}
+#getInCash .afterService-order ul li.prepay-left span,#getInCash .afterService-order ul li.prepay-left i{
+	position: relative;
+	top:4px;
+}
+#getInCash .afterService-order ul li.afterService-paid span,#getInCash .afterService-order ul li.afterService-paid i{
+	position: relative;
+	top:4px;
+}
+#getInCash .allcounts-left,#getInCash .payfee-needpay{
+	display: none;
+}
+#getInCash .payfee-needpay em i{
+	color: red;
+    font-size: x-large;
+    font-weight: bold;
+}
+#getInCash .panel-center .payInfos .afterService .payfee .payfee-needpay,#getInCash .panel-center .payInfos .afterService .payfee .allcounts-left{
+	display: none;
+}
+.payInfos .afterService .payfee-detail ul li{
+	display: flex;
+	display: -webkit-flex;
+}
+.payInfos .afterService .payfee-detail ul li>span{
+	flex:1;
+	-webkit-flex:1;
+	text-align: center;
+	display: block;
+}
+.adjustDetail .adjust-num{
+	position: relative;
+	padding: 0 50px;
+	text-align: center;
+	width: 60%;
+}
+.adjustDetail .adjust-num i{
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	width:40px;
+	font-size: 24px;
+	color: white;
+    background: #2bd6bd;
+    border-radius: 4px;
+    line-height: 24px;
+}
+.adjustDetail .adjust-num i.cutnum{
+	left: 0;
+}
+.adjustDetail .adjust-num i.addnum{
+	right: 0;
+}
+.adjustDetail .adjust-service{
+	position: relative;
+	width: 30%;
+}
+.adjustDetail .adjust-service span{
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+    display: block;
+    transform: translate(-50%,-50%);
+    padding: 0 5px;
+}
+.adjustDetail li{
+	margin-bottom: 10px;
+}
+.adjustDetail li:nth-last-child(1){
+	margin-bottom: 0;
+}
+.payInfos .afterService .payfee-detail ul.adjustDetail{
+	display: flex;
+	display: -webkit-flex;
+	flex-wrap: wrap;
+}
+.payInfos .afterService .payfee-detail ul.adjustDetail  li{
+	width: 48%;
+}
+.payInfos .afterService .payfee-detail ul.adjustDetail  li>div{
+	display: flex;
+	display: -webkit-flex;
+	width: 100%;
+}
+.hg-adjust-fee i{
+	cursor: pointer;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+.hg-adjust-fee .afterService{
+	padding-left: 0;
+	margin-left: 40px;
+	border-top: 1px solid #ccc;
+}
+.adjustDetail .adjust-num span,.adjustDetail .adjust-num em{
+	display: block;
+}
+.panel-center .payInfos .afterService .payfee-detail ul li span i{
+	display: block;
+}
+.item-box section:nth-last-child(1) .panel-infos.item-infos{
+	border-bottom: 1px solid #ccc;
+}
+.item-box section:nth-last-child(1) .afterService{
+	border-top: 0;
+}
+.item-box{
+	padding-bottom: 0;
+}
+.whithone-adjust-fee i{
+	position: absolute;
+	top: -30px;
+	right: 75px;
+}
+.whithone-adjust-fee{
+	position: relative;
+}
+.whithone-adjust-fee hr{
+	margin: 0;
+}
+.payInfos.whithone-fee .afterService .payfee-detail ul li>span{
+	width: 25%;
+	text-align: center;
+	flex: none;
+}
+.panel-center .payInfos.whithone-fee>div{
+	padding-bottom: 0;
+}
+.panel-infos.item-infos{
+	background: white;
+	margin-left: 40px;
+	border-top: 1px solid #ccc;
+}
+.footer-fee{
+	position: relative;
+}
+.footer-fee .rp_close{
+	margin-left: 200px;
+}
+.footer-fee .hg-prc-totalFee{
+	position: absolute;
+	left: 50px;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.footer-fee .hg-prc-totalFee em{
+	font-size: x-large;
+	color: red;
+}
+#getInCash .panel-center .paytype{
+	display: none;
+}
+#getInCash .panel-center .paytype .needpay{
+	font-size: 20px;
+    color: red;
+    padding: 20px 20px 0 40px;
+}
+/****************************中间支付选择月份***************************/
+ul.month-list{
+	padding: 15px;
+}
+ul.month-title{
+	padding-bottom:0;
+}
+ul.month-title li span:nth-child(1){
+	cursor: pointer;
+}
+ul.month-detail{
+	padding-top:0;
+}
+ul.month-list li{
+	display: flex;
+	display: -webkit-flex;
+	cursor: pointer;
+	padding:10px 0;
+}
+ul.month-title li{
+	cursor: auto;
+}
+ul.month-detail li.paid{
+	cursor: auto;
+	color: #ccc;
+}
+ul.month-list li span{
+	flex:1;
+	-webkit-flex:1;
+	text-align: center;
+	position: relative;
+	display: block;
+}
+ul.month-list li span em{
+	width: 22px;
+	height: 22px;
+	background-image: url('../images/circle.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	-webkit-background–size: cover;
+	-moz-background–size: cover;
+	-o-background–size: cover;
+	position: absolute;
+	left:50%;
+	top:50%;
+	transform: translate(-50%,-50%);
+}
+ul.month-list li.selected span em{
+	background-image: url('../images/float.png');
+}
+.order-basic{
+	margin-left: 15px;
+	margin-right: 40px;
+	font-size: 16px;
+}
+.order-basic i,.order-extra i{
+	color: red;
+}
+.order-extra{
+	margin-right: 40px;
+	font-size: 16px;
+}
+.order-totalfee{
+	font-size: 16px;
+}
+.order-totalfee i{
+	color: red;
+	font-size: x-large;
+    font-weight: bold;
+}
+.payback-type,.pay-record{
+	margin: 20px 0;
+}
+.payback-type select.form-control{
+	padding: 0;
+	width: 150px;
+	margin-left: 40px;
+}

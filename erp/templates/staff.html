@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-select/bootstrap-select.min.css">
+		<link  href="../css/app.css"/>
+	</head>
+
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+				<div class="row">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="m-bot15 col-lg-12 form-group">
+								<button type="button" class="btn btn-success btn-sm m-bot15 js-btn-showAddStaffPanel" onclick="ataffModule.showEditHG('add')">
+		                        	<i class="fa fa-plus"></i>&nbsp;&nbsp;添加员工
+		                        </button>
+		                        <input type="text" class="form-control m-bot15" placeholder="请输入员工姓名/手机号" id="findHgName">
+								<select class="form-control m-bot15" style="width: 200px; height: 32px;" id="search_org">
+									<option value="">请选择项目点</option>
+								</select>
+								<select class="form-control m-bot15" style="width: 150px; height: 32px;" id="hgTypeSel">
+									<option value="">请选择角色</option>
+								</select>
+								<!--<select class="form-control m-bot15" style="width: 150px;" id="search_branch">
+									<option value="">请选择科室</option>
+								</select>-->
+								<button type="button" class="btn btn-primary btn-sm m-bot15" id="searchBut" onclick="ataffModule.loadHGList(true,1);">
+		                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                        </button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<!-- search form end-->
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="dynamic-table">
+							<thead>
+								<tr>
+									<th>姓名</th>
+									<th>手机号</th>
+									<th>工号</th>
+									<th>性别</th>
+									<th>年龄</th>
+									<th>省</th>
+									<th>市</th>
+									<th>项目点</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="hgListContent">
+								<tr>
+									<td colspan="8" class="text-center">
+										暂无数据，点击
+										<a href="javascript:void(0);" onclick="ataffModule.loadHGList(true,1);">刷新数据</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<ul class="pagination" id="pagination"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="showHGInfo_panel" class="r_panel" style="width: 750px;">
+			<div class="panel-header">
+				<button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+		            	<span aria-hidden="true">&times;</span>
+	            </button>
+				<h4 id="descHFour">新增员工</h4>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12">
+							<form class="form-inline" role="form">
+								<div class="col-lg-4 control-group">
+									<div class="row">
+										个人照片:<br /><img id="showHGInfo_pic_img" src="" style="width:100px;height: 120px;" />	
+										<input type="file" class="form-control-static"  onchange="ataffModule.ajaxFileUpload('showHGInfo_', 'pic','showHGInfo_picFile')"  id="showHGInfo_picFile" name="file" />
+										<input type="hidden" id="showHGInfo_pic" />
+									</div>
+									<hr />
+									<div class="row" id="">
+										身份证正面照:<input type="file" class="form-control-static" onchange="ataffModule.ajaxFileUpload('showHGInfo_', 'idcardpic','showHGInfo_idcardpicFile')" id="showHGInfo_idcardpicFile" name="file" />
+													<input type="hidden" id="showHGInfo_idcardpic" />
+													<input type="hidden" id="showHGInfo_idcardExpiredDate" />
+													<input type="hidden" id="showHGInfo_birthday" />
+									</div>
+									<hr />
+									<div class="row">
+										身份证反面照:<input type="file" class="form-control-static" onchange="ataffModule.ajaxFileUpload('showHGInfo_', 'idcardpic2','showHGInfo_idcardpic2File')" id="showHGInfo_idcardpic2File" name="file" />
+										<input type="hidden" id="showHGInfo_idcardpic2" />
+									</div>
+									<hr />
+									<div class="row">
+										手持身份证照:<input type="file" class="form-control-static" onchange="ataffModule.ajaxFileUpload('showHGInfo_', 'idcardpic3','showHGInfo_idcardpic3File')"   id="showHGInfo_idcardpic3File" name="file" />
+										<input type="hidden" id="showHGInfo_idcardpic3" />
+									</div>
+									<hr />
+									<div class="row">
+										健康证:<input type="file" class="form-control-static" onchange="ataffModule.ajaxFileUpload('showHGInfo_', 'healthCertificate','showHGInfo_healthCertificateFile')"   id="showHGInfo_healthCertificateFile" name="file" />
+										<input type="hidden" id="showHGInfo_healthCertificate" />
+									</div>
+									<hr />
+									<div class="row">
+										护理证:<input type="file" class="form-control-static"  id="showHGInfo_nursingCertificateFile" onchange="ataffModule.ajaxFileUpload('showHGInfo_', 'nursingCertificate','showHGInfo_nursingCertificateFile')"  name="file" />
+										<input type="hidden" id="showHGInfo_nursingCertificate" />
+									</div>
+									<hr />
+								</div>
+								<div class="col-lg-8">
+									<div class="panel-body">
+							            <div class="container-fluid">
+							                <form class="form-horizontal" role="form" name="showHGForm">
+							                    <input type="hidden" name=lng id="showHGInfo_lng" />
+							                    <input type="hidden" name="lat" id="showHGInfo_lat" />
+							                    <input type="hidden" name="adcode"  id="showHGInfo_adcode" />
+							                    <input type="hidden" name="provinceID"  id="showHGInfo_provinceID"/>
+							                    <input type="hidden" name="cityID"  id="showHGInfo_cityID"/>
+							                    <input type="hidden" name="district"  id="showHGInfo_district"/>
+							                    <input type="hidden" name="district"  id="showHGInfo_province"/>
+							                    <input type="hidden" name="district"  id="showHGInfo_city"/>
+							                    <input type="hidden" name="district"  id="showHGInfo_county"/>
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">工号:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入员工工号, 选填" name="showHGInfo_hgno" id="showHGInfo_hgno">
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">姓名:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入姓名" name="showHGInfo_fullName" id="showHGInfo_fullName">
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">员工类型:</label>
+							                        <div class="col-sm-8">
+								                       <select class="form-control m-bot15" id="showHGInfo_hgType" onchange="ataffModule.changeRoleDiv()">
+								                       	<!--	<option value="1" selected>护工</option>-->
+								                       		<option value="3" selected>督导</option>
+								                       		<option value="4">副主任</option>
+								                       		<option value="5">主任</option>
+								                       		<option value="6">质检</option>
+								                       		<option value="7">质检主任</option>
+								                       		<option value="8">运营</option>
+								                       		<option value="9">客服</option>
+								                       		<option value="10">健康经理</option>
+								                        </select>
+								                    </div>
+							                    </div>
+							                    
+							                     <div class="control-group">
+							                    	<label class="col-sm-4 control-label">通晓语言:</label>
+							                        <div class="col-sm-8">
+								                      	 <input type="checkbox" class="form-control" placeholder="请输入通晓语言, 按','隔开" name="showHGInfo_language" value="粤语" id="showHGInfo_language1" />
+														<label for="showHGInfo_language1">粤语</label>
+														<input type="checkbox" class="form-control" placeholder="请输入通晓语言, 按','隔开" name="showHGInfo_language" value="普通话" id="showHGInfo_language2" />
+														<label for="showHGInfo_language2">普通话</label>
+														<input type="checkbox" class="form-control" placeholder="请输入通晓语言, 按','隔开" name="showHGInfo_language" value="客家话" id="showHGInfo_language3" />
+														<label for="showHGInfo_language3">客家</label>
+														<input type="checkbox" class="form-control" placeholder="请输入通晓语言, 按','隔开" name="showHGInfo_language" value="潮汕话" id="showHGInfo_language4" />
+														<label for="showHGInfo_language4">潮汕</label>
+								                    </div>
+							                    </div>
+							                     <!--<div class="control-group" id="showHGInfo_workTypeBranchRoomSel">
+							                    	<label class="col-sm-4 control-label m-bot15">科室病房:</label>
+							                        <div  class="col-sm-8">
+							                        	<button type="button" class="btn btn-success btn-sm m-bot15" onclick="ataffModule.addHBRelation()">
+		                        							关联科室
+		                        						</button>
+								                    </div>
+							                    </div>-->
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">入行时间:</label>
+							                        <div class="col-sm-8">
+								                       <input type="text" class="form-control dpd1 m-bot15" name="showHGInfo_careerStartTime" id="showHGInfo_careerStartTime">
+								                    </div>
+							                    </div>
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">入职时间:</label>
+							                        <div class="col-sm-8">
+								                       <input type="text" class="form-control dpd1 m-bot15" name="showHGInfo_joinTime" id="showHGInfo_joinTime">
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">性别 :</label>
+							                        <div class="col-sm-8">
+								                       <label class="radio-inline">
+	                               							<input type="radio" name="showHGInfo_sex" value="1">男
+	                         						    </label>
+														<label class="radio-inline">
+                             								<input type="radio" name="showHGInfo_sex" value="2">女
+	                           							</label>
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">民族:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入民族" name="showHGInfo_nation" id="showHGInfo_nation">
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">籍贯: </label>
+							                        <div class="col-sm-8">
+							                        	<select class="form-control m-bot15" id="showHGInfo_proSelct">
+							                        		<option value="">省份</option>			
+								                        </select>
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">身份证:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入身份证号" name="showHGInfo_idcard" id="showHGInfo_idcard">
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">居住地址:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入居住地址" name="showHGInfo_building" id="showHGInfo_building">
+								                    </div>
+							                    </div>
+							                    
+							                    <input type="hidden" name="showHGInfo_address" id="showHGInfo_address">
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">手机号:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入手机号码" name="showHGInfo_phone" id="showHGInfo_phone">
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">紧急联系人:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入紧急联系人" name="showHGInfo_emergencyContact" id="showHGInfo_emergencyContact">
+								                    </div>
+							                    </div>
+							                    <div class="control-group">
+							                    	<label class="col-sm-4 control-label">紧急联系电话:</label>
+							                        <div class="col-sm-8">
+								                        <input type="text" class="form-control m-bot15" placeholder="请输入紧急联系人电话" name="showHGInfo_emergencyContactPhone" id="showHGInfo_emergencyContactPhone">
+								                    </div>
+							                    </div>
+							                    
+							                    <div class="control-group text-right">
+							                        <button type="button" id="cancelBtn" class="btn btn-default rp_close">取消</button>
+							                        <button type="button" class="btn btn-default hidden" onclick="ataffModule.cancelHGEdit()" id="cancelHGBtn">取消</button>
+							                        <button type="button" class="btn btn-success modal_save" onclick="ataffModule.saveHGItem()" id="saveHGBtn">保存</button>
+							                        <button type="button" class="btn btn-success hidden" onclick="ataffModule.editHGItem()" id="editHGBtn">编辑</button>
+							                    </div>
+							                </form>
+							            </div>
+							        </div>						
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		 <!-- 右侧弹出panel -->
+		    <div id="addHBRelation_panel" class="r_panel" style="width: 450px;">
+		        <div class="panel-header">
+		            <button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+		            	<span aria-hidden="true">&times;</span>
+		            </button>
+		            <h4 class="modal-title">关联科室</h4>
+		        </div>
+		        <div class="panel-body">
+		            <div class="container-fluid">
+		                <form class="form-horizontal" role="form">
+　　　　　　　　　　　　　　 <div class="form-group">
+                           <label class="col-sm-3 control-label">选择科室：</label>
+                            <div class="col-sm-9">
+                                <select id="branchListSelectContent" class="selectpicker show-tick form-control" multiple data-live-search="true"></select>
+                            </div>
+                          </div>
+                          <hr />
+                          <div class="form-group">
+		                        <div class="col-sm-8 text-left">
+ 									<button type="button" class="btn btn-success rp_close">确定</button>
+			                      <!--  <button type="button" class="btn btn-success modal_save" id="saveCBRelationBTN" onclick="branchModule.saveCBRelation()">确定</button>-->
+		                        </div>
+		                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>		
+		   
+
+		<!-- 科室下拉框 -->
+		<script type="text/html" id="branchSelctTemplate">
+			{{each branchList as item i}}
+				<option value="{{item.id}}">{{item.branchName}}</option>
+			{{/each}}
+		</script>
+
+		<script type="text/html" id="hgListTemplate">
+			{{if staffList.length > 0}} {{each staffList as item i}}
+			<tr>
+				<td>{{item.fullName}}</td>
+				<td>{{item.phone}}</td>
+				<td>
+					{{if item.hgno != undefined && item.hgno != ''}}
+						{{item.hgno}}
+					{{else}}
+						<font color="darkgray">未设置</font>
+					{{/if}}
+				</td>
+				<td>{{item.sex | hgFilter : 'SEX_MAP' }}</td>
+				<td>{{item.age}}</td>
+				<td>{{item.province}}</td>
+				<td>{{item.city}}</td>
+				<td>
+					{{item.orgName}}
+				</td>
+				<td>
+					<a href="javascript:void(0);" onclick="ataffModule.showEditHG('edit', '{{item.id}}','{{item.fullName}}')">查看</a>
+					&#124;
+					<a href="javascript:void(0);" onclick="ataffModule.delHGItem('{{item.id}}')">删除</a>&#124;
+					<a href="javascript:void(0);" class = "js-btn-WX-url" wxType= "staff"  hgId = '{{item.id}}'">二维码</a>
+				</td>
+			</tr>
+			{{/each}} {{/if}} {{if staffList.length == 0}}
+			<tr>
+				<td colspan="8" class="text-center">
+					暂无数据，点击
+					<a href="javascript:void(0);" onclick="ataffModule.loadHGList(true,1);">刷新数据</a>
+				</td>
+			</tr>
+			{{/if}}
+		</script>
+		
+		<!-- 角色下拉框模板 -->
+		<script type="text/html" id="roleSelctTemplate">
+			<option value="">请选择角色</option>
+			{{if roleList.length > 0}} 
+				{{each roleList as item i}}
+					<option value="{{item.roleId}}">{{item.roleName}}</option>
+				{{/each}}
+			{{/if}}
+		</script>
+		
+		<!-- 机构下拉框 -->
+		<script type="text/html" id="orgSelctTemplate">
+			{{if orgList.length > 0}}
+			{{if orgList.length > 1}}
+			<option value="">请选择项目点</option>
+			{{/if}}
+			{{each orgList as item i}}
+			<option value="{{item.id}}">{{item.orgName}}</option>
+			{{/each}} {{/if}} {{if orgList.length == 0}}
+			<option value="">无项目点</option>
+			{{/if}}
+		</script>
+		<!-- 科室下拉框 -->
+		<script type="text/html" id="branchSelctTemplate">
+			{{if branchList.length > 0}} {{each branchList as item i}}
+			<option value="{{item.id}}">{{item.branchName}}</option>
+			{{/each}} {{/if}} {{if branchList.length == 0}}
+			<option value="">无科室</option>
+			{{/if}}
+		</script>
+		<!-- 省/市/县下拉框模板 -->
+		<script type="text/html" id="selctTemplate">
+			{{each list as item i}}
+			<option value="{{item.name}}">{{item.name}}</option>
+			{{/each}}
+		</script>
+		<script type="text/html" id="hgTypeSelTemplate">
+			{{each list as item i}}
+			<option value="{{item.id}}">{{item.name}}</option>
+			{{/each}}
+		</script>
+
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" defer async="true" src="https://webapi.amap.com/maps?v=1.3&key=76995f30ba8965c259c624c3a3fa5777"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+		<script type="text/javascript" src="../js/app/staff.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.js"></script>
+		<script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script src="../js/bootstrap-select/bootstrap-select.js"></script>
+		<script src="../js/bootstrap-select/i18n/defaults-zh_CN.min.js"></script>
+	</body>
+
+</html>

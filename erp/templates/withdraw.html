@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css"/>
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet"/>
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	    <link rel="stylesheet" type="text/css" href="../css/bootstrap-datetimepicker.min.css" media="screen">
+    	<link  href="../css/app.css"/>
+	    <style type="text/css">
+	    .bar {
+		    height: 18px;
+		    background: green;
+		}
+		</style>
+	</head>
+	<body style="background-color: white;">
+		<div class="container-fluid">
+	        <div class="panel-body">
+	        	<div class="row">
+		        	<form class="form-inline m-bot15" role="form">
+		        		<div class="row">
+		                    <div class=" col-lg-12 form-group">
+		                    	<label class="form-label">&nbsp;&nbsp;状态：</label>
+		                  		<select class="form-control"  style="width: 250px;height: 33px; " id="status">
+		                            <option value="0">待处理</option>
+		                            <option value="1">已处理</option>
+		                            <option value="2">待财务处理</option>
+		                            <option value="-1">全部</option>
+		                    </select>
+		                    	<label class="form-label">&nbsp;&nbsp;提现申请时间：</label>
+								<input type="text" class="form-control input-large" style="width: 280px;" name="daterange-winthdraw-apply" value="请选择日期"/>
+								<input type="hidden" id="winthdraw-apply-regBeginTime">
+								<input type="hidden" id="winthdraw-apply-regEndTime">
+								<label class="form-label">&nbsp;&nbsp;处理时间：</label>
+								<input type="text" class="form-control input-large" style="width: 280px;" name="daterange-winthdraw-dispose" value="请选择日期"/>
+								<input type="hidden" id="winthdraw-dispose-regBeginTime">
+								<input type="hidden" id="winthdraw-dispose-regEndTime">
+								<input type="text" class="form-control" placeholder="请输入用户名、手机号" id="winthdraw-input" style="width: 260px;">
+		                        <button type="button" class="btn btn-primary btn-sm " onclick="WithdrawModule.loadWithdrawList(true,1);">
+		                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                        </button>
+		                    </div>
+		        		</div>
+					</form>
+				</div>	
+				<div class="row">
+		        	<div class="adv-table">
+		        		<table  class="display table table-bordered table-striped" id="dynamic-table">
+		        			<thead>
+		        				<tr>
+			        				<th>用户名</th>
+			        				<th>手机号</th>
+			        				<th>提现金额</th>
+			        				<th>实名</th>
+			        				<th>银行卡号</th>
+			        				<th>开户支行</th>
+			        				<th>申请提现时间</th>
+			        				<th>处理时间</th>
+			        				<th>状态</th>
+			        				<th class="text-center">操作</th>
+			        				<th class="text-center">操作人</th>
+		        				</tr>
+		        			</thead>
+		        			<tbody id="withdrawListContent">
+		        				<tr>
+		        					<td colspan="11" class="text-center">
+		        						数据载入中...
+		        					</td>
+		        				</tr>
+		        			</tbody>
+		        		</table>
+						<ul class="pagination" id="pagination"></ul>
+		        	</div>
+	        	</div>
+	        </div>
+		</div>	
+		
+		<!-- 右侧弹出panel -->
+	    <div id="orderPay_panel" class="r_panel" style="width: 750px;">
+	        <div class="panel-header">
+	            <button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            	<input type="hidden" id="recordId" value="" name="recordId">
+	            </button>
+	            <h4 class="modal-title">提现处理（金额：<span id="fee" style="color:red"></span>）</h4>
+	        </div>
+	        <div class="panel-body">
+	            <div class="container-fluid">
+	                <div class="row">
+			        	<div class="adv-table">
+			        		<table  class="display table table-bordered table-striped" id="dynamic-table">
+			        			<thead>
+			        				<tr>
+				        				<th></th>
+				        				<th>提现金额</th>
+				        				<th>可退金额</th>
+				        				<th>pay_id</th>
+				        				<th>支付时间</th>
+				        				<th>支付方式</th>
+			        				</tr>
+			        			</thead>
+			        			<tbody id="userOrderPay">
+			        				<tr>
+			        					<td colspan="8" class="text-center">
+			        						数据载入中...
+			        					</td>
+			        				</tr>
+			        			</tbody>
+			        		</table>
+							<ul class="pagination" id="paginationrp"></ul>
+			        	</div>
+	        		</div>
+	        		<div class="form-group">
+                        <div class="col-sm-8" style="text-align:right;">
+	                        <button type="button" class="btn btn-default rp_close">取消</button>
+	                        <button type="button" class="btn btn-success modal_save" id="withdrawed" onclick="WithdrawModule.withdrawed()">确认提现</button>
+                        </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>			
+			
+		<!-- 机构列表模板  -->
+		<script type="text/html" id="withdrawListTemplate">
+			{{if withdrawList.length > 0}}
+				{{each withdrawList as item i}}
+				<tr>
+					<td>{{item.userName}}</td>
+					<td>{{item.phone}}</td>
+					<td>{{item.feeStr}}</td>
+					<td>{{item.realName}}</td>
+					<td>{{item.cardNO}}</td>
+					<td>{{item.bankBranch}}</td>
+					<td>{{item.createTime}}</td>
+					<td>{{item.acceptTime}}</td>
+					<td>{{item.status == 0 ? "待处理" : item.status == 1 ? "已处理" : "待财务处理"}}</td>
+					<td class="text-center">
+						{{if item.status == 0}}
+							<a href="javascript:void(0);" onclick="WithdrawModule.loadUserOrderPay({{item.userId}}, {{item.id}}, '{{item.feeStr}}')">处理</a>
+						{{/if}}
+					</td>
+					<td>{{if item.updateStaffName!=undefined}}{{item.updateStaffName}}{{/if}}</td>
+				</tr>
+				{{/each}}
+			{{/if}}
+			{{if withdrawList.length == 0}}
+				<tr>
+					<td colspan="11" class="text-center">
+						暂无数据，点击<a href="javascript:void(0);" onclick="WithdrawModule.loadWithdrawList(true,1);">刷新数据</a>
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+			
+		<!-- 机构列表模板  -->
+		<script type="text/html" id="orderPayListTemplate">
+			{{if payList.length > 0}}
+				{{each payList as item i}}
+				<tr>
+					<td class="with-input">
+						{{if item.refundFee == undefined || item.refundFee < item.fee}}
+							<input type="checkbox" name="payId" value="{{item.payId}}">
+						{{/if}}
+					</td>
+					<td>
+						{{if item.refundFee == undefined || item.refundFee < item.fee}}
+							<input type="text" name="refundFee" class="refundFee">
+						{{/if}}
+					</td>
+					<td>{{item.canRefundFee}}</td>
+					<td>{{item.transactionId}}</td>
+					<td>{{item.payStartTime}}</td>
+					<td>{{item.payTypes}}</td>
+				</tr>
+				{{/each}}
+			{{/if}}
+		</script>
+		
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script type="text/javascript" src="../js/locales/bootstrap-datetimepicker.zh-CN.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="../js/app/withdraw.js?891"></script>
+	</body>	
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link href="../js/bootstrap-editable/bootstrap-editable.css"  rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+		<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+		<link  href="../css/app.css" rel="stylesheet" />
+		<link href="../js/bootstrap-editable/bootstrap-editable.css"  rel="stylesheet" />
+		<style type="text/css">
+			.pop-entrance{
+				position: relative;
+				top:3px;
+				width: 17px;
+				height: 17px;
+				display: inline-block;
+				background: url(../images/infos.png);
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+				-webkit-background–size: cover;
+				-moz-background–size: cover;
+				-o-background–size: cover;
+			}
+			.extra-filter{
+			    position: absolute;
+			    right: 40px;
+			    top: 50%;
+			    transform: translateY(-50%);
+				margin: 0; 
+			}
+			.extra-filter i{
+				color: red;
+			}
+		</style>
+	</head>            
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+					<div class="row m-bot15 " style="color: #000; padding: 10px;">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<label class="form-label">&nbsp;&nbsp;状态过滤：</label>
+								<select name="" class="form-control extra-status" style="padding-top: 0; padding-bottom: 0;">
+									<option value="-2">全部</option>
+									<option value="0">使用中</option>
+									<option value="1">已归还</option>
+									<option value="3">已作废</option>
+									<option value="4">已解绑</option>
+									<option value="-1">已删除</option>
+								</select>
+								<label class="form-label">&nbsp;&nbsp;机构过滤：&nbsp;&nbsp;</label>
+								<select class="form-control org_hos" style="padding-top: 0; padding-bottom: 0;"></select>
+								<select class="form-control org_branch" style="padding-top: 0; padding-bottom: 0;"></select>
+								<label class="form-label">&nbsp;&nbsp;</label>
+								<input class="form-control extra-input" type="text" placeholder="请输入门禁卡号/自编号"/>
+								<button type="button" class="btn btn-primary btn-sm" id="extra-search">
+	                    			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+	                   			</button>
+	                   			<p class="extra-filter">当前筛选卡数：<i>0</i> 张</p>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<form class="form-inline m-bot15" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<input type="file" name="importUpload" id="importUpload" multiple="multiple"  style="display: none;"/>
+								<span class="btn btn-success btn-sm extra-add">添加门禁卡</span>
+								<span class="btn btn-success btn-sm extra-import">批量导入</span>
+								<a class="downTemp btn btn-success btn-sm a-button" download>模板下载</a>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="ServiceLivingListTable" style="margin-bottom: 0px;">
+							<thead>
+								<tr>
+									<th>机构</th>
+									<th>科室</th>
+									<th>门禁卡编号</th>
+									<th>门禁卡自编号</th>
+									<th>门禁卡状态</th>
+									<th>创建时间</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="extraListContent">
+								<tr>
+									<td colspan="7" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row panel-body">
+							<ul class="pagination" id="pagination"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="order-mask-bg"></div>
+		<div id="order-mask">
+			<div class="ball_spin_fade">
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<script type="text/html" id="extraListTemplate">
+			{{if extraList.length > 0}} {{each extraList as item i}}
+				<tr>
+					<td>{{item.orgName}}</td>
+					<td>{{item.branchName}}</td>
+					<td>{{item.extraNO}}</td>
+					<td>{{item.serialNumber}}</td>
+					<td>{{item.statusStr}}</td>
+					<td>{{item.createTimeStr}}</td>
+					{{if item.status==1}}
+					<td><a id="{{item.id}}" href="javascript:void(0);" class="del-extra">删除</a></td>
+					{{else}}
+					<td></td>
+					{{/if}}
+				</tr>
+				{{/each}} {{/if}} {{if extraList.length == 0}}
+				<tr>
+					<td colspan="7" class="text-center">
+						暂无数据
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+		
+
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script src="../js/app/rp/rpModal.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+		<script src="../js/app/order_date.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/app/extramanage.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+	</body>
+
+</html>

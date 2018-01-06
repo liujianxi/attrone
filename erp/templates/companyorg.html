@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link  href="../css/app.css"/>
+	</head>
+
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+				<div class="row">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="m-bot15 col-lg-12 form-group">
+								<button type="button" class="btn btn-success btn-sm m-bot15 yjyView"
+				                    		onclick="orgModule.toLink()">
+				                        	<i class="fa fa-plus"></i>添加关联
+		                        </button>
+		                        <select class="form-control m-bot15 yjyView"  style="width: 150px;height:33px" id="companySelect" onchange="orgModule.reloadOrgList('companyChange')">
+		                            <option value="">请选择公司</option>
+		                        </select>
+								<input type="text" class="form-control m-bot15" placeholder="请输入项目点名进行搜索" id="findOrgName">
+								
+								<!--<select class="form-control m-bot15"  style="width: 150px;" id="proSelct" onchange="orgModule.selctChange('pro',this)">
+		                            <option value="">请选择省份</option>
+		                        </select>
+		                        <select class="form-control m-bot15"  style="width: 150px;" id="citySelct" onchange="orgModule.selctChange('city',this)">
+		                            <option value="">请选择城市</option>
+		                        </select>
+		                        <select class="form-control m-bot15"  style="width: 150px;" id="distrctSelct" onchange="orgModule.selctChange('distrct',this)">
+		                            <option value="">请选择区/县</option>
+		                        </select>-->
+								<button type="button" class="btn btn-primary btn-sm m-bot15" onclick="orgModule.loadOrgList(true,1);">
+		                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                        </button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="dynamic-table">
+							<thead>
+								<tr>
+									<th>名称</th>
+									<th>类型</th>
+									<th>等级</th>
+									<th>省</th>
+									<th>市</th>
+									<th>区</th>
+									<th>主任</th>
+									<th>主任电话</th>
+									<th>详细地址</th>
+									<th>科室数</th>
+									<th class="text-center">操作</th>
+								</tr>
+							</thead>
+							<tbody id="orgListContent">
+								<tr>
+									<td colspan="11" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row panel-body">
+							<ul class="pagination" id="pagination"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 右侧弹出panel -->
+		<div id="linkCO" class="r_panel">
+			<div class="panel-header">
+				<button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+		            	<span aria-hidden="true">&times;</span>
+	            </button>
+				<h4 class="modal-title">新增关联</h4>
+			</div>
+
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<form class="form-horizontal" role="form" name="addCOForm">
+							<div class="form-group">
+								<label class="col-sm-5 control-label">机构所在省份</label>
+								<div class="col-sm-7">
+									<select class="form-control" id="addCompany_proSelct" onchange="orgModule.selctChange('addCompany_pro',this)" style="height:33px">
+										<option value="">请选择省份</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-sm-5 control-label">机构所在城市</label>
+								<div class="col-sm-7">
+									<select class="form-control" id="addCompany_citySelct" onchange="orgModule.selctChange('addCompany_city',this)" style="height:33px">
+										<option value="">请选择城市</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-5 control-label">选择机构 *</label>
+								<div class="col-sm-7">
+									<select class="form-control" id="addCO_ORGListHtml" style="height:33px">
+										<option value="">请选择机构</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="col-sm-12" style="text-align:right;">
+									<button type="button" class="btn btn-default rp_close">取消</button>
+									<button type="button" class="btn btn-success modal_save" onclick="orgModule.addCO()" id="saveLinkCO">保存关联</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- 右侧弹出panel -->
+
+		<!-- 右侧弹出panel -->
+		<div id="addOrg_panel" class="r_panel">
+			<div class="panel-header">
+				<button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+				<h4 class="modal-title">新增机构</h4>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<form class="form-horizontal" role="form" name="addOrgForm">
+						<input type="hidden" id="addOrg_lng" />
+						<input type="hidden" id="addOrg_lat" />
+						<input type="hidden" id="addOrg_adcode" />
+						<input type="hidden" id="addOrg_provinceID" />
+						<input type="hidden" id="addOrg_cityID" />
+						<input type="hidden" id="addOrg_district" />
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">机构名称 *</label>
+							<div class="col-sm-5">
+								<div class="iconic-input">
+									<i class="fa fa-home"></i>
+									<input type="text" class="form-control" placeholder="请输入机构或项目点完整名称" name="addOrg_name" id="addOrg_name">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">所在地点 *</label>
+							<div class="col-sm-5">
+								<div class="iconic-input">
+									<i class="fa fa-map-marker"></i>
+									<input type="text" class="form-control" placeholder="请输入机构所在地点" name="addOrg_building" id="addOrg_building">
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">机构类型 *</label>
+							<div class="col-sm-7">
+								<label class="radio-inline">
+	                                <input type="radio" name="addOrg_type" value="1" checked="checked">医院
+	                            </label>
+								<label class="radio-inline">
+	                                <input type="radio" name="addOrg_type" value="2" >养老院
+	                            </label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">详细类型 *</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="addOrg_detailedType"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">机构等级 *</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="addOrg_level"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">经营方式 *</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="addOrg_operateMode"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">详细地址 *</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" name="addOrg_address" id="addOrg_address" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">联系电话*</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" placeholder="请输入机构的联系电话" name="addOrg_telephone" id="addOrg_telephone" required>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">机构官网</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" placeholder="输入机构官网地址" id="addOrg_offcialWebSite">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-sm-8" style="text-align:right;">
+								<button type="button" class="btn btn-default rp_close">取消</button>
+								<button type="button" class="btn btn-success modal_save" id="addOrgBtn">保存</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- 右侧弹出panel -->
+		<div id="showOrg_panel" class="r_panel" style="width: 676px;">
+			<div class="panel-header">
+				<button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+				<h4 class="modal-title">项目点信息</h4>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<form class="form-horizontal" role="form" name="showOrgForm">
+						<input type="hidden" id="showOrg_lng" />
+						<input type="hidden" id="showOrg_lat" />
+						<input type="hidden" id="showOrg_adcode" />
+						<input type="hidden" id="showOrg_provinceID" />
+						<input type="hidden" id="showOrg_cityID" />
+						<input type="hidden" id="showOrg_district" />
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">机构名称 *</label>
+							<div class="col-sm-5">
+								<div class="iconic-input">
+									<i class="fa fa-home"></i>
+									<input type="text" class="form-control" placeholder="请输入机构或项目点完整名称" id="showOrg_name" disabled="disabled">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">机构类型 *</label>
+							<div class="col-sm-7">
+								<label class="radio-inline">
+	                                <input type="radio" id="showOrg_type_1" name="showOrg_type" value="1" disabled="disabled">医院
+	                            </label>
+								<label class="radio-inline">
+	                                <input type="radio" id="showOrg_type_2" name="showOrg_type" value="2" disabled="disabled">养老院
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" id="showOrg_type_0" name="showOrg_type" value="0" disabled="disabled">其他
+	                            </label>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">详细类型 *</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="showOrg_detailedType" style="height: inherit;" disabled="disabled"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">机构等级 *</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="showOrg_level" style="height: inherit;" disabled="disabled"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">经营方式 *</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="showOrg_operateMode" style="height: inherit;"  disabled="disabled"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">详细地址 *</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" required id="showOrg_address" disabled="disabled" widget>
+							</div>
+						</div>
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-sm-3 control-label">联系电话*</label> -->
+<!-- 							<div class="col-sm-5"> -->
+<!-- 								<input type="text" class="form-control" placeholder="请输入机构的联系电话" required id="showOrg_telephone" disabled="disabled" widget> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+<!-- 						<div class="form-group"> -->
+<!-- 							<label class="col-sm-3 control-label">机构官网</label> -->
+<!-- 							<div class="col-sm-5"> -->
+<!-- 								<input type="text" class="form-control" placeholder="输入机构官网地址" id="showOrg_offcialWebSite" disabled="disabled" widget> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">客服电话*</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" placeholder="请输入机构的客服电话" required id="showOrg_kfPhone" disabled="disabled" widget>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">项目点主任</label>
+							<div class="col-sm-5">
+								<select class="form-control" id="showOrg_chairman" style="height: inherit;" disabled="disabled"></select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">是否在客户端显示*</label>
+							<div class="col-sm-7" id = "showOrgMeasurementConfig">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" id="showOrgMeasurementConfig_0" name="showOrg_measurementConfig" value="0" disabled="disabled">显示
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="showOrgMeasurementConfig_1" name="showOrg_measurementConfig" value="1" disabled="disabled">不显示
+	                            </label>
+							</div>
+						</div>
+
+						<!--<div class="form-group">
+							<label class="col-sm-3 control-label">变更服务后收费配置*</label>
+							<div class="col-sm-7" id = "showOrgchang">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" id="showOrg_change_1" name="showOrg_change" value="1" disabled="disabled">变更后当天费用各收一半
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="showOrg_change_2" name="showOrg_change" value="2" disabled="disabled">变更后当天费用收变更后服务费用
+	                            </label>
+	                            <label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="showOrg_change_3" name="showOrg_change" value="3" disabled="disabled">超时收费
+	                            </label>
+							</div>
+						</div>-->
+
+						<div class="form-group">
+							<label class="col-sm-3 control-label">督导是否可以收费*</label>
+							<div class="col-sm-7" id = "showOrg_dudaochargeDiv">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" id="showOrg_dudaocharge_2" name="showOrg_dudaocharge" value="2" disabled="disabled">可以
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="showOrg_dudaocharge_1" name="showOrg_dudaocharge" value="1" disabled="disabled">不可以
+	                            </label>
+							</div>
+						</div>
+
+						<!--<div class="form-group">
+							<label class="col-sm-3 control-label">最后一天收费标准*</label>
+							<div class="col-sm-7" id = "showOrg_lastDayFee">
+								<label class="radio-inline" style="display: block;color: red;">
+	                                <input type="radio" id="showOrg_lastDayFee_1" name="showOrg_lastDayFee" value="1" disabled="disabled">超时收费<i class="popover-rel" data-container="body" data-content="最后一天超时12小时内收半天费用，超时12小时以上收全天费用，例：用户6点开启服务，出院当天7点结束服务为超时1小时，19点结束服务为超时13小时。" data-toggle="popover" data-placement="top"></i>
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;color: red;">
+	                                <input type="radio" id="showOrg_lastDayFee_2" name="showOrg_lastDayFee" value="2" disabled="disabled">自然天收费<i class="popover-rel" data-container="body" data-content="最后一天12点以前结束服务不收取费用，12点至17点收半天费用，17点后收取全天费用。该种结算方式不受开始服务当天的时间影响。" data-toggle="popover" data-placement="top"></i>
+	                            </label>
+							</div>
+						</div>-->
+						<div class="form-group">
+							<label class="col-sm-10 control-label" style="text-align: left;">结束计费规则+变更当天计费规则*</label>
+							<label class="col-sm-3 control-label"></label>
+							<div class="col-sm-7" id = "showOrg_FeeRule">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" id="showOrg_FeeRule_1" name="showOrg_FeeRule" lastDayFeeConfig="1" value="1" changeServiceConfig="3" disabled="disabled">超时收费+超时收费
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="showOrg_FeeRule_2" name="showOrg_FeeRule" lastDayFeeConfig="2" value="2" changeServiceConfig="4" disabled="disabled">自然天收费+变更当天手动选择
+	                            </label>
+	                            <label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="showOrg_FeeRule_3" name="showOrg_FeeRule" lastDayFeeConfig="3" value="3" changeServiceConfig="4" disabled="disabled">收头不收尾+变更当天手动选择
+	                            </label>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-8" style="text-align:right;">
+								<button type="button" class="btn btn-success" id="panelChangeBtn" onclick="orgEditModule.changePanel()">编辑</button>
+								<button type="button" class="btn btn-success modal_save hidden" id="editOrgBtn" onclick="orgEditModule.editOrgItem()">保存</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div id="showTagList_panel" class="r_panel">
+			<div class="panel-header">
+				<button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+		            	<span aria-hidden="true">&times;</span>
+	            </button>
+				<h4 id="descHFourTag">标签列表</h4>
+				<br />
+				<button type="button" class="btn btn-success btn-sm m-bot15" id="orgPriceDeal" onclick="orgModule.addTagItem()"><i class="fa fa-plus"></i>&nbsp;&nbsp;新增标签</button>
+			</div>
+			<div class="panel-body">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-lg-12">
+							<form class="form-inline" role="form">
+								<div class="adv-table">
+									<table class="display table table-bordered table-striped" id="dynamic-table">
+										<thead>
+											<tr>
+												<th style="width: 15%;">顺序</th>
+												<th>服务标签</th>
+												<th class="text-center">操作</th>
+											</tr>
+										</thead>
+										<tbody id="tagListContent">
+											<tr id="tagTR1" class="hidden">
+												<td style="width: 10%;" class="tagOrderTD">
+													<input disabled="disabled" value="1" class="form-control" type="text" style="width: 100%;">
+												</td>
+												<td class="tagNameTD">
+													<select class="form-control" id="colorSel1" class="colorSel" disabled="disabled" style="height:34px"></select>
+												</td>
+												<!--<td style="width: 30%;" class="tagCompanyNameTD"></td>-->
+												<td  class="text-center OPERATETD">
+													<input type="hidden" class="tagId"  disabled="disabled" id="tag_id1">
+													<a href="javascript:void(0);" class="tagHrefShow" onclick="orgModule.editTagItem(this)">编辑</a>
+													<zz class="tagHrefShow">&#124;</zz>
+													<a class="tagHrefShow" href="javascript:void(0);" onclick="orgModule.delTagItem(this)">删除</a>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.cancelEditTag(this)">取消</a>
+													<zz class="tagHrefEdit hidden">&#124;</zz>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.saveTagItem(this)">保存</a>
+												</td>
+											</tr>
+											<tr id="tagTR2" class="hidden">
+												<td style="width: 10%;" class="tagOrderTD">
+													<input  disabled="disabled" value="2" class="form-control" type="text" style="width: 100%;">
+												</td>
+												<td class="tagNameTD">
+													<select class="form-control" id="colorSel2" class="colorSel" disabled="disabled" style="height:34px"></select>
+												</td>
+												<!--<td style="width: 30%;" class="tagCompanyNameTD"></td>-->
+												<td class="text-center OPERATETD">
+													<input type="hidden" class="tagId"  disabled="disabled" id="tag_id2">
+													<a href="javascript:void(0);" class="tagHrefShow" onclick="orgModule.editTagItem(this)">编辑</a>
+													<zz class="tagHrefShow">&#124;</zz>
+													<a class="tagHrefShow" href="javascript:void(0);" onclick="orgModule.delTagItem(this)">删除</a>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.cancelEditTag(this)">取消</a>
+													<zz class="tagHrefEdit hidden">&#124;</zz>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.saveTagItem(this)">保存</a>
+												</td>
+											</tr>
+											<tr id="tagTR3" class="hidden">
+												<td style="width: 10%;" class="tagOrderTD">
+													<input disabled="disabled" value="3" class="form-control" type="text" style="width: 100%;">
+												</td>
+												<td class="tagNameTD">
+													<select class="form-control" id="colorSel3" class="colorSel" disabled="disabled"></select>
+												</td>
+												<!--<td style="width: 30%;" class="tagCompanyNameTD"></td>-->
+												<td class="text-center OPERATETD">
+													<input type="hidden" class="tagId"  disabled="disabled" id="tag_id3">
+													<a href="javascript:void(0);" class="tagHrefShow" onclick="orgModule.editTagItem(this)">编辑</a>
+													<zz class="tagHrefShow">&#124;</zz>
+													<a class="tagHrefShow" href="javascript:void(0);" onclick="orgModule.delTagItem(this)">删除</a>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.cancelEditTag(this)">取消</a>
+													<zz class="tagHrefEdit hidden">&#124;</zz>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.saveTagItem(this)">保存</a>
+												</td>
+											</tr>
+											<tr id="tagTR4" class="hidden">
+												<td style="width: 10%;" class="tagOrderTD">
+													<input disabled="disabled" value="4" class="form-control" type="text" style="width: 100%;">
+												</td>
+												<td class="tagNameTD">
+													<select class="form-control" id="colorSel4" class="colorSel" disabled="disabled"></select>
+												</td>
+												<!--<td style="width: 30%;" class="tagCompanyNameTD"></td>-->
+												<td  class="text-center OPERATETD">
+													<input type="hidden" class="tagId" disabled="disabled" id="tag_id4">
+													<a href="javascript:void(0);" class="tagHrefShow" onclick="orgModule.editTagItem(this)">编辑</a>
+													<zz class="tagHrefShow">&#124;</zz>
+													<a class="tagHrefShow" href="javascript:void(0);" onclick="orgModule.delTagItem(this)">删除</a>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.cancelEditTag(this)">取消</a>
+													<zz class="tagHrefEdit hidden">&#124;</zz>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.saveTagItem(this)">保存</a>
+												</td>
+											</tr>
+											<tr id="tagTR5" class="hidden">
+												<td style="width: 10%;" class="tagOrderTD">
+													<input disabled="disabled" value="5" class="form-control" type="text" style="width: 100%;">
+												</td>
+												<td class="tagNameTD">
+													<select class="form-control" id="colorSel5" class="colorSel" disabled="disabled"></select>
+												</td>
+												<!--<td style="width: 30%;" class="tagCompanyNameTD"></td>-->
+												<td class="text-center OPERATETD">
+													<input type="hidden" class="tagId"  disabled="disabled" id="tag_id5">
+													<a href="javascript:void(0);" class="tagHrefShow" onclick="orgModule.editTagItem(this)">编辑</a>
+													<zz class="tagHrefShow">&#124;</zz>
+													<a class="tagHrefShow" href="javascript:void(0);" onclick="orgModule.delTagItem(this)">删除</a>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.cancelEditTag(this)">取消</a>
+													<zz class="tagHrefEdit hidden">&#124;</zz>
+													<a class="tagHrefEdit hidden" href="javascript:void(0);" onclick="orgModule.saveTagItem(this)">保存</a>
+												</td>
+											</tr>
+											<tr id="hintTRZZ">
+												<td class="text-center" colspan="5">暂无数据...</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+					<hr />
+					<div class="row">
+						<h4 id="descHFourServiceNum">服务人数</h4>
+					</div>
+					<hr />
+					<div class="row">
+						<div class="col-lg-12">
+							<label class="col-sm-2 control-label">服务人数</label>
+							<div class="col-sm-4">
+								<input type="text" class="form-control" placeholder="请输入该机构的服务人数" required id="orgConfig_serviceNum" disabled="disabled">
+							</div>
+							<button type="button" class="btn btn-default hidden" id="cancelEditServiceNumBTN" onclick="orgEditModule.cancelEditServiceNum()">取消</button>
+							<button type="button" class="btn btn-success" id="editServiceNumBTN" onclick="orgEditModule.editServiceNum()">编辑</button>
+							<button type="button" class="btn btn-success hidden" id="saveServiceNumBTN" onclick="orgEditModule.saveServiceNum()">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script type="text/html" id="colorSelTemplate">
+			{{each tagList as item i}}
+				<option value="{{item.id}}">{{item.tagName}}</option>
+			{{/each}}
+		</script>
+		
+		<script type="text/html" id="hgSelTemplate">
+			<option value="">请选择项目点主任</option>
+			{{each hgList as item i}}
+			<option value="{{item.id}}">{{item.fullName}}</option>
+			{{/each}}
+		</script>
+		<script type="text/html" id="companySelTemplate">
+			{{each companyList as item i}}
+				<option value="{{item.id}}">{{item.companyName}}</option>
+			{{/each}}
+		</script>
+
+		<!-- 机构列表模板  -->
+		<script type="text/html" id="orgListTemplate">
+			{{if orgList.length > 0}} {{each orgList as item i}}
+			<tr>
+				<td>{{item.orgName}}</td>
+				<td>{{item.orgType | orgFilter : 'ORG_TYPE'}}</td>
+				<td>{{item.orgLevel | orgFilter : 'ORG_LEVEL_LIST'}}</td>
+				<td>{{item.province}}</td>
+				<td>{{item.city}}</td>
+				<td>{{item.district}}</td>
+				<td>
+					{{if item.chairmanName == ''}} <font color="darkgray">待设置</font> {{/if}} {{if item.chairmanName != undefined}} {{item.chairmanName}} {{/if}}
+				</td>
+				<td>
+					{{if item.chairmanPhone == ''}} <font color="darkgray">待设置</font> {{/if}} {{if item.chairmanPhone != undefined}} {{item.chairmanPhone}} {{/if}}
+				</td>
+				<td>{{item.building}}{{item.address}}</td>
+				<td>
+					<a href="javascript:void(0);" onclick="orgModule.goBranch('{{item.id}}','{{item.orgName}}')">
+						{{if item.branchCount == undefined}}0{{/if}} {{if item.branchCount != undefined}}{{item.branchCount}}{{/if}}个
+					</a>
+				</td>
+				<td  class="text-center">
+					<a href="javascript:void(0);" class="modifyTD" onclick="orgModule.showEditOrg('{{item.id}}')">查看</a>
+					<a href="javascript:void(0);" class="deleteCOTD" onclick="orgModule.setTag('{{item.id}}','{{item.orgName}}')">查看</a>
+					<zz class="deleteCOTD" >&#124;</zz>
+					<a href="javascript:void(0);" class="deleteCOTD" onclick="orgModule.delCO('{{item.id}}')">删除</a>
+					<zz class="deleteCOTD" >&#124;</zz>
+					<a href="javascript:void(0);" class = "js-btn-WX-url" wxType= "companyOrg"  companyOrgId = '{{item.companyOrgId}}'">二维码</a>
+				</td>
+			</tr>
+			{{/each}} {{/if}} {{if orgList.length == 0}}
+			<tr>
+				<td colspan="11" class="text-center">
+					暂无数据，点击
+					<a href="javascript:void(0);" onclick="orgModule.loadOrgList(true,1);">刷新数据</a>
+				</td>
+			</tr>
+			{{/if}}
+		</script>
+		<!-- 省/市/县下拉框模板 -->
+		<script type="text/html" id="selctTemplate">
+			{{each list as item i}}
+			<option value="{{item.id}}">{{item.name}}</option>
+			{{/each}}
+		</script>
+		<script type="text/html" id="orgSelctTemplate">
+		{{if orgList.length > 0}}
+			{{each orgList as item i}}
+				<option value="{{item.id}}">{{item.orgName}}</option>
+			{{/each}}
+		{{/if}}
+		{{if orgList.length == 0}}
+			<option>该地区下暂无机构可选</option>
+		{{/if}}
+		</script>
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" defer async="true" src="https://webapi.amap.com/maps?v=1.3&key=76995f30ba8965c259c624c3a3fa5777"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/app/companyorg.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+	<style type="text/css">
+		.row {
+			position: relative;
+		}
+
+		.sure-service {
+			position: absolute;
+			top: 50%;
+			right: 100px;
+			transform: translateY(-50%);
+		}
+
+		.sure-service i {
+			color: red;
+			font-weight: bold;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row">
+				<div class="adv-table">
+					<table class="display table table-bordered table-striped" id="dynamic-table">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>机构</th>
+								<th>评价总数</th>
+								<th>平均分数</th>
+								<th>5分</th>
+								<th>4分</th>
+								<th>3分</th>
+								<th>2分</th>
+								<th>1分</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody id="commentContent">
+							<tr>
+								<td colspan="10" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="order-mask-bg"></div>
+	<div id="order-mask">
+		<div class="ball_spin_fade">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<script type="text/html" id="commentTemplate">
+		{{if praiseList.length > 0}} {{each praiseList as item i}}
+		<tr>
+			<td>{{i+1}}</td>
+			<td>{{item.orgName}}</td>
+			<td>{{item.praiseCount}}条</td>
+			<td>{{item.averagePraiseScore}}</td>
+			<td>{{item.fiveNumber}}条</td>
+			<td>{{item.fourNumber}}条</td>
+			<td>{{item.threeNumber}}条</td>
+			<td>{{item.twoNumber}}条</td>
+			<td>{{item.oneNumber}}条</td>
+			<td><a orgid="{{item.orgId}}" title="科室评价" class="enterBranch" link="templates/branch_comment.html" href="javascript:void(0);">进入</a></td>
+		</tr>
+		{{/each}} {{/if}} {{if praiseList.length
+		<=0 }} <tr>
+			<td colspan="10" class="text-center">
+				暂无数据...
+			</td>
+			</tr>
+			{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script>
+		$(function () {
+			//获取url中的参数
+			function getUrlParam(name) {
+				let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				let r = window.location.search.substr(1).match(reg); //匹配目标参数
+				if (r != null) return unescape(r[2]);
+				return null; //返回参数值
+			}
+			//实例化请求帮助类
+			var httpUtilObj = new HttpUtil();
+			var initParam = httpUtilObj.getTabParams();
+			let data={
+				orgId:initParam.orgId,
+				branchId:initParam.branchId,
+			};
+			httpUtilObj.ajax({
+				url: '/adminjson/SAASGetPraiseOrgList',
+				params: data
+			}).then((res) => {
+				$('#order-mask-bg').css('display', 'none');
+				$('#order-mask').css('display', 'none');
+				refreshList(res.body);
+			});
+			function refreshList(data) {
+				var fundsHtml = template('commentTemplate', data);
+				$("#commentContent").empty().html(fundsHtml);
+				orgBind();
+			}
+			function orgBind(){
+				//进入科室评价
+				$('.enterBranch').off('click').on('click',function(){
+					let title=$(this).attr('title');
+					let order_link=$(this).attr('link');
+					let params = {
+						orgId:$(this).attr('orgid'),
+					};
+		    		top.tm.addTab(title,order_link,params);
+				})
+			}
+		})
+	</script>
+</body>
+
+</html>

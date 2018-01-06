@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html ng-app="changePwdModule" ng-controller="changePwdCtrl">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link  href="../css/app.css"/>
+		<style type="text/css">
+			.error{color: #DE5130;}
+		</style>
+	</head>
+	<body>
+		<section class="panel">
+			<header class="panel-heading" ng-bind="title"></header>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form" name="changePwdForm" novalidate="novalidate" >
+					<div class="form-group">
+						<label for="inputEmail1" class="col-lg-2 col-sm-2 control-label">原密码 *</label>
+						<div class="col-lg-4">
+							<input type="password" class="form-control" placeholder="请输入原密码" 
+								name="o_pwd" 
+								required ng-model="orginPwd">
+							<label class="error" ng-show="changePwdForm.o_pwd.$dirty && changePwdForm.o_pwd.$invalid">原密码不能为空</label>	
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">新密码 *</label>
+						<div class="col-lg-4">
+							<input type="password" class="form-control" placeholder="请输入新密码"
+								id="n_pwd" name="n_pwd" 
+								ng-model="newPwd" ng-maxlength="8" ng-minlength="6" required>
+							<span ng-show="changePwdForm.n_pwd.$dirty && changePwdForm.n_pwd.$invalid">
+								<label class="error" ng-show="changePwdForm.n_pwd.$error.required">新密码不能为空.</label>
+								<label class="error" ng-show="changePwdForm.n_pwd.$error.maxlength || changePwdForm.n_pwd.$invalid.minlength">合法密码长度为6-8位.</label>
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword1" class="col-lg-2 col-sm-2 control-label">确认密码 *</label>
+						<div class="col-lg-4">
+							<input type="password" class="form-control" placeholder="请重新输入新密码" 
+								id="cn_pwd" name="cn_pwd" 
+								ng-model="confirmPwd" ng-minlength="6" ng-maxlength="8" required>
+							<span ng-show="changePwdForm.cn_pwd.$dirty && changePwdForm.cn_pwd.$invalid">
+								<label class="error" ng-show="changePwdForm.cn_pwd.$error.required">确认新密码不能为空.</label>
+	                        	<label class="error" ng-show="changePwdForm.cn_pwd.$error.maxlength || changePwdForm.cn_pwd.$invalid.minlength">新密码长度6-8位.</label>
+							</span>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-lg-offset-2 col-lg-10">
+							<button type="button" class="btn btn-primary" ng-disabled="changePwdForm.$invalid" ng-click="changePwd()">确认</button>
+							<button type="reset" class="btn btn-info">重置</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</section>
+
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/angular.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/md5.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toastUtil.js"></script>
+		<script type="text/javascript" src="../js/app/changePwd.js"></script>
+	</body>
+</html>

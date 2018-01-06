@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link rel="shortcut icon" href="#" type="image/png">
+    <link rel="icon" type="image/x-icon" href="https://s.1-1dr.com/static/official/img/1_1_favicon.ico">
+    <title>护理易后台管理系统</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/addorder.css"/>
+    <link href="js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="js/plugins/html5shiv.js"></script>
+    <script src="js/plugins/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<section class="main-content">
+		<form class="form-horizontal">
+		  	<div class="form-group">
+		    	<span class="col-sm-2 control-span">手机号<i class="form-required">*</i></span>
+		   		<div class="col-sm-10">
+			      <input type="text" class="succ_input phone form-control" placeholder="请输入手机号">
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <span class="col-sm-2 control-span">用户名</span>
+			    <div class="col-sm-10">
+			      <input type="text" class="username succ_input form-control" placeholder="请输入用户名">
+			    </div>
+			</div>
+		  	<div class="form-group">
+		    	<span class="col-sm-2 control-span">被服务人姓名<i class="form-required">*</i></span>
+		   		<div class="col-sm-10">
+			      <input type="text" class="kinsname succ_input form-control" placeholder="请输入被服务人姓名">
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <span class="col-sm-2 control-span">被服务人身份证号</span>
+			    <div class="col-sm-10">
+			      <input type="text" class="idcard succ_input form-control" placeholder="请输入被服务人身份证号">
+			    </div>
+			</div>
+		  	<div class="form-group">
+		    	<span class="col-sm-2 control-span">社保类型</span>
+		   		<div class="col-sm-10">
+			      	<select class="medical-type">
+						<option value="0">请选择</option>
+						<option value="1">广州市职工医保</option>
+						<option value="2">城镇医保</option>
+						<option value="3">工费医疗</option>
+						<option value="4">新农合医保</option>
+						<option value="5">其它类型</option>
+				  	</select>
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <span class="col-sm-2 control-span">地址<i class="form-required">*</i></span>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control succ_input" id="addUser_building" placeholder="请输入地址">
+			    </div>
+			</div>
+		  	<div class="form-group">
+		    	<span class="col-sm-2 control-span">详细地址<i class="form-required">*</i></span>
+		   		<div class="col-sm-10">
+			      <input type="text" class="addrdetail succ_input form-control" placeholder="请输入详细地址">
+			    </div>
+		  	</div>
+		  	<div class="form-group">
+			    <span class="col-sm-2 control-span">开始时间<i class="form-required">*</i></span>
+			    <div class="col-sm-10">
+			      <input type="text" class="daterange-add-order form-control" name="daterange-add-order" placeholder="请输入下单时间">
+			    </div>
+			</div>
+			<div class="form-group">
+		    	<span class="col-sm-2 control-span">健康经理<i class="form-required">*</i></span>
+		   		<div class="col-sm-10">
+			      	<select class="health-manage"></select>
+			    </div>
+		  	</div>
+			<div class="form-group">
+		    	<span class="col-sm-2 control-span">居家护工<i class="form-required">*</i></span>
+		   		<div class="col-sm-10">
+			      	<select class="home-hg"><option value="">请选择</option></select>
+			    </div>
+		  	</div>
+			<div class="form-group securityAssess">
+		    	<span class="col-sm-2 control-span">安全风险评估</span>
+		   		<div class="col-sm-10">
+			      	<textarea></textarea>
+			    </div>
+		  	</div>
+			<div class="form-group">
+		    	<span class="col-sm-2 control-span">选择服务类型<i class="form-required">*</i></span>
+		   		<div class="col-sm-10">
+			      	<select class="serviceType">
+						<option value="101">居家照护</option>
+						<option value="102">家庭护士</option>
+						<option value="103">康复护理</option>
+						<option value="104">中医理疗</option>
+						<option value="105">金牌月嫂</option>
+						<option value="106">就医陪护</option>
+						<option value="107">心理慰藉</option>
+						<option value="108">产后修复</option>
+						<option value="109">育婴幼教</option>
+						<option value="110">临终关怀</option>
+					</select>
+			    </div>
+		 	</div>
+		 	<div class="form-group">
+		    	<span class="col-sm-2 control-span">服务项<i class="form-required">*</i></span>
+		   		<div class="col-sm-10">
+			      	<ul class="service-item"></ul>
+			    </div>
+		  	</div>
+			<div class="form-group">
+			    <div class="makesure-box col-sm-offset-2 col-sm-10">
+			      <p class="makesure btn btn-success">确认</p>
+			    </div>
+			</div>
+		</form>
+		<input type="hidden" class="succ_input" name=lng id="addUser_lng" />
+		<input type="hidden" class="succ_input" name="lat" id="addUser_lat" />
+		<input type="hidden" class="succ_input" name="adcode" id="addUser_adcode" />
+		<input type="hidden" class="succ_input" name="provinceID" id="addUser_provinceID" />
+		<input type="hidden" class="succ_input" name="cityID" id="addUser_cityID" />
+		<input type="hidden" class="succ_input" name="district" id="addUser_district" />
+		<input type="hidden" class="succ_input" name="district" id="addUser_address" />
+	</section>
+	<script type="text/javascript" src="js/plugins/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/app/common/httpUtil.js"></script>
+	<script src="js/plugins/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript" src="js/app/common/toast.js"></script>
+	<script type="text/javascript" src="js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.3&key=76995f30ba8965c259c624c3a3fa5777"></script>
+	<script src="js/app/common/tools.js"></script>
+	<script>
+		$(function(){
+			G_Util.initMapUtil('addUser_');
+			$('.daterange-add-order').val(theDay());
+			$.fn.datetimepicker.dates['zh'] = {  
+	            days:       ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六","星期日"],  
+	            daysShort:  ["日", "一", "二", "三", "四", "五", "六","日"],  
+	            daysMin:    ["日", "一", "二", "三", "四", "五", "六","日"],  
+	            months:     ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月","十二月"],  
+	            monthsShort:  ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"],  
+	            meridiem:    ["上午", "下午"],  
+	            //suffix:      ["st", "nd", "rd", "th"],  
+	            today:       "今天"  
+	        }; 
+			$('.daterange-add-order').datetimepicker({
+				language:'zh',
+				todayBtn:  1,
+				startView: 2,
+				minView: 0,
+			});
+			//获取健康经理
+			getHealthManage().then((res)=>{
+				let list=res.body.hsList;
+				if(!list.length){
+					return false;
+				}
+				let selectNode=$('.health-manage');
+				selectNode.empty();
+				list.forEach(function(item,index){
+					let optionNode=$('<option value='+item.hgId+'>'+item.hgName+'</option>');
+					selectNode.append(optionNode);
+				})
+				getHgList();
+			});
+			$('.health-manage').off('change').on('change',getHgList)
+			//获取服务列表
+			getService();
+			$('.serviceType').off('change').on('change',getService);
+			$('.service-item').off('click','li').on('click','li',function(){
+				for(let i=0;i<$('.service-item li').length;i++){
+					$('.service-item li').eq(i).removeClass('selected');
+				}
+				$(this).addClass('selected');
+			})
+			//提交
+			//防重复点击
+			let order_flag=false;
+			$('.makesure').off('click').on('click',function(){
+				let order_phone,order_username,order_kinsname,order_idcard,order_medicareType,order_building,order_addrdetail;
+				let order_lat,order_lng,order_adcode,order_securityAssess,order_priceId,order_hgId,order_manageId,order_createTime;
+				let httpUtilObj = new HttpUtil();
+				//电话号码
+				order_phone=$('.phone').val();
+				let pattern = /^1[34578]\d{9}$/;
+				if(!pattern.test(order_phone)){
+					Toast.error('请输入正确的电话号码');
+					return false;
+				}
+				//请输入用户名
+				order_username=$('.username').val();
+//				if(order_username==''){
+//					Toast.error('请输入用户名');
+//					return false;
+//				}
+				//请输入被服务人姓名
+				order_kinsname=$('.kinsname').val();
+				if(order_kinsname==''){
+					Toast.error('请输入被服务人姓名');
+					return false;
+				};
+				//身份证号
+				order_idcard=$('.idcard').val();
+				let pattern_idcard = /^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X|x)$/;
+//				if(!pattern_idcard.test(order_idcard)){
+//					Toast.error('请输入正确的身份证号');
+//					return false;
+//				};
+				//医保类型
+				order_medicareType=$('.medical-type option:selected').val();
+				//地址
+				order_building=$('#addUser_building').val();
+				order_addrdetail=$('.addrdetail').val();
+				order_lat=$('#addUser_lat').val();
+				order_lng=$('#addUser_lng').val();
+				order_adcode=$('#addUser_adcode').val();
+				if(order_building==''){
+					Toast.error('请输入地址');
+					return false;
+				}
+				if(order_addrdetail==''){
+					Toast.error('请输入详细地址');
+					return false;
+				}
+				order_createTime=$('.daterange-add-order').val();
+				order_manageId=$('.health-manage option:selected').val();
+				order_hgId=$('.home-hg option:selected').val();
+				if(order_hgId==''||order_hgId==undefined){
+					Toast.error('请选择居家护工');
+					return false;
+				}
+				order_securityAssess=$('.securityAssess textarea').val();
+				let service_flag=false;
+				for(let i=0;i<$('.service-item li').length;i++){
+					if($('.service-item li').eq(i).hasClass('selected')){
+						service_flag=true;
+						break;
+					}
+				}
+				if(!service_flag){
+					Toast.error('请选择服务项');
+					return false;
+				}
+				order_priceId=$('.service-item li.selected').attr('priceid');
+				let data = {
+					phone:order_phone,
+					userName:order_username,
+					kinsName:order_kinsname,
+					idcard:order_idcard,
+					medicareType:order_medicareType,
+					building:order_building,
+					addrDetail:order_addrdetail,
+					lat:order_lat,
+					lng:order_lng,
+					adcode:order_adcode,
+					securityAssess:order_securityAssess,
+					priceId:order_priceId,
+					hgId:order_hgId,
+					managerId:order_manageId,
+					createTime:order_createTime,
+				};
+				console.log(data);
+				if(order_flag){
+					return false;
+				}
+				order_flag=true;
+				httpUtilObj.ajax({
+					url: '/adminjson/SAASAdditionalOrder ',
+					params: data
+				}).then((res)=>{
+					order_flag=false;
+					$('.succ_input').val('');
+					$('.daterange-add-order').val(theDay());
+					$('.securityAssess textarea').val('');
+					for(let i=0;i<$('.service-item li').length;i++){
+						$('.service-item li').eq(i).removeClass('selected');
+					}
+					$('.health-manage option:nth-child(1)').prop('selected','selected');
+					$('.serviceType option:nth-child(1)').prop('selected','selected');
+					$('.medical-type option:nth-child(1)').prop('selected','selected');
+					getHgList();//护工
+					getService();//服务
+					Toast.success('操作成功！');
+				})
+			})
+			function getService(){
+				let serviceValue = $('.serviceType option:selected').val();
+				let httpUtilObj = new HttpUtil();
+				let data = {
+					st: serviceValue
+				}
+				httpUtilObj.ajax({
+					url: '/adminjson/SAASGetInsurePrice ',
+					params: data
+				}).then((res)=>{
+					let priceList=res.body.price;
+					let ulNode=$('.service-item');
+					ulNode.empty();
+					if(!priceList){
+						return false;
+					}
+					priceList.forEach(function(item,index){
+						let service_1 = $('<li priceid="' + item.price.priceId +'"><em></em><span>' + item.price.serviceItem + '<i>' + item.price.priceStr + '</i></span></li>');
+						ulNode.append(service_1);
+					})
+				})
+			}
+			//获取护工列表
+			function getHgList(){
+				let str=$('.health-manage option:selected').val();
+				let httpUtilObj = new HttpUtil();
+				let data={
+					managerId:str,
+				}
+				httpUtilObj.ajax({
+					url: '/adminjson/SAASGetServeHGList',
+					params: data
+				}).then((res)=>{
+					let selectNode=$('.home-hg');
+					let hgList=res.body.hgList;
+					selectNode.empty();
+					if(!hgList.length){
+						let optionNode=$('<option value="">请选择</option>');
+						selectNode.append(optionNode);
+						return false;
+					}
+					hgList.forEach(function(item,index){
+						let optionNode=$('<option value='+item.hgId+'>'+item.hgName+'</option>');
+						selectNode.append(optionNode);
+					});
+				})
+			}
+		})
+		function getHealthManage(){
+			var dtd=$.Deferred();
+			let httpUtilObj = new HttpUtil();
+			let data={
+				staffType:10003,
+			}
+			httpUtilObj.ajax({
+				url: '/adminjson/SAASGetInsureHushiList',
+				params: data
+			}).then((res)=>{
+				dtd.resolve(res);
+				return dtd.promise();
+			})
+			return dtd.promise();
+		}
+		function theDay(){
+			let str=new Date();
+			let t_year=str.getFullYear();
+			let t_month=str.getMonth()+1>9?str.getMonth()+1:'0'+(str.getMonth()+1);
+			let t_day=str.getDate()>9?str.getDate():'0'+str.getDate();
+			let t_getHours=str.getHours()>9?str.getHours():'0'+str.getHours();
+			let t_getMinutes=str.getMinutes()>9?str.getMinutes():'0'+str.getMinutes();
+			return t_year+'-'+t_month+'-'+t_day+' '+t_getHours+':'+t_getMinutes;
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css"/>
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet"/>
+	    <link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+    	<link  href="../css/app.css"/>
+	    <style type="text/css">
+	    .bar {
+		    height: 18px;
+		    background: green;
+		}
+		</style>
+	</head>
+	<body style="background-color: white;">
+		<div class="container-fluid" id="winthdrawForm">
+	        <div class="panel-body">
+	        	<div class="row">
+		        	<form class="form-inline" role="form">
+		        		<div class="row">
+		                    <div class="m-bot15 col-lg-12 form-group">
+		                    	<button type="button" class="btn btn-success btn-sm m-bot15"
+		                    		id="batchDownload">
+		                        	<i class="fa fa-plus"></i>&nbsp;&nbsp;批量下载
+		                        </button>
+		                        <input type="text" class="form-control" placeholder="请输入文件名" id="fileName" style="width: 224px;margin-bottom: 15px;">
+		                        <label class="form-label" style="margin-bottom: 15px;">&nbsp;&nbsp;导出时间：</label>
+								<input type="text" class="form-control input-large" style="width: 200px;margin-bottom: 15px;" name="daterange-widthdraw-form" value="请选择日期"/>
+								<input type="hidden" id="startTime">
+								<input type="hidden" id="endTime">
+		                        <button type="button" class="btn btn-primary btn-sm m-bot15" onclick="withdrawFormModule.loadFormList(true,1);">
+		                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                        </button>
+		                    </div>
+		        		</div>
+					</form>
+				</div>	
+				<div class="row">
+		        	<div class="adv-table">
+		        		<table  class="display table table-bordered table-striped" id="dynamic-table">
+		        			<thead>
+		        				<tr>
+			        				<th></th>
+			        				<th>文件名</th>
+			        				<th>格式</th>
+			        				<th>筛选条件</th>
+			        				<th>导出时间</th>
+			        				<th>导出人</th>
+			        				<th>大小</th>
+			        				<th class="text-center">操作</th>
+		        				</tr>
+		        			</thead>
+		        			<tbody id="formListContent">
+		        				<tr>
+		        					<td colspan="8" class="text-center">
+		        						数据载入中...
+		        					</td>
+		        				</tr>
+		        			</tbody>
+		        		</table>
+						<ul class="pagination" id="pagination"></ul>
+		        	</div>
+	        	</div>
+	        </div>
+		</div>	
+			
+		<!-- 机构列表模板  -->
+		<script type="text/html" id="formWithdrawListTemplate">
+			{{if recordList.length > 0}}
+				{{each recordList as item i}}
+				<tr>
+					<td class="with-input"><input type="checkbox" name="filePath" value="{{item.filePath}}"></td>
+					<td>{{item.fileName}}</td>
+					<td>{{item.fileType == 0 ? 'excel' : ''}}</td>
+					<td>{{item.condition}}</td>
+					<td>{{item.createTime}}</td>
+					<td>{{item.createStaffName}}</td>
+					<td>{{item.fileSize}}Kb</td>
+					<td class="text-center">
+						<a href="{{item.filePath}}" download>下载</a>
+					</td>
+				</tr>
+				{{/each}}
+			{{/if}}
+			{{if recordList.length == 0}}
+				<tr>
+					<td colspan="9" class="text-center">
+						暂无数据，点击<a href="javascript:void(0);" onclick="withdrawFormModule.loadFormList(true,1);">刷新数据</a>
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+		
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="../js/app/withdrawForm.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	</body>	
+</html>

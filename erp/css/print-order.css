@@ -1,0 +1,10 @@
+#print-section .print-branch{
+	position: relative;
+}
+#print-section .print-branch em{
+	margin-left: 10px;
+	position: absolute;
+	top: 0;left: 50%;
+	transform: translateX(-50%);
+	font-size: 40px;
+}

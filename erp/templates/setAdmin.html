@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+		<link href="../css/app.css" rel="stylesheet" />
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/app/setAdmin.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	</head>
+
+	<body style="background-color: white;">
+		<div class="safety-right panel panel-default">
+			<div class="setting-panel-body">
+				<form class="form-horizontal">
+					<!-- ngIf: changePhoneNumber.step==1 -->
+					<div>
+						<div class=" c_action_content" style="margin-top: 15px;">换绑主管理账号，需要验证当前主管理账号的身份</div>
+						<div class="form-group">
+							<label for="newPhoneNumber" class="text-left col-sm-3 control-label ng-binding">当前绑定账号:</label>
+							<div class="col-sm-3">
+								<span style="line-height:34px" class="ng-binding" id="adminName">管理员</span>
+							</div>
+						</div>
+						<div input-name="'手机号'" is-run="false" submit-type="changePhoneNumber.oldType" class="ng-isolate-scope">
+							<div class="form-group">
+								<label for="newPhoneNumber" class="col-sm-3 control-label ng-binding" id="adminPhoneLabel">手机号<span class="form-required"> * </span>:</label>
+								<div class="col-sm-3">
+									<input type="hidden" id="companyIdInput" />
+									<input type="text" id="adminPhone" class="form-control ng-pristine ng-valid" placeholder="请输入手机号" name="newPhoneNumber" ng-model="newPhoneNumber" ng-disabled="disabled" disabled="disabled">
+								</div>
+								<div class="col-sm-3">
+									<button type="button" id="getSMSCodeBtn" class="btn btn-success">获取验证码</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="checkCode" class="col-sm-3 control-label">验证码<span class="form-required"> * </span>:</label>
+								<div class="col-sm-3">
+									<input type="text" class="form-control ng-pristine ng-valid" placeholder="请填写验证码" id="checkCodeInput">
+
+								</div>
+								<div class="col-sm-3">
+									<!-- ngIf: phoneChecked.isChecking -->
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="newPhoneNumber" class="col-sm-3 control-label">新管理员手机号:</label>
+								<div class="col-sm-3">
+									<input type="text" id="adminPhoneNew" class="form-control ng-pristine ng-valid" placeholder="请输入手机号" name="newPhoneNumber" ng-model="newPhoneNumber">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-7 col-md-offset-5">
+								<button type="button" class="btn btn-success" id="confirmButton">确定</button>
+							</div>
+						</div>
+					</div>
+					<!-- end ngIf: changePhoneNumber.step==1 -->
+				</form>
+				<form class="form-horizontal ng-pristine ng-valid" role="form" ng-submit="changePhoneNumber.submit();">
+
+					<!-- ngIf: changePhoneNumber.step==2 -->
+
+				</form>
+			</div>
+		</div>
+	</body>
+
+</html>

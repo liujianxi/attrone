@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=10"/>
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/order-prepay.css"/>
+		<link href="../css/newOrder.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+		<link href="../css/app.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/order-query.css" />
+		<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	</head>
+
+	<body style="background-color: white;">
+		<div class="container-fluid" id="orderQuery">
+			<div class="panel-body">
+				<div class="row">
+					<form class="form-inline m-bot15" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group" style="position: relative;">
+								<span class="showPayType" style="-moz-user-select: none;-webkit-user-select: none;"><b style="font-size: x-large;">支付方式</b>　<i style="cursor: pointer;color: #169BD5;position: absolute;top: 50%;transform: translateY(-50%);left: 210px;">收起流水筛选</i></span>
+								<div style="position: absolute;left: 320px;top: 50%;transform: translateY(-50%);">
+									<label class="form-label">&nbsp;&nbsp;过滤时间：</label>
+									<input type="text" class="form-control input-large" name="daterange-start" value="年/月/日" />
+									<label class="form-label">&nbsp;至&nbsp;</label>
+									<input type="text" class="form-control input-large" name="daterange-end" value="年/月/日" />
+									<input type="hidden" id="order-regBeginTime">
+									<input type="hidden" id="order-regEndTime">
+									<label class="form-label">&nbsp;&nbsp;收款/退款人：&nbsp;&nbsp;</label>
+									<select class="form-control query-staff org_hide" style="padding-top: 0; padding-bottom: 0;"></select>
+									<button type="button" class="btn btn-primary btn-sm" id="payTypeSearch">
+		                    			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+		                   			</button>
+								</div>
+							</div>
+						</div>
+					</form>
+					<form class="form-inline m-bot15" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<span class="query-needpay" style="width: 500px;display: inline-block;">
+									<b style="font-size: large;">总支付：</b>
+									<i class="query-cash">现金支付：<em>0.00</em>元</i>
+									<i class="query-online">　　线上支付：<em>0.00</em>元</i>
+								</span>
+								<span class="query-return" style="width: auto;display: inline-block;">
+									<b style="font-size: large;">总退数：</b>
+									<i class="query-cash">现金退还：<em>0.00</em>元</i>
+									<i class="query-online">　　线上退还：<em>0.00</em>元</i>
+								</span>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row queryform">
+					<form class="form-inline m-bot15" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<span class="btn orderbtn btn-m" id="query-new"><i class="fa fa-plus"></i>&nbsp;&nbsp;新建订单</span>
+								<input type="text" class="form-control" placeholder="请输入住院号/订单号/被陪护人姓名/手机号/门禁卡号/带字母的票据单号" id="queryinput">
+								<button type="button" class="btn orderbtn btn-m js-btn-showOrderList" id="querysearch" >
+                        			搜索
+                       			</button>
+                       			<button type="button" class="btn orderbtn btn-m" id="order-photo">
+                        			点击拍摄手环或入院通知书
+                       			</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row order-searchkey">
+					<p>搜索条件：</p>
+					<ul>
+						<!--<li><span>住院号：</span><i>0000569874</i></li>
+						<li><span>住院号：</span><i>0000569874</i></li>-->
+					</ul>
+				</div>
+				<div class="row order-searchResult">
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="dynamic-table">
+							<thead>
+								<tr>
+									<th style="width: 106px;">操作</th>
+									<th>订单信息</th>
+									<th style="width: 238px;">地点信息</th>
+									<th>用户信息</th>
+									<th>服务信息</th>
+									<th>服务人员</th>
+									<th>支付信息</th>
+									<th style="width: 80px;">订单状态</th>
+									<th>时间信息</th>
+									<th style="width: 100px; ">备注</th>
+								</tr>
+							</thead>
+							<tbody id="OrderListContent">
+								<tr>
+									<td colspan="10" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<ul class="pagination" id="pagination"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!------------------------------------------------手环拍照-------------------------->
+		<div id="camBox-mask"></div>
+		<div id="camBox" style="z-index: 1035;width:600px; height: 705px; border: 1px solid black; background:#C7EDCC;position: absolute;left:50%;top:50%;transform: translate(-50%,-50%);visibility: hidden;">
+            <div  style="width:100%;height:570px;margin-top:120px" id='ActiveXDivOne'>
+	        </div>
+	        <div id="cam-select">
+	        	<p>请选择：</p>
+	        	<ul>
+	        		<li><input type="radio" name="camselect" value="" checked="checked" id="autocut"" onclick="SetCutType()"/><label for="camselect">入院通知书</label></li>
+	        		<li><input type="radio" name="camselect" value="" id="handlecut" onclick="SetCutType()"/><label for="camselect">　住院手环</label></li>
+	        	</ul>
+	        </div>
+	        <div id="cam-btn">
+	        	<ul>
+	        		<li>取消</li>
+	        		<li>确认拍照</li>
+	        	</ul>
+	        </div>
+       </div>
+		<div style="display: none;">
+			<select id="Resolution" style="display: none;"></select>
+		</div>
+		<div style="display: none;">
+			<select id="DeviceName"></select>
+		</div>
+		<div id="cam-upload-mask"></div>
+		<div id="cam-upload">
+			<div id="cam-upload-box">
+				<p>正在上传...</p>
+				<img src="../images/loading.gif"/>
+			</div>
+		</div>
+		<!------------------------------------------------手环拍照-------------------------->
+		<div class="gate-manage-mask"></div>
+		<div class="gate-manage order-photo-result">
+			<div class="gate-top">
+				<p>识别结果</p>
+			</div>
+			<div class="order-content order-success">
+				<p>识别出以下信息：</p>
+				<ul>
+					<li class="orgno"><span>住院号：</span><i></i></li>
+					<li class="name"><span>被陪护人姓名：</span><i></i></li>
+				</ul>
+				<div class="no-order">未找到对应的订单，是否创建新订单？</div>
+			</div>
+			<div class="order-content order-error">
+				<p>图片识别失败！</p>
+			</div>
+			<div class="gate-footer order-footer">
+				<ul>
+					<li>手工查找</li>
+					<li>创建订单</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 右侧弹出panel 订单变更 -->
+		<div id="showOrder_alteration_panel" class="r_panel">
+	        <div class="panel-header">
+	            <button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+	            <h4 class="modal-title">变更订单信息</h4>
+	        </div>
+	        <div class="panel-body">
+	            <div class="container-fluid">
+	                <form class="form-horizontal" role="form" name="showBannerForm">
+		              	<div class="form-group" style="margin-bottom: 0px">
+		                  	<p class="rp_subtit">订单编号：<span class="js-change-order"></span>   【<span class="js-change-order-number"></span>】</p>
+		              	</div>
+		               	<div class="form-group">
+		               		<input type="hidden" id="hidden_orderType"/>
+		               		<input type="hidden" id="hidden_companyId"/>
+		               		<input type="hidden" id="hidden_orgId" />
+		               		<input type="hidden" id="hidden_branchId" />
+		               		<input type="hidden" id="hidden_companyBranchId" />
+		               		<input type="hidden" id="hidden_roomId" />
+		               		<input type="hidden" id="hidden_bedId" />
+		               		<input type="hidden" id="hidden_hgId" />
+		               		<input type="hidden" id="hidden_priceId" />
+		               		<input type="hidden" id="hidden_extraFee"/>
+		               		<input type="hidden" id="hidden_extra" value="false"/>
+		               		<input type="hidden" id="hidden_extraFees"/>
+		                     <table class=" display table table-bordered table-striped col-sm-12 table-orderType-jg" style="display: none;">
+		                     		<tr><td colspan=2 align="center">订单信息</td></tr>
+		                     		<tr><td colspan=2>机构名称：<span class="js-panel-orgName"></span></td></tr>
+		                     		<!-- <a href='javascript:void(0);'  class='js-update-alteration-btn' typeName='branchName'><span class="js-panel-branchName"></span></a> -->
+		                     		<tr><td colspan=2>科室名称：<span class="js-panel-branchName"></span></td></tr>
+		                     		<tr><td colspan=2>房号：<a href='javascript:void(0);'  class='js-update-alteration-btn' typeName='roomNo'><span class="js-panel-roomNo"></span></a></td></tr>
+		                     		<tr><td colspan=2>床号:<a href='javascript:void(0);'  class='js-update-alteration-btn' typeName='bedNo'><span class="js-panel-bedNo"></span></a></td></tr>
+		                     		<tr><td colspan=2>护工:<a href='javascript:void(0);'  class='js-update-alteration-btn' typeName='hgName'><span class="js-panel-hgName"></span></a></td></tr>
+		                     		<tr><td colspan=2>服务项目：<a href='javascript:void(0);'  class='js-update-price' typeName='serviceItem'><span class="js-panel-serviceItem"></span></a></td></tr>
+		                     		<tr><td colspan=2>服务费用：<span class="js-panel-price"></span></td></tr>
+		                     </table>
+		                     
+		                     <table class=" display table table-bordered table-striped col-sm-12 table-orderType-jj" style="display: none;">
+		                     		<tr><td colspan=2 align="center">订单信息</td></tr>
+		                     		<tr><td colspan=2>护工:<a href='javascript:void(0);'  class='js-update-alteration-btn' typeName='hgName'><span class="js-panel-hgName-jj"></span></a></td></tr>
+		                     		<tr><td colspan=2>服务项目：<a href='javascript:void(0);'  class='js-update-price' typeName='serviceItem'><span class="js-panel-serviceItem-jj"></span></a></td></tr>
+		                     		<tr><td colspan=2>服务费用：<span class="js-panel-price-jj"></span></td></tr>
+		                     </table>
+		               </div>
+			            <div class="form-group">
+			                 <div class="col-sm-8" style="text-align:right;">
+			                 <button type="button" class="btn btn-success modal_save_update" id="editOrgBtn" >确认修改</button>
+				             <button type="button" class="btn btn-default rp_close" id="panelChangeBtn" data-dismiss="modal">取消</button>
+			                 </div>
+			          </div>
+	        		</form>
+	            </div>
+	        </div>
+	    </div>
+		<script type="text/html" id="OrderListTemplate">
+			{{if orderList.length > 0}} {{each orderList as item i}}
+			<tr>
+				<td>
+					{{if item.status == 0}}
+						<a pagenum="{{pageNum}}"  class = "js-form-order-prepay" orderId="{{item.orderId}}" preRealFee="{{item.prepayAmount}}" userId = "{{item.userId}}"  href='javascript:void(0);'>预付金缴付</a><br />
+					{{/if}}
+					{{if item.status == 1}}
+						{{if item.orderType == 2 && item.pgStatus == 0}}
+							<a pagenum="{{pageNum}}" class = "js-form-order-pg-create" kinsname="{{item.kinsName}}" orderId="{{item.orderId}}"  href='javascript:void(0);'>创建评估</a><br />
+							<a pagenum="{{pageNum}}" class = "js-form-order-pg-skip" orderId="{{item.orderId}}"  href='javascript:void(0);'>跳过评估</a><br />
+						{{else}}
+							<a pagenum="{{pageNum}}"  class = "js-form-order-HG" orderId="{{item.orderId}}"  href='javascript:void(0);' >分配护工</a><br />
+						{{/if}}
+					{{/if}}
+				  	{{if item.status == 2}}
+						<a pagenum="{{pageNum}}" class = "js-form-order-Start" href='javascript:void(0);' orderId="{{item.orderId}}"  orderstatus='2'>开始服务</a><br />
+					{{/if}}
+				  	<!--{{if item.status == 4}}
+						<a class = "js-form-order-cost" href='javascript:void(0);' orderId="{{item.orderId}}" userId = "{{item.userId}}">结算</a><br />
+					{{/if}}-->
+					
+					{{if item.status == 3}}
+						<a pagenum="{{pageNum}}" class = "js-form-order-change" href='javascript:void(0);' orderId="{{item.orderId}}" >变更订单</a><br />
+						<a pagenum="{{pageNum}}" class = "js-form-order-End" href='javascript:void(0);' currstatus="{{item.orderType}}" orderId="{{item.orderId}}" orderstatus='4' title="订单详情—{{item.kinsName}}">结束服务</a><br />
+					{{/if}}
+					{{if item.managerId == null}}
+						{{if item.orderType == 2}}
+							<a pagenum="{{pageNum}}" href="javascript:void(0);" class="js-select-insureHandleNure-JKJL" nurseType=10005  orderId='{{item.orderId}}'>指派健康经理</a><br />
+						{{/if}}
+						{{if item.orderType == 1}}
+							<a pagenum="{{pageNum}}" href="javascript:void(0);" class="js-select-insureHandleNure-JKJL" nurseType=10006  orderId='{{item.orderId}}'>指派督导</a><br />
+						{{/if}}
+					{{/if}}
+					
+					<a pagenum="{{pageNum}}"  class = "js-form-order-remark" orderId="{{item.orderId}}" orderstatus='0'  href='javascript:void(0);' >备注</a><br />
+					{{if item.status == 0||item.status == 1||item.status == 2}}
+						<a pagenum="{{pageNum}}" class = "js-form-order-cancel" href='javascript:void(0);' orderId="{{item.orderId}}"  orderstatus='2'>取消订单</a><br />
+					{{/if}}
+				</td>
+				{{if item.createType==1||item.createType==4}}
+				<td class="order-back">
+					<span>订单编号：<a href="javascript:void(0);"   link="templates/orderDetail.html?orderId={{item.orderId}}" class="js-addTab-link" title="订单详情—{{item.kinsName}}">{{item.orderId}}</a></span><br />
+					{{if item.orderType == 1}}
+					<span style="font-weight: bold;color: red;">住院号：{{item.orgNO}}</span><br />
+					{{/if}}
+				</td>
+				{{/if}}
+				{{if item.createType!=1&&item.createType!=4}}
+				<td>
+					<span>订单编号：<a href="javascript:void(0);"   link="templates/orderDetail.html?orderId={{item.orderId}}" class="js-addTab-link" title="订单详情—{{item.kinsName}}">{{item.orderId}}</a></span><br />
+					{{if item.orderType == 1}}
+					<span style="font-weight: bold;color: red;">住院号：{{item.orgNO}}</span><br />
+					{{/if}}
+				</td>
+				{{/if}}
+				<td>
+					{{if item.orderType == 1}}
+						<span>医院：{{item.hospital}}</span><br />
+						<span style="color : red; font-weight:bold">科室：{{item.branch}}</span><br />
+						<span>病房：{{item.room}}</span><br />
+						{{if item.status!=-1}}
+							<span>床号：<a orderId="{{item.orderId}}" href="#" class="editable order_bed">
+							{{if item.bed!=undefined&&item.bed!=''}}
+								{{item.bed}}
+							{{else}}
+								添加床号
+							{{/if}}
+							</a></span><br />
+						{{else}}
+						<span>床号：{{item.bed}}</span><br />
+						{{/if}}
+					{{else}}
+						<span >居住地址：{{item.locationMinute}}</span><br />
+						<span >联系电话：{{item.addrPhone}}</span><br />
+						<span >联系人：{{item.addrContacts}}</span><br />
+					{{/if}}
+				</td>
+				<td>
+					<span>会员id：<a href="javascript:void(0);" link="templates/userInfo.html?key={{item.userId}}" class="js-addTab-link" title="用户信息">{{item.userId}}</a></span><br />
+					<span>会员名：{{item.contactName}}</span><br />
+					<span>会员手机：{{item.contactPhone}}</span><br />
+					<span style="color : red; font-weight:bold">被照护人：{{item.kinsName}}</span><br />
+				</td>
+				<td>
+					<span>服务套餐：{{item.service}}</span><br />
+					<span>收费标准：{{item.priceDesc}}</span><br />
+				</td>
+				<td>
+					<span>护工：{{item.serviceStaff}}</span><br />
+					<span>{{item.orderType == 1 ? '督导':'健康经理'}}:{{item.superiorName}}</span><br />
+					
+				</td>
+				<td>
+					<span>预付金额：{{item.prepayAmount}}{{item.status <= 0 ? '(未付)':'(已付)'}}</span><br />
+					<span>总费用：{{item.needPay}}</span><br />
+					<span>已支付：{{item.paidFee}}</span><br />
+					<span>待支付：{{item.wantFee}}</span><br />
+				</td>
+				<td>
+					<span style="color : red; font-weight:bold">{{item.statusStr}}</span><br />
+				</td>
+				<td>
+					<span>下单时间：{{item.createTime}}</span><br />
+					<span>预约时间：{{item.serviceTime}}</span><br />
+					<span>开始时间：{{item.orderStartTime}}</span><br />
+					<span>结束时间：{{item.orderEndTime}}</span><br />
+				</td>
+				<td width="100px">
+					<span style = "display:block;width:100px;word-wrap:break-word;">用户备注：{{item.memo}}</span><br />
+					<span style = "display:block;width:100px;word-wrap:break-word;">客服备注：{{item.kfmemo}}</span><br />
+				</td>
+			</tr>
+			{{/each}} {{/if}} {{if orderList.length == 0}}
+			<tr>
+				<td colspan="10" class="text-center">
+					暂无数据
+					<!--，点击-->
+					<!--<a href="javascript:void(0);" onclick="">刷新数据</a>-->
+				</td>
+			</tr>
+			{{/if}}
+		</script>
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script src="../js/app/rp/rpModal.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="../js/app/common/tools.js"></script>
+		<script type="text/javascript" defer async="true" src="https://webapi.amap.com/maps?v=1.3&key=76995f30ba8965c259c624c3a3fa5777"></script>
+		<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+		<script src="../js/app/commonFunc.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/app/CamOcx.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row org_hide org-satff-box">
+				<form class="form-inline m-bot15" role="form">
+					<div class="row">
+						<div class="col-lg-12 form-group">
+							<label class="form-label">收款人过滤：&nbsp;&nbsp;</label>
+							<select class="form-control org_shoukuan" style="padding-top: 0; padding-bottom: 0;min-width: 150px;"></select>
+							<label class="form-label">&nbsp;&nbsp;发卡人过滤：&nbsp;&nbsp;</label>
+							<select class="form-control org_faka" style="padding-top: 0; padding-bottom: 0;min-width: 150px;"></select>
+							<label class="form-label">&nbsp;&nbsp;开票人过滤：&nbsp;&nbsp;</label>
+							<select class="form-control org_kaipiao" style="padding-top: 0; padding-bottom: 0;min-width: 150px;"></select>
+							<label class="form-label">&nbsp;&nbsp;支付方式过滤：&nbsp;&nbsp;</label>
+							<select class="form-control org_payType" style="padding-top: 0; padding-bottom: 0;min-width: 150px;"></select>
+							<button type="button" class="btn btn-primary btn-sm" id="feeDetail-search">
+                    			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+                   			</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<form class="form-inline m-bot15" role="form">
+					<span class="all_count">合计：<i class="bed-red">0.00</i>元</span>
+				</form>
+			</div>
+			<div class="row">
+				<div class="adv-table">
+					<table class="display table table-bordered table-striped dynamic-table">
+						<thead>
+							<tr>
+								<th style="width: 10%;">租借时间</th>
+								<th style="width: 10%;">机构</th>
+								<th style="width: 10%;">科室</th>
+								<th style="width: 10%;">门禁卡编号</th>
+								<th style="width: 10%;">关联订单</th>
+								<th style="width: 10%;">押金收款</th>
+								<th style="width: 10%;">收款方式</th>
+								<th style="width: 10%;">收款人</th>
+								<th style="width: 10%;">发卡人</th>
+								<th style="width: 10%;">开票人</th>
+							</tr>
+						</thead>
+						<tbody id="feeDetailContent">
+							<tr>
+								<td colspan="10" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="order-mask-bg"></div>
+	<div id="order-mask">
+		<div class="ball_spin_fade">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<script type="text/html" id="feeDetailTemplate">
+		{{if orgExtraGroup.length > 0}} 
+			{{each orgExtraGroup as item i}}
+			<tr>
+				<td>{{item.createTime}}</td>
+				<td>{{item.orgName}}</td>
+				<td>{{item.branchName}}</td>
+				<td>{{item.extraNO}}</td>
+				<td>
+					<a title="订单详情-{{item.kinsName}}" class="js-addTab-link" link="templates/orderDetail.html?orderId={{item.orderId}}" href="javascript:void(0);">{{item.orderId}}</a>
+				</td>
+				<td>{{item.feeStr}}</td>
+				<td>{{item.payTypeStr}}</td>
+				<td>{{item.shoukuanStaffName}}</td>
+				<td>{{item.fakaStaffName}}</td>
+				<td>{{item.kaipiaoStaffName}}</td>
+			</tr>
+			{{/each}}
+		{{/if}}
+		{{if orgExtraGroup.length <= 0}} 
+			<tr>
+				<td colspan="10" class="text-center">
+					暂无数据...
+				</td>
+			</tr>
+		{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script src="../js/app/commonFunc.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function(){
+			//获取url中的参数
+			function getUrlParam(name) {
+				let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				let r = window.location.search.substr(1).match(reg); //匹配目标参数
+				if(r != null) return unescape(r[2]);
+				return null; //返回参数值
+			}
+			//实例化请求帮助类
+			var httpUtilObj = new HttpUtil();
+			var initParam = httpUtilObj.getTabParams();
+			let startTime=initParam.startTime;
+			let endTime=initParam.endTime;
+			let payBusiType=initParam. payBusiType;
+			let orgId=initParam. orgId||0;
+			let branchId=initParam. branchId||0;
+			let isSelf=initParam.isSelf=='false'?false:true;
+			initData('init');
+			function initData(str){
+				let data={
+					startTime:startTime,
+					endTime:endTime,
+					payBusiType:payBusiType,
+					orgId:orgId,
+					branchId:branchId,
+					isSelf:isSelf,
+					shoukuanStaffId:$('.org_shoukuan option:selected').val()||0,
+					kaipiaoStaffId:$('.org_kaipiao option:selected').val()||0,
+					fakaStaffId:$('.org_faka option:selected').val()||0,
+					payType:$('.org_payType option:selected').val()||0,
+				}
+				httpUtilObj.ajax({
+					url: '/adminjson/SAASGetOrgExtraFeeDetail',
+					params: data
+				}).then((res)=>{
+					$('#order-mask-bg').css('display','none');
+					$('#order-mask').css('display','none');
+					refreshList(res.body,str);
+				})
+			}
+			function refreshList(data,str) {
+				var fundsHtml = template('feeDetailTemplate', data);
+				$("#feeDetailContent").empty().html(fundsHtml);
+				$('.all_count i').html(data.feeStr);
+				if(str=='init'){
+					//固定表头的方法--传入固定的table
+					commonFunc.staticTable($('.dynamic-table'));
+					if(!data.orgExtraGroup.length){
+						$('.org-satff-box').addClass('org_hide');
+						return false;
+					}
+					$('.org-satff-box').removeClass('org_hide');
+					let shoukuan_arr=data.shoukuanAry;
+					let kaipiao_arr=data.kaipiaoAry;
+					let faka_arr=data.fakaAry;
+					let payType_arr=data.payTypeAry;
+					//筛选项
+					getList(shoukuan_arr,$('.org_shoukuan'));
+					getList(kaipiao_arr,$('.org_kaipiao'));
+					getList(payType_arr,$('.org_payType'),'payType');
+					getList(faka_arr,$('.org_faka'));
+				}
+				//搜索过滤
+				$('#feeDetail-search').off('click').on('click',function(){
+					initData('search');
+				})
+			}
+			//筛选项
+			function getList(data,ele,str){
+				if(data.length>1){
+					ele.append(`<option value="">所有</option>`);
+				}
+				if(str=='payType'){
+					data.forEach((item,index)=>{
+						let t_node=`<option value="${item.payType}">${item.payTypeStr}</option>`;
+						ele.append(t_node);
+					});
+				}else{
+					data.forEach((item,index)=>{
+						let t_node=`<option value="${item.staffId}">${item.staffName}</option>`;
+						ele.append(t_node);
+					});
+				}
+			}
+		})
+	</script>
+</body>
+
+</html>

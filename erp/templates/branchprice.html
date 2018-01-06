@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link  href="../css/app.css"/>
+	</head>
+
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+				<div class="row">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="m-bot15 col-lg-12 form-group">
+								<div class="col-lg-8 text-left" style="padding-left: 0 !important;">
+									<button type="button" class="btn btn-success btn-sm m-bot15" onclick="branchPriceModule.addPriceItem()" id="branchPriceDeal">
+			                        	<i class="fa fa-plus"></i>&nbsp;&nbsp;添加定价
+			                        </button>
+									<select class="form-control m-bot15" style="width: 150px;padding-top:0;padding-bottom: 0;" id="search_branch">
+										<option value="">请选择科室</option>
+									</select>
+									<button type="button" class="btn btn-primary btn-sm m-bot15" id="searchBut" onclick="branchPriceModule.loadBranchPriceList(true, 1)">
+			                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+			                        </button>
+								</div>
+								<div class="col-lg-4">
+									<dl style="display: inline-block; float: right; margin-top: 5px;">
+									    <dd style="display:inline-block;">
+									        <i style="height: 12px; width: 12px; border: 1px solid #ebebeb; display: inline-block; background-color: #7D7DF6;"></i>
+									        <span>科室定价</span>
+									    </dd>
+									    <dd style="display:inline-block;">
+									        <i style="height: 12px; width: 12px; border: 1px solid #ebebeb; display: inline-block; background-color: #7A7676;"></i>
+									        <span>机构定价</span>
+									    </dd>
+									    <dd style="display:inline-block;">
+									        <i style="height: 12px; width: 12px; border: 1px solid #ebebeb; display: inline-block; background-color: #568922;"></i>
+									        <span>自定义机构定价</span>
+									    </dd>
+									    <dd style="display:inline-block;">
+									        <i style="height: 12px; width: 12px; border: 1px solid #ebebeb; display: inline-block; background-color: red;"></i>
+									        <span>已删除</span>
+									    </dd>
+									</dl>
+								</div>
+								<!--<input type="text" class="form-control m-bot15" placeholder="请输入科室名进行搜索" id="findBranchName">-->
+								
+							</div>
+						</div>
+					</form>
+				</div>
+				
+				<div class="row">
+					<!-- search form end-->
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="dynamic-table">
+							<thead>
+								<tr>
+									<th>科室名</th>
+									<th>服务类型</th>
+									<th>服务名称</th>
+									<th>计费方式</th>
+									<th>默认状态</th>
+									<th>服务价格</th>
+									<th>服务预收款</th>
+									<th>职工优惠定价</th>
+									<th>职工家属优惠定价</th>
+									<th>操作</th>
+								</tr>
+							</thead>
+							<tbody id="branchPriceListContent">
+								<tr>
+									<td colspan="10" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<!--<ul class="pagination" id="pagination"></ul>-->
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="addPriceItem_panel" class="r_panel">
+	        <div class="panel-header">
+	            <button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+	            <h4 id="desc4Add" class="modal-title">新增服务</h4>
+	        </div>
+	        <div class="panel-body">
+	            <div class="container-fluid">
+	                <form class="form-horizontal" role="form" name="showOrgForm">
+	                    <input type="hidden" name="id" id="showCompanyInfo_id"/>
+	                     <div class="form-group">
+	                     	<p style="color:red">温馨提示：设置了科室定价规则的服务，以科室定价规则为准（机构定价失效）。</p>
+	                    	<label class="col-sm-4 control-label">服务名称 *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" class="form-control" placeholder="定价名称" 
+                                	id="addPriceItem_serviceItem">
+	                        </div>
+	                    </div>
+	                    
+						<div class="form-group row">
+	                    	<label class="col-sm-4 control-label">科室 *</label>
+	                        <div class="col-sm-7" id="serviceState">
+	                        	<select class="form-control" style="width: 150px;padding-top: 0;padding-bottom: 0;" id="branchSelect">
+									<option value="">请选择科室</option>
+								</select>
+	                        </div>
+	                    </div>
+	                    
+						<div class="form-group row hidden">
+	                    	<label class="col-sm-4 control-label">服务类型 *</label>
+	                        <div class="col-sm-7" id="serviceState">
+                            	<select disabled="disabled" class="form-control" style="width: 150px;padding-top: 0;padding-bottom: 0;" id="addPriceItem_parentTypeSel" onchange="branchPriceModule.typeSelChange('addPriceItem_')">
+									<option value="1">机构服务</option>
+									<option value="2">居家服务</option>
+								</select>
+	                        </div>
+	                    </div>
+	                    
+						<div class="form-group row">
+	                    	<label class="col-sm-4 control-label">服务类型 *</label>
+	                        <div class="col-sm-7" id="serviceState">
+                            	<select class="form-control" style="width: 150px;padding-top:0;padding-bottom: 0;" id="addPriceItem_serviceType">
+									<option value="">服务类型</option>
+								</select>
+	                        </div>
+	                    </div>
+	                    <div class="form-group org_hide price_moreService">
+							<label class="col-sm-4 control-label">附加服务类型*</label>
+							<div class="col-sm-7" id = "price_moreService">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" id="price_moreService_1" name="price_moreService" value="1">护工费调整（职工可优惠）
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="price_moreService_2" name="price_moreService" value="0">普通附加服务（职工不可优惠）
+	                            </label>
+	                            <label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="price_moreService_3" name="price_moreService" value="2">陪人床（职工不可优惠）
+	                            </label>
+							</div>
+						</div>
+						<div class="form-group org_hide price_moreServiceGrouping">
+							<label class="col-sm-4 control-label">附加项子类型 *</label>
+							<div class="col-sm-7" id = "price_moreServiceGrouping">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" name="price_moreServiceGrouping" value="1">专陪
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" name="price_moreServiceGrouping" value="2">普陪
+	                            </label>
+	                            <label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" name="price_moreServiceGrouping" value="3">夜陪
+	                            </label>
+							</div>
+						</div>
+	                     <div class="form-group">
+	                    	<label class="col-sm-4 control-label">服务计费方式 *</label>
+	                        <div class="col-sm-7" id="isAllState">
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="addPriceItem_serviceUnit_0" name="addPriceItem_serviceUnit" value="1" >次
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" id="addPriceItem_serviceUnit_2" name="addPriceItem_serviceUnit" value="3" checked>天
+	                            </label>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-4 control-label">展示终端 *</label>
+	                        <div class="col-sm-7" id="add_showScope">
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="addPriceItem_showScope_0" name="addPriceItem_showScope" value="0" checked>全部
+	                            </label>
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="addPriceItem_showScope_1" name="addPriceItem_showScope" value="1" >用户端
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" id="addPriceItem_showScope_2" name="addPriceItem_showScope" value="2" >企业端
+	                            </label>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-4 control-label">服务默认状态 *</label>
+	                        <div class="col-sm-7" id="add-defaultStatus">
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="addPriceItem_defaultStatus_0" name="addPriceItem_defaultStatus" value="0" checked>非默认
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" id="addPriceItem_defaultStatus_1" name="addPriceItem_defaultStatus" value="1" >默认
+	                            </label>
+	                        </div>
+	                    </div>
+	                    
+	                    
+	                    <div class="form-group">
+	                    	<label class="col-sm-4 control-label">服务定价(元) *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" class="form-control" name="addPriceItem_price" placeholder="服务定价金额" 
+                                	id="addPriceItem_price">
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="form-group" id ="prepayFee">
+	                    	<label class="col-sm-4 control-label">服务预收款(元) *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" class="form-control" name="addPriceItem_prepayFee" placeholder="服务预收款金额" 
+                                	id="addPriceItem_prepayFee">
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="form-group" id = "hgRebatePricePrice">
+	                    	<label class="col-sm-4 control-label">职工优惠定价(元) *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" class="form-control" name="addPriceItem_hgRebatePricePrice" placeholder="职工优惠价定价金额" 
+                                	id="addPriceItem_hgRebatePricePrice">
+	                        </div>
+	                    </div>
+	                    <div class="form-group" id = "hgKinsRebatePricePrice">
+	                    	<label class="col-sm-4 control-label">职工家属优惠定价(元) *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" class="form-control" name="addPriceItem_hgKinsRebatePricePrice" placeholder="职工家属优惠价定价金额" 
+                                	id="addPriceItem_hgKinsRebatePricePrice">
+	                        </div>
+	                    </div>
+	                    <div class="form-group" id = "consent">
+	                    	<label class="col-sm-4 control-label">知情同意书内容 *</label>
+	                        <div class="col-sm-5">
+                                <textarea class="form-control" name="addPriceItem_consent" placeholder="请输入知情同意书内容" 
+                                	id="addPriceItem_consent" style="width: 350px;height: 300px;"></textarea>
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                        <div class="col-sm-8" style="text-align:right;">
+	                        	<!--<button type="button" class="btn btn-success" 
+		                        	id="toEditBtn" onclick="COModule.editCO()">编辑</button>-->
+		                        <button type="button" class="btn btn-default rp_close">取消</button>
+	                        	<button type="button" class="btn btn-success" 
+		                        	id="updateCOBtn" onclick="branchPriceModule.savePriceItem()">保存</button>
+	                        	<!--<button type="button" class="btn btn-default hidden" 
+		                        	id="cancelEditBtn" onclick="COModule.cancelEdit()">取消</button>-->
+                        	</div>
+	                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>		
+		    <div id="showPriceItem_panel" class="r_panel">
+	        <div class="panel-header">
+	            <button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+	            <h4 class="modal-title">定价详情</h4>
+	        </div>
+	        <div class="panel-body">
+	            <div class="container-fluid">
+	                <form class="form-horizontal" role="form" name="showOrgForm">
+	                    
+	                     <div class="form-group">
+	                     	<p style="color:red">温馨提示：设置了科室定价规则的服务，以科室定价规则为准（机构定价失效）。</p>
+	                    	<label class="col-sm-4 control-label">服务名称 *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" disabled="disabled" class="form-control" placeholder="定价名称" 
+                                	id="showPriceItem_serviceItem">
+	                        </div>
+	                    </div>
+	                    
+						<div class="form-group row hidden">
+	                    	<label class="col-sm-4 control-label">服务类型 *</label>
+	                        <div class="col-sm-7" id="serviceState">
+                            	<select disabled="disabled" class="form-control" style="width: 150px;padding-top:0;padding-bottom: 0;" id="showPriceItem_parentTypeSel" onchange="branchPriceModule.typeSelChange('showPriceItem_')">
+									<option value="1">机构服务</option>
+									<option value="2">居家服务</option>
+								</select>
+	                        </div>
+	                    </div>
+						<div class="form-group row">
+	                    	<label class="col-sm-4 control-label">服务类型 *</label>
+	                        <div class="col-sm-7" id="serviceState">
+                            	<select disabled="disabled" class="form-control" style="width: 150px;padding-top:0;padding-bottom: 0;" id="showPriceItem_serviceType">
+									<option value="">服务类型</option>
+								</select>
+	                        </div>
+	                    </div>
+	                    <div class="form-group org_hide edit_moreService">
+							<label class="col-sm-4 control-label">附加服务类型*</label>
+							<div class="col-sm-7" id = "edit_moreService">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" id="edit_moreService_1" disabled="disabled" name="edit_moreService" value="1">护工费调整（职工可优惠）
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="edit_moreService_2" disabled="disabled" name="edit_moreService" value="0">普通附加服务（职工不可优惠）
+	                            </label>
+	                            <label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" id="edit_moreService_3" disabled="disabled" name="edit_moreService" value="2">陪人床（职工不可优惠）
+	                            </label>
+							</div>
+						</div>
+						<div class="form-group org_hide edit_moreServiceGrouping">
+							<label class="col-sm-4 control-label">附加项子类型 *</label>
+							<div class="col-sm-7" id = "edit_moreServiceGrouping">
+								<label class="radio-inline" style="display: block;">
+	                                <input type="radio" name="edit_moreServiceGrouping" disabled="disabled" value="1">专陪
+	                            </label>
+								<label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" name="edit_moreServiceGrouping" disabled="disabled" value="2">普陪
+	                            </label>
+	                            <label class="radio-inline" style="display: block; margin-left: 0px;">
+	                                <input type="radio" name="edit_moreServiceGrouping" disabled="disabled" value="3">夜陪
+	                            </label>
+							</div>
+						</div>
+	                     <div class="form-group">
+	                    	<label class="col-sm-4 control-label">服务计费方式 *</label>
+	                        <div id="radioDiv" class="col-sm-7">
+	                        	<label class="radio-inline">
+	                                <input disabled="disabled" type="radio" id="showPriceItem_serviceUnit_0" name="showPriceItem_serviceUnit" value="1" checked>次
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input disabled="disabled"  type="radio" id="showPriceItem_serviceUnit_2" name="showPriceItem_serviceUnit" value="3" >天
+	                            </label>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-4 control-label">展示终端 *</label>
+	                        <div class="col-sm-7" id="showScope">
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="showPriceItem_showScope_0" name="showPriceItem_showScope" value="0" checked>全部
+	                            </label>
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="showPriceItem_showScope_1" name="showPriceItem_showScope" value="1" >用户端
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" id="showPriceItem_showScope_2" name="showPriceItem_showScope" value="2" >企业端
+	                            </label>
+	                        </div>
+	                    </div>
+	                    
+	                      <div class="form-group">
+	                    	<label class="col-sm-4 control-label">服务默认状态 *</label>
+	                        <div class="col-sm-7" id="update-defaultStatus">
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="updatePriceItem_defaultStatus_0" name="updatePriceItem_defaultStatus" value="0" checked>非默认
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" id="updatePriceItem_defaultStatus_1" name="updatePriceItem_defaultStatus" value="1" >默认
+	                            </label>
+	                        </div>
+	                    </div>
+	                     <div class="form-group">
+	                    	<label class="col-sm-4 control-label">服务定价(元) *</label>
+	                        <div class="col-sm-5">
+                                <input  disabled="disabled" type="text" class="form-control" name="showPriceItem_price" placeholder="服务定价金额" 
+                                	id="showPriceItem_price">
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="form-group" id = "show_prepayFee">
+	                    	<label class="col-sm-4 control-label">服务预收款(元) *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" disabled="disabled" class="form-control" name="showPriceItem_prepayFee" placeholder="服务预收款金额" 
+                                	id="showPriceItem_prepayFee">
+	                        </div>
+	                    </div>
+	                    
+	                    <div class="form-group" id = "show_hgRebatePricePrice">
+	                    	<label class="col-sm-4 control-label">职工优惠定价(元) *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" disabled="disabled" class="form-control" name="showPriceItem_hgRebatePricePrice" placeholder="职工优惠价定价金额" 
+                                	id="showPriceItem_hgRebatePricePrice">
+	                        </div>
+	                    </div>
+	                    <div class="form-group" id = "show_hgKinsRebatePricePrice">
+	                    	<label class="col-sm-4 control-label">职工家属优惠定价(元) *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" disabled="disabled" class="form-control" name="showPriceItem_hgKinsRebatePricePrice" placeholder="职工家属优惠价定价金额" 
+                                	id="showPriceItem_hgKinsRebatePricePrice">
+	                        </div>
+	                    </div>
+	                    <div class="form-group" id = "show_consent">
+	                    	<label class="col-sm-4 control-label">知情同意书内容 *</label>
+	                        <div class="col-sm-5">
+                                <textarea disabled="disabled" class="form-control" name="showPriceItem_consent" placeholder="请输入知情同意书内容" 
+                                	id="showPriceItem_consent" style="width: 350px;height: 300px;"></textarea>
+	                        </div>
+	                    </div>
+	                    
+						 <input type="hidden" class="form-control" id="priceId">
+	                    <div class="form-group">
+	                        <div class="col-sm-8" style="text-align:right;">
+	                        	<button type="button" class="btn btn-success" 
+		                        	id="toEditBtn" onclick="branchPriceModule.editPriceItem()">编辑</button>
+	                        	<button type="button" class="btn btn-default hidden" 
+		                        	id="cancelEditBtn" onclick="branchPriceModule.cancelEdit()">取消</button>
+	                        	<button type="button" class="btn btn-success hidden" 
+		                        	id="updatePriceBtn" onclick="branchPriceModule.updatePriceItem()">保存</button>
+                        	</div>
+	                    </div>
+		                </form>
+		            </div>
+		        </div>
+		    </div>	
+		    
+		    
+		<script type="text/html" id="branchPriceListTemplate">
+			
+			{{if priceList.length > 0}} 
+			
+			{{each priceList as item i}}
+					{{each item.o2oPriceList as itemm ii}}
+					<tr>
+						{{if ii == 0}}
+							<td rowspan="{{item.otnCount + item.otoCount + item.orgAddonCount}}">{{item.branchName}}&nbsp;&nbsp;&nbsp;
+								<a href="javascript:void(0);" onclick="branchPriceModule.addPriceItem('{{item.branchId}}')">快速定价</a>
+							</td>
+							<td rowspan="{{item.otoCount}}">{{itemm.serviceTypeStr}}&nbsp;&nbsp;&nbsp;
+								<a href="javascript:void(0);" onclick="branchPriceModule.addPriceItem('{{item.branchId}}','{{itemm.serviceType}}')">快速定价</a>
+							</td>
+						{{/if}}
+						
+						<td>
+							{{if itemm.state == -1}}
+								<font color="red">{{itemm.serviceItem}}
+							{{else if itemm.isOrgPrice == 1}}
+								<font color="#7A7676">{{itemm.serviceItem}}
+							{{else if itemm.isOrgPrice == 2}}
+								<font color="#568922">{{itemm.serviceItem}}
+							{{else}}
+								<font color="#7D7DF6">{{itemm.serviceItem}}
+							{{/if}}
+							</font>
+						</td>
+						<td>{{itemm.serviceUnitStr}}</td>
+						<td>{{itemm.defaultStatusStr}}</td>
+						<td>{{itemm.price}}</td>
+						<td>{{itemm.prepayFee}}</td>
+						<td>{{itemm.hgRebatePrice}}</td>
+						<td>{{itemm.hgKinsRebatePrice}}</td>
+						<td>
+							{{if itemm.state == -1}}
+								<font color="red">已删除</font>
+							{{else}}
+							<a href="javascript:void(0);" onclick="branchPriceModule.viewPrice('{{itemm.priceId}}','{{itemm.orgId}}','{{itemm.branchId}}','{{item.branchId}}')">查看</a>
+							&#124;
+							<a href="javascript:void(0);" onclick="branchPriceModule.editDesc('{{itemm.priceId}}','{{itemm.orgId}}','{{itemm.branchId}}','{{item.branchId}}')">服务描述</a>
+							&#124;
+							<a href="javascript:void(0);" onclick="branchPriceModule.delPrice('{{itemm.priceId}}','{{itemm.orgId}}','{{item.branchId}}')">删除</a>
+							{{/if}}
+						</td>
+					</tr>
+					{{/each}}
+				
+					{{each item.o2nPriceList as itemm ii}}
+					<tr>
+						{{if ii == 0}}
+						{{if item.otoCount == 0}}
+						<td rowspan="{{item.otnCount + item.otoCount + item.orgAddonCount}}">{{item.branchName}}&nbsp;&nbsp;&nbsp;
+							<a href="javascript:void(0);" onclick="branchPriceModule.addPriceItem('{{item.branchId}}')">快速定价</a>
+						</td>
+						{{/if}}
+						<td rowspan="{{item.otnCount}}">{{itemm.serviceTypeStr}}&nbsp;&nbsp;&nbsp;
+							<a href="javascript:void(0);" onclick="branchPriceModule.addPriceItem('{{item.branchId}}','{{itemm.serviceType}}')">快速定价</a>
+						</td>
+						{{/if}}
+						<td>
+							{{if itemm.state == -1}}
+								<font color="red">{{itemm.serviceItem}}
+							{{else if itemm.isOrgPrice == 1}}
+								<font color="#7A7676">{{itemm.serviceItem}}
+							{{else if itemm.isOrgPrice == 2}}
+								<font color="#568922">{{itemm.serviceItem}}
+							{{else}}
+								<font color="#7D7DF6">{{itemm.serviceItem}}
+							{{/if}}
+							</font>
+						</td>
+						<td>{{itemm.serviceUnitStr}}</td>
+						<td>{{itemm.defaultStatusStr}}</td>
+						<td>{{itemm.price}}</td>
+						<td>{{itemm.prepayFee}}</td>
+						<td>{{itemm.hgRebatePrice}}</td>
+						<td>{{itemm.hgKinsRebatePrice}}</td>
+						<td>
+							{{if itemm.state == -1}}
+								<font color="red">已删除</font>
+							{{else}}
+								<a href="javascript:void(0);" onclick="branchPriceModule.viewPrice('{{itemm.priceId}}','{{itemm.orgId}}','{{itemm.branchId}}','{{item.branchId}}')">查看</a>
+								&#124;
+								<a href="javascript:void(0);" onclick="branchPriceModule.editDesc('{{itemm.priceId}}','{{itemm.orgId}}','{{itemm.branchId}}','{{item.branchId}}')">服务描述</a>
+								&#124;
+								<a href="javascript:void(0);" onclick="branchPriceModule.delPrice('{{itemm.priceId}}','{{itemm.orgId}}','{{item.branchId}}')">删除</a>
+							{{/if}}
+						</td>
+					</tr>
+					{{/each}}
+					{{each item.orgAddonPriceList as itemm ii}}
+					<tr>
+						{{if ii == 0}}
+						{{if item.orgAddonCount == 0}}
+						<td rowspan="{{item.otnCount + item.otoCount + item.orgAddonCount}}">{{item.branchName}}&nbsp;&nbsp;&nbsp;
+							<a href="javascript:void(0);" onclick="branchPriceModule.addPriceItem('{{item.branchId}}')">快速定价</a>
+						</td>
+						{{/if}}
+						<td rowspan="{{item.orgAddonCount}}">{{itemm.serviceTypeStr}}&nbsp;&nbsp;&nbsp;
+							<a href="javascript:void(0);" onclick="branchPriceModule.addPriceItem('{{item.branchId}}','{{itemm.serviceType}}')">快速定价</a>
+						</td>
+						{{/if}}
+						<td>
+							{{if itemm.state == -1}}
+								<font color="red">{{itemm.serviceItem}}
+							{{else if itemm.isOrgPrice == 1}}
+								<font color="#7A7676">{{itemm.serviceItem}}
+							{{else if itemm.isOrgPrice == 2}}
+								<font color="#568922">{{itemm.serviceItem}}
+							{{else}}
+								<font color="#7D7DF6">{{itemm.serviceItem}}
+							{{/if}}
+							</font>
+						</td>
+						<td>{{itemm.serviceUnitStr}}</td>
+						<td>{{itemm.defaultStatusStr}}</td>
+						<td>{{itemm.price}}</td>
+						<td>{{itemm.prepayFee}}</td>
+						<td>{{itemm.hgRebatePrice}}</td>
+						<td>{{itemm.hgKinsRebatePrice}}</td>
+						<td>
+							{{if itemm.state == -1}}
+								<font color="red">已删除</font>
+							{{else}}
+								<a href="javascript:void(0);" onclick="branchPriceModule.viewPrice('{{itemm.priceId}}','{{itemm.orgId}}','{{itemm.branchId}}','{{item.branchId}}')">查看</a>
+								&#124;
+								<a href="javascript:void(0);" onclick="branchPriceModule.editDesc('{{itemm.priceId}}','{{itemm.orgId}}','{{itemm.branchId}}','{{item.branchId}}')">服务描述</a>
+								&#124;
+								<a href="javascript:void(0);" onclick="branchPriceModule.delPrice('{{itemm.priceId}}','{{itemm.orgId}}','{{item.branchId}}')">删除</a>
+							{{/if}}
+						</td>
+					</tr>
+					{{/each}}
+			{{/each}}
+			{{/if}} 
+			{{if priceList.length <= 0}} 
+				<tr>
+					<td colspan="10" class="text-center">
+						暂无科室服务定价..
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+
+		<!-- 科室下拉框 -->
+		<script type="text/html" id="branchSelctTemplate">
+			<option value="">请选择科室</option>
+			{{each branchList as item i}}
+				<option value="{{item.branchId}}">{{item.branchName}}</option>
+			{{/each}}
+		</script>
+		
+		<!-- 机构下拉框 -->
+		<script type="text/html" id="orgSelctTemplate">
+			{{if orgList.length > 0}} 
+			<option value="">请选择项目点</option>
+			{{each orgList as item i}}
+			<option value="{{item.id}}">{{item.orgName}}</option>
+			{{/each}} {{/if}} {{if orgList.length == 0}}
+			<option value="">所选地区无项目点可选</option>
+			{{/if}}
+		</script>
+		
+		<!-- 省/市/县下拉框模板 -->
+		<script type="text/html" id="selctTemplate">
+			{{each list as item i}}
+			<option value="{{item.id}}">{{item.name}}</option>
+			{{/each}}
+		</script>
+		<script type="text/html" id="childTypeSelTemplate">
+			{{each list as item i}}
+			<option value="{{item.id}}">{{item.name}}</option>
+			{{/each}}
+		</script>
+
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" defer async="true" src="https://webapi.amap.com/maps?v=1.3&key=76995f30ba8965c259c624c3a3fa5777"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/app/branchprice.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+	</body>
+
+</html>

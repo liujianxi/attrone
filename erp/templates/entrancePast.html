@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+	<style type="text/css">
+		.row{
+			position: relative;
+		}
+		.sure-service{
+			position: absolute;
+			top:50%;
+			right:100px;
+			transform: translateY(-50%);
+		}
+		.sure-service i{
+			color: red;
+			font-weight: bold;
+			margin-right:5px;
+		}
+	</style>
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row">
+					<form class="form-inline m-bot15" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<span class="btn btn-success btn-sm export">导出报表</span>
+								<span class="btn btn-success btn-sm cancel-table">批量解绑</span>
+							</div>
+						</div>
+					</form>
+				</div>
+			<div class="row">
+				<div class="adv-table much-table">
+					<table class="display table table-bordered table-striped dynamic-table">
+						<thead>
+							<tr>
+								<th style="width: 16.66%;">出院日期</th>
+								<th style="width: 16.66%;">机构</th>
+								<th style="width: 16.66%;">科室</th>
+								<th style="width: 16.66%;">门禁卡编号</th>
+								<th style="width: 16.66%;">门禁卡状态</th>
+								<th style="width: 16.66%;">关联订单</th>
+							</tr>
+						</thead>
+						<tbody id="loseContent">
+							<tr>
+								<td colspan="6" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="order-mask-bg"></div>
+	<div id="order-mask">
+		<div class="ball_spin_fade">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<script type="text/html" id="loseTemplate">
+		{{if extraList.length > 0}} 
+			{{each extraList as item i}}
+			<tr>
+				<td>{{item.dischargedTime}}</td>
+				<td>{{item.orgName}}</td>
+				<td>{{item.branchName}}</td>
+				<td>{{item.extraNO}}</td>
+				<td>{{item.statusStr}}</td>
+				<td><a title="订单详情-{{item.orderName}}" class="js-addTab-link" link="templates/orderDetail.html?orderId={{item.orderId}}" href="javascript:void(0);">{{item.orderId}}</a></td>
+			</tr>
+			{{/each}}
+		{{/if}}
+		{{if extraList.length <= 0}} 
+			<tr>
+				<td colspan="6" class="text-center">
+					暂无数据...
+				</td>
+			</tr>
+		{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script src="../js/app/commonFunc.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function(){
+			//获取url中的参数
+			function getUrlParam(name) {
+				let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				let r = window.location.search.substr(1).match(reg); //匹配目标参数
+				if(r != null) return unescape(r[2]);
+				return null; //返回参数值
+			}
+			var httpUtilObj = new HttpUtil();
+			var initParam = httpUtilObj.getTabParams();
+			let startDate=initParam.startDate;
+			let endDate=initParam.endDate;
+			let orderType=initParam.orderType;
+			let isAll=initParam.isAll;
+			let type=initParam.type;
+			let data={
+				startDate:startDate,
+				endDate:endDate,
+			}
+			data['orgId']=initParam.orgId;
+			data['branchId']=initParam.branchId;
+			data['extraStatus']=initParam.extraStatus;
+			initData(data);
+			function initData(data){
+				//实例化请求帮助类
+				var httpUtilObj = new HttpUtil();
+				httpUtilObj.ajax({
+					url: '/adminjson/SAASGetOrgExtraDetail',
+					params: data
+				}).then((res)=>{
+					$('#order-mask-bg').css('display','none');
+					$('#order-mask').css('display','none');
+					refreshList(res.body);
+				})
+			}
+			function refreshList(res) {
+				var fundsHtml = template('loseTemplate', res);
+				$("#loseContent").empty().html(fundsHtml);
+				bindData(res.count);
+				//固定表头的方法--传入固定的table
+				commonFunc.staticTable($('.dynamic-table'));
+			}
+			let _flag=true;
+			function bindData(count){
+				$('.export').off('click').on('click',function(){
+					if(!_flag){
+						return false;
+					}
+					_flag=false;
+					if(!count){
+						Toast.error("暂无门禁卡导出");
+						return false;
+					}
+					let httpUtilObj = new HttpUtil();
+					let params =data;
+					httpUtilObj.ajax({
+						url: '/adminjson/SAASGetFormRecordExtraDownload',
+						params: params
+					}).then((res)=>{
+						_flag=true;
+						exportlxs(res.body.excelName,res.body.downloadFileUrl);//导出报表
+					});
+				})
+				$('.cancel-table').off('click').on('click',function(){
+					if(!count){
+						Toast.error("暂无门禁卡解绑");
+						return false;
+					}
+					let tis='是否确定将该<strong style=color:red;font-weight:x-large;font-size: x-large;>'+count+'</strong>张门禁卡更新为解绑状态？'
+					bootbox.confirm({
+						title: "系统提示",
+						message: tis,
+						buttons: {
+							confirm: {
+								label: '确定',
+								//					className: 'btn-success'
+							},
+							cancel: {
+								label: '取消',
+								//					className: 'btn-danger'
+							}
+						},
+						callback: function (isConfirm) {
+							if (isConfirm) {
+								let httpUtilObj = new HttpUtil();
+								let params =data;
+								httpUtilObj.ajax({
+									url: '/adminjson/SAASRelieveOrgExtra',
+									params: params
+								}).then((res)=>{
+									Toast.success("解绑成功！");
+									initData(data)
+								});
+							}
+						}
+					});
+				})
+			}
+			function exportlxs(name,url){
+				bootbox.confirm({
+					title: "导出",
+					message: "<p>信息已导出至报表中心</p><p>文件名为："+name+"</p><p>是否立即下载？</p>",
+					buttons: {
+						confirm: {
+							label: '<span xlsUrl="'+url+'">确定</span>',
+							className: 'btn-xlsUrl btn-success'
+						},
+						cancel: {
+							label: '取消',
+							//					className: 'btn-danger'
+						}
+					},
+					callback: function (isConfirm) {
+						if (isConfirm) {
+							location.href=$('.btn-xlsUrl span').attr('xlsUrl');
+						}
+					}
+				});
+			}
+		})
+	</script>
+</body>
+</html>

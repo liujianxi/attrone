@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css"/>
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet"/>
+	    <link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+    	<link  href="../css/app.css"/>
+	    <style type="text/css">
+	    .bar {
+		    height: 18px;
+		    background: green;
+		}
+		</style>
+	</head>
+	<body style="background-color: white;">
+		<div class="container-fluid">
+	        <div class="panel-body">
+	        	<div class="row">
+		        	<form class="form-inline m-bot15" role="form">
+		        		<div class="row">
+		                    <div class="col-lg-12 form-group">
+	                            <label class="form-label">&nbsp;&nbsp;时间</label>
+								<input type="text" class="form-control input-large" style="width: 200px;" name="daterange-order" value="请选择日期"/>
+								<input type="hidden" id="channel-regBeginTime">
+								<input type="hidden" id="channel-regEndTime">
+		                        <button type="button" class="btn btn-primary btn-sm m-bot15" onclick="channelHGModel.loadBannerList(true,1);" style="margin-bottom: 0px;">
+		                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                        </button>
+		                    </div>
+		        		</div>
+					</form>
+				</div>	
+				<div class="row">
+		        	<div class="adv-table">
+		        		<table  class="display table table-bordered table-striped" id="dynamic-table">
+		        			<thead>
+		        				<tr>
+			        				<th>id</th>
+			        				<th>姓名</th>
+			        				<th>手机号</th>
+			        				<th>新增公众号关注人数</th>
+			        				<th>新增注册人数</th>
+			        				<th>申请长护险人数</th>
+			        				<th>下单人数</th>
+		        				</tr>
+		        			</thead>
+		        			<tbody id="bannerListContent">
+		        				<tr>
+		        					<td colspan="8" class="text-center">
+		        						数据载入中...
+		        					</td>
+		        				</tr>
+		        			</tbody>
+		        		</table>
+						<ul class="pagination" id="pagination"></ul>
+		        	</div>
+	        	</div>
+	        </div>
+		</div>	
+		<!-- 机构列表模板  -->
+		<script type="text/html" id="bannerListTemplate">
+			{{if channelList.length > 0}}
+				{{each channelList as item i}}
+				<tr>
+					<td>{{item.hgId}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.phone}}</td>
+					<td>{{item.mpCount}}</td>
+					<td>{{item.phoneCount}}</td>
+					<td>{{item.insureCount}}</td>
+					<td>{{item.orderCount}}</td>
+				</tr>
+				{{/each}}
+			{{/if}}
+			{{if channelList.length == 0}}
+				<tr>
+					<td colspan="9" class="text-center">
+						暂无数据
+						<!--，点击<a href="javascript:void(0);" onclick="bannerModule.loadBannerList(true,1);">刷新数据</a>-->
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+		
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="../js/app/channelHG.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	</body>	
+</html>

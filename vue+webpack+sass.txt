@@ -267,7 +267,7 @@ import 'echarts/lib/component/title';
 	npm install --save-dev webpack-bundle-analyzer
 	
 	
-	
+	slice()------[1,3),返回下标1 2的数组内容
 	
 	
 	/**********企业端***********/
@@ -317,3 +317,14 @@ import 'echarts/lib/component/title';
 	npm install 错误 安装 chromedriver 失败的解决办法:npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
 	
 	git add所有，忽略其中一个：git add -u -except main/dontcheckmein.txt
+	
+	
+	Array.isArray() 用于确定传递的值是否是一个 Array。
+	
+	
+	
+	// assetsSubDirectory: 'static',         //项目本地  dev
+    // assetsPublicPath: '/mobile/',
+    
+    assetsSubDirectory: '',            //www cdn  
+    assetsPublicPath: 'https://s.1-1dr.com/static/mobile/',

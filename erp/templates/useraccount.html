@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-select/bootstrap-select.min.css">
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	</head>
+
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+				<div class="row m-bot15 " style="color: #000; padding: 10px;">
+				
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+								<!-- <button type="button" class="btn btn-success btn-sm js-btn-addUser">
+		                        	<i class="fa fa-plus"></i>&nbsp;&nbsp;添加用户
+		                        </button> -->
+								<input type="text" class="form-control" placeholder="请输入会员名、手机号" id="findUserName">
+								<!--<select class="form-control" style="width: 150px;" id="search_org">
+									<option value="">请选择来源机构</option>
+								</select> -->
+								<label class="form-label">&nbsp;&nbsp;变动时间 </label>
+								<input type="text" class="form-controlinput-large" style="width: 200px;" name="daterange" value="请选择日期"/>
+								<input type="hidden" id="regBeginTime">
+								<input type="hidden" id="regEndTime">
+								<button type="button" class="btn btn-primary btn-sm" id="searchBut" onclick="userAccountModule.loadUserAccountList(true,1);">
+		                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                        </button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<!-- search form end-->
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="dynamic-table">
+							<thead>
+								<tr>
+									<th>用户id</th>
+									<th>用户名</th>
+									<th>类型</th>
+									<th>变动金额</th>
+									<th>账户余额</th>
+									<th>合作伙伴</th>
+									<th>描述</th>
+									<th>记录时间</th>
+									<th>备注记录</th>
+								</tr>
+							</thead>
+							<tbody id="recordListContent">
+								<tr>
+									<td colspan="8" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<ul class="pagination" id="pagination"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- 机构列表模板  -->
+		<script type="text/html" id="recordListTemplate">
+			{{if recordList.length > 0}} 
+			{{each recordList as item i}}
+			<tr>
+				<td><a href='javascript:void(0);' link='templates/userInfo.html?key={{item.userId}}' class='js-addTab-link' title="用户信息"  >{{item.userId}}</a></td>
+				<td>
+					{{item.userName}} 
+				</td>
+				<td>
+					{{item.changeTypeStr}} 
+				</td>
+				<td>
+					{{item.changeAccount}}
+				</td>
+				<td>
+					{{item.account}}
+				</td>
+				<td>
+					{{item.companyName}}
+				</td>
+				<td>
+					{{item.changeDesc}}
+				</td>
+				<td>{{item.createTime}}</td>
+				{{if item.remark!=undefined}}
+				<td>{{item.remark}}</td>
+				{{/if}}
+				{{if item.remark==undefined}}
+				<td></td>
+				{{/if}}
+			</tr>
+			{{/each}} {{/if}} {{if recordList.length == 0}}
+			<tr>
+				<td colspan="8" class="text-center">
+					暂无数据...
+				</td>
+			</tr>
+			{{/if}}
+		</script>
+
+		<!-- 机构下拉框 -->
+		<script type="text/html" id="orgSelctTemplate">
+			{{if orgList.length > 0}} 
+				<option value="">请选择项目点</option>
+				<option value="9999">居家业务</option>
+				{{each orgList as item i}}
+					<option value="{{item.id}}">{{item.orgName}}</option>
+				{{/each}} 
+			{{/if}} 
+			{{if orgList.length == 0}}
+				<option value="">所选地区无项目点可选</option>
+			{{/if}}
+		</script>
+		<!-- 省/市/县下拉框模板 -->
+		<script type="text/html" id="selctTemplate">
+			{{each list as item i}}
+			<option value="{{item.name}}">{{item.name}}</option>
+			{{/each}}
+		</script>
+		<script type="text/html" id="userTypeSelTemplate">
+			{{each list as item i}}
+			<option value="{{item.id}}">{{item.name}}</option>
+			{{/each}}
+		</script>
+
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/app/useraccount.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	</body>
+
+</html>

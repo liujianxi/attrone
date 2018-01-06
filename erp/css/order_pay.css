@@ -1,0 +1,27 @@
+#orderPayListContent td.highlight{
+	color:#6BD2BD;
+}
+#orderPayListContent td{
+	color: #009DD9;
+}
+.four_line{
+	display: none;
+}
+.one_open a,.one_close a{
+	color:#6BD2BD;
+}
+.totalprice,.th_col{
+	position: relative
+}
+.totalprice span,.th_col span{
+	position: absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+}
+#orderPayListContent td.highblack{
+	color:black;
+}
+.dynamic-table thead tr,#dynamic-table thead tr{
+	height:40px;
+}

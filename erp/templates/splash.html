@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css"/>
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet"/>
+	    <link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+    	<link  href="../css/app.css"/>
+	    <style type="text/css">
+	    .bar {
+		    height: 18px;
+		    background: green;
+		}
+		</style>
+	</head>
+	<body style="background-color: white;">
+		<div class="container-fluid">
+	        <div class="panel-body">
+	        	<div class="row">
+		        	<form class="form-inline" role="form">
+		        		<div class="row">
+		                    <div class="m-bot15 col-lg-12 form-group">
+		                    	<button type="button" class="btn btn-success btn-sm m-bot15"
+		                    		id="showAddSplashBtn">
+		                        	<i class="fa fa-plus"></i>&nbsp;&nbsp;新增闪屏
+		                        </button>
+		                    	<select class="form-control m-bot15"  style="padding-top: 0; padding-bottom: 0;" id="splashType">
+		                            <option value="0">全部</option>
+		                            <option value="1">用户app</option>
+		                            <option value="2">企业app</option>
+		                        </select>
+		                        <button type="button" class="btn btn-primary btn-sm m-bot15" onclick="splashModule.loadSplashList(true,1);">
+		                        	<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                        </button>
+		                    </div>
+		        		</div>
+					</form>
+				</div>	
+				<div class="row">
+		        	<div class="adv-table">
+		        		<table  class="display table table-bordered table-striped" id="dynamic-table">
+		        			<thead>
+		        				<tr>
+			        				<th>名称</th>
+			        				<th>描述</th>
+			        				<th>类型</th>
+			        				<th>跳转链接</th>
+			        				<th>持续时间</th>
+			        				<th>缩略图</th>
+			        				<th>开始时间</th>
+			        				<th>结束时间</th>
+			        				<th>创建人</th>
+			        				<th>创建时间</th>
+			        				<th class="text-center">操作</th>
+		        				</tr>
+		        			</thead>
+		        			<tbody id="splashListContent">
+		        				<tr>
+		        					<td colspan="8" class="text-center">
+		        						数据载入中...
+		        					</td>
+		        				</tr>
+		        			</tbody>
+		        		</table>
+						<ul class="pagination" id="pagination"></ul>
+		        	</div>
+	        	</div>
+	        </div>
+		</div>	
+		
+		<!-- 右侧弹出panel -->
+	    <div id="addSplash_panel" class="r_panel">
+	        <div class="panel-header">
+	            <button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+	            <h4 class="modal-title">新增闪屏</h4>
+	        </div>
+	        <div class="panel-body">
+	            <div class="container-fluid">
+	                <form class="form-horizontal" role="form" name="addSplashForm">
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">名称 *</label>
+	                        <div class="col-sm-5">
+                                <input type="text" class="form-control" placeholder="请输入闪屏名称" 
+                                	name="addSplash_name" id="addSplash_name">
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">类型 *</label>
+	                        <div class="col-sm-7">
+	                            <label class="radio-inline">
+	                                <input type="radio" name="addSplash_type" value="1" checked="checked">用户app
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" name="addSplash_type" value="2" >企业app
+	                            </label>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+                            <label class="col-lg-3 col-sm-3 control-label">有效期 *</label>
+                             <div class="col-sm-5">
+	                             <input type="text" class="form-control m-bot15 input-large col-lg-5" style="width: 200px;" name="daterange1" id="date_range1"/>
+	                             <input type="hidden" id="addSplash_startDate">
+                                 <input type="hidden" id="addSplash_endDate">
+		                    </div>
+                        </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">图片*</label>
+	                        <div class="col-sm-5">
+	                        	<input type="file" id="file1" name="addImgUpload"/>
+								<img id="splash_imgUrl_add" height="120" width="60"/>
+								<input type="hidden" name="" id = "splash_imgId_add">
+		                    </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">链接地址*</label>
+	                        <div class="col-sm-5">
+		                        <input type="text" class="form-control" placeholder="请输入跳转链接" name="addSplash_url" id="addSplash_url">
+		                    </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">持续时间*</label>
+	                        <div class="col-sm-5">
+		                        <input type="text" class="form-control" placeholder="请输入持续时间" name="addSplash_duration" id="addSplash_duration">单位秒
+		                    </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">描述</label>
+	                        <div class="col-sm-5">
+	                        	<textarea rows="" cols="" placeholder="请输入闪屏描述" id="addSplash_desc"></textarea>
+		                    </div>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                        <div class="col-sm-8" style="text-align:right;">
+		                        <button type="button" class="btn btn-default rp_close">取消</button>
+		                        <button type="button" class="btn btn-success modal_save" id="addSplashBtn">保存</button>
+	                        </div>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>			
+		<!-- 右侧弹出panel -->
+		<div id="showSplash_panel" class="r_panel">
+	        <div class="panel-header">
+	            <button type="button" class="close rp_close" data-dismiss="modal" aria-label="Close">
+	            	<span aria-hidden="true">&times;</span>
+	            </button>
+	            <h4 class="modal-title">Splash</h4>
+	        </div>
+	        <div class="panel-body">
+	            <div class="container-fluid">
+	                <form class="form-horizontal" role="form" name="showSplashForm">
+	                	<input type="hidden" class="form-control" id="showSplash_id">
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">名称 *</label>
+	                        <div class="col-sm-5">
+	                            <div class="iconic-input">
+	                                <i class="fa fa-home"></i>
+	                                <input type="text" class="form-control" placeholder="请输入闪屏名称" 
+	                                	id="showSplash_name">
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">闪屏类型*</label>
+	                        <div class="col-sm-7">
+	                        	<label class="radio-inline">
+	                                <input type="radio" id="showSplash_type_1" name="showSplash_type" value="1">用户app
+	                            </label>
+	                            <label class="radio-inline">
+	                                <input type="radio" id="showSplash_type_2" name="showSplash_type" value="2">企业app
+	                            </label>
+	                        </div>
+	                    </div>
+	                    <div class="form-group">
+                            <label class="col-lg-3 col-sm-3 control-label">有效期 *</label>
+                            <div class="col-sm-5">
+                            	 <input type="text" class="form-control m-bot15 input-large col-lg-5" style="width: 200px;" name="daterange1" id="date_range2"/>
+	                             <input type="hidden" id="showSplash_startDate">
+                                 <input type="hidden" id="showSplash_endDate">
+                            </div>
+                        </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">图片*</label>
+	                        <div class="col-sm-5">
+	                        	<input type="file" id="file2" name="editImgUpload"/>
+								<img id="splash_imgUrl_edit" height="120" width="60" src=""/>
+								<input type="hidden" name="" id = "splash_imgId_edit" value="">
+		                    </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">链接地址 *</label>
+	                        <div class="col-sm-5">
+	                        	<input type="text" class="form-control" placeholder="请输入链接地址" 
+	                                	id="showSplash_url">
+		                    </div>
+	                    </div>
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">持续时间*</label>
+	                        <div class="col-sm-5">
+	                        	<input type="text" class="form-control" placeholder="请输入持续时间" 
+	                                	id="showSplash_duration">单位秒
+		                    </div>
+	                    </div>
+	                    
+	                    <div class="form-group">
+	                    	<label class="col-sm-3 control-label">描述 *</label>
+	                        <div class="col-sm-5">
+	                        	<textarea rows="" cols="" id = "showSplash_desc" placeholder="请输入描述" ></textarea>
+		                    </div>
+	                    </div>
+	                    <div class="form-group">
+	                        <div class="col-sm-8" style="text-align:right;">
+		                        <button type="button" class="btn btn-default" 
+		                        	id="panelChangeBtn" onclick="splashEditModule.closePanel()">取消</button>
+		                        <button type="button" class="btn btn-success modal_save"
+		                        	id="editOrgBtn" onclick="splashEditModule.editSplashItem()">保存</button>
+	                        </div>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+			
+		<!-- 机构列表模板  -->
+		<script type="text/html" id="splashListTemplate">
+			{{if splashList.length > 0}}
+				{{each splashList as item i}}
+				<tr>
+					<td>{{item.name}}</td>
+					<td>{{item.desc}}</td>
+					<td>{{item.type | splashFilter : 'SPLASH_TYPE'}}</td>
+					<td>{{item.url}}</td>
+					<td>{{item.duration}}秒</td>
+					<td><img src="{{item.imgUrl}}" height="80" width="40"></td>
+					<td>{{item.startDate}}</td>
+					<td>{{item.endDate}}</td>
+					<td>{{item.editor}}</td>
+					<td>{{item.createTime}}</td>
+					<td class="text-center">
+						<a href="javascript:void(0);" onclick="splashModule.showEditSplash('{{item.id}}')">编辑</a>
+					</td>
+				</tr>
+				{{/each}}
+			{{/if}}
+			{{if splashList.length == 0}}
+				<tr>
+					<td colspan="9" class="text-center">
+						暂无数据，点击<a href="javascript:void(0);" onclick="splashModule.loadSplashList(true,1);">刷新数据</a>
+					</td>
+				</tr>
+			{{/if}}
+		</script>
+		
+		<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script src="../js/app/fun.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="../js/app/splash.js?123"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	</body>	
+</html>

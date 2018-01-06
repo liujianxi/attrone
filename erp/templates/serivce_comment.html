@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+	<style type="text/css">
+		.row {
+			position: relative;
+		}
+
+		.sure-service {
+			position: absolute;
+			top: 50%;
+			right: 100px;
+			transform: translateY(-50%);
+		}
+
+		.sure-service i {
+			color: red;
+			font-weight: bold;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row m-bot15">
+				<form class="form-inline" role="form">
+					<div class="row">
+						<div class="col-lg-12 form-group">
+							<label class="form-label">&nbsp;&nbsp;分数过滤：&nbsp;&nbsp;</label>
+							<select class="service_score">
+								<option value="0">全部</option>
+								<option value="5">5分</option>
+								<option value="4">4分</option>
+								<option value="3">3分</option>
+								<option value="2">2分</option>
+								<option value="1">1分</option>
+							</select>
+							<label class="form-label">&nbsp;&nbsp;时间：</label>
+							<input type="text" class="form-control input-large" name="daterange-start" value="" />
+							<label class="form-label">&nbsp;至&nbsp;</label>
+							<input type="text" class="form-control input-large" name="daterange-end" value="" />
+							<button type="button" class="btn btn-primary btn-sm" id="service-search">
+                    			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+                   			</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="adv-table">
+					<table class="display table table-bordered table-striped" id="dynamic-table">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>机构</th>
+								<th>科室</th>
+								<th>评论时间</th>
+								<th>评论内容</th>
+								<th>打分</th>
+							</tr>
+						</thead>
+						<tbody id="branchContent">
+							<tr>
+								<td colspan="6" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="order-mask-bg"></div>
+	<div id="order-mask">
+		<div class="ball_spin_fade">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<script type="text/html" id="branchTemplate">
+		{{if praiseList.length > 0}} {{each praiseList as item i}}
+		<tr>
+			<td>{{i+1}}</td>
+			<td>{{item.orgName}}</td>
+			<td>{{item.branchName}}</td>
+			<td>{{item.createTimeStr}}</td>
+			<td>{{item.content}}</td>
+			<td>{{item.grade}}</td>
+		</tr>
+		{{/each}} {{/if}} {{if praiseList.length
+		<=0 }} <tr>
+			<td colspan="6" class="text-center">
+				暂无数据...
+			</td>
+			</tr>
+			{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script>
+		$(function () {
+			//获取url中的参数
+			function getUrlParam(name) {
+				let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				let r = window.location.search.substr(1).match(reg); //匹配目标参数
+				if (r != null) return unescape(r[2]);
+				return null; //返回参数值
+			}
+			var pageSize = 10;
+			var paginationInit = false;
+			//初始化分页控件
+			function initPaginations(nowPage, count) {
+				//如果记录条目为0则隐藏分页控件
+				if (count <= pageSize) {
+					$("#pagination").hide();
+				} else {
+					$("#pagination").show();
+				}
+				$("#pagination").pagination(count, {
+					'items_per_page': pageSize,
+					'num_display_entries': 5,
+					'num_edge_entries': 5,
+					'prev_text': "上一页",
+					'next_text': "下一页",
+					'callback': function (page_index) {
+						console.log("callback:" + page_index + "::" + nowPage);
+						if (paginationInit) {
+							initData(page_index + 1);
+						} else {
+							paginationInit = true;
+						}
+		
+					},
+					'current_page': (nowPage <= 1) ? 0 : (nowPage - 1)
+				});
+			}
+			getTimePicker();
+			initData(1,'init');
+			function initData(num=1,str){
+				//实例化请求帮助类
+				var httpUtilObj = new HttpUtil();
+				var initParam = httpUtilObj.getTabParams();
+				let data={};
+				data={
+					orgId:initParam.orgId,
+					branchId:initParam.branchId,
+				};
+				if(str!='init'){
+					data['status']=$('.service_score option:selected').val()||'0';
+					data['startDate']=$('input[name="daterange-start"]').val();
+					data['endDate']=$('input[name="daterange-end"]').val();
+				}
+				data['pageSize']=pageSize;
+				data['pageNo']=num;
+				httpUtilObj.ajax({
+					url: '/adminjson/SAASGetPraiseOrgBranchList',
+					params: data
+				}).then((res) => {
+					$('#order-mask-bg').css('display', 'none');
+					$('#order-mask').css('display', 'none');
+					refreshList(res.body);
+				});
+			}
+			function refreshList(data) {
+				var fundsHtml = template('branchTemplate', data);
+				$("#branchContent").empty().html(fundsHtml);
+				refreshBind();
+			}
+			function refreshBind(){
+				$('#service-search').off('click').on('click',function(){
+					initData(1);
+				})
+			}
+			function getTimePicker(){
+				$.fn.datetimepicker.dates['zh'] = {
+					days: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"],
+					daysShort: ["日", "一", "二", "三", "四", "五", "六", "日"],
+					daysMin: ["日", "一", "二", "三", "四", "五", "六", "日"],
+					months: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+					monthsShort: ["一", "二", "三", "四", "五", "六", "七", "八", "九", "十", "十一", "十二"],
+					meridiem: ["上午", "下午"],
+					//suffix:      ["st", "nd", "rd", "th"],  
+					today: "今天"
+				};
+				$('input[name="daterange-start"]').val('');
+				$('input[name="daterange-end"]').val('');
+				$('input[name="daterange-start"]').datetimepicker({
+					format: 'yyyy-mm-dd',
+					minView: 'month',
+					language: 'zh',
+					autoclose: 1,
+					defaultViewDate: {year:2000, month:0, day:1},
+					endDate : new Date(),
+				}).on('hide',function(){
+					let curr=new Date($('input[name="daterange-start"]').val()).getTime();
+					let next=new Date($('input[name="daterange-end"]').val()).getTime();
+					if(curr>next){
+						Toast.error('开始时间不得超过结束时间');
+						$('input[name="daterange-start"]').val($('input[name="daterange-end"]').val());
+					}
+				})
+				$('input[name="daterange-end"]').datetimepicker({
+					format: 'yyyy-mm-dd',
+					minView: 'month',
+					language: 'zh',
+					autoclose: 1,
+					endDate : new Date(),
+				}).on('hide',function(){
+					let curr=new Date($('input[name="daterange-start"]').val()).getTime();
+					let next=new Date($('input[name="daterange-end"]').val()).getTime();
+					if(curr>next){
+						Toast.error('结束时间不得小于开始时间');
+						$('input[name="daterange-end"]').val($('input[name="daterange-start"]').val());
+					}
+				});
+			}
+			function theDay(key) {
+				let str = new Date();
+				let t_year = str.getFullYear();
+				let t_month = str.getMonth() + 1 > 9 ? str.getMonth() + 1 : '0' + (str.getMonth() + 1);
+				let t_day = str.getDate() > 9 ? str.getDate() : '0' + str.getDate();
+				if (key == 'current') {
+					return t_year + '-' + t_month + '-' + t_day;
+				} else {
+					return t_year + '-' + t_month + '-01';
+				}
+			};
+		})
+	</script>
+</body>
+
+</html>

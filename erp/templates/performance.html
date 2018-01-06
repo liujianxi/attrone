@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>易简医</title>
+		<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+		<link href="../css/bootstrap.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet" />
+		<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+		<link href="../css/r-panel.css" rel="stylesheet" />
+		<link href="../fonts/css/font-awesome.css" />
+		<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+		<link href="../js/bootstrap-editable/bootstrap-editable.css"  rel="stylesheet" />
+		<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+		<link  href="../css/app.css" rel="stylesheet" />
+	</head>
+
+		                
+		                
+		                
+	<body style="background-color: white;">
+		<div class="container-fluid">
+			<div class="panel-body">
+					<div class="row m-bot15 " style="color: #000; padding: 10px;">
+					<form class="form-inline" role="form">
+						<div class="row">
+							<div class="col-lg-12 form-group">
+							<input type="text" class="form-control" placeholder="请输入员工名、手机号" id="performancefindUserName" style="width: 224px;">
+								<label class="form-label">&nbsp;&nbsp;时间</label>
+								<input type="text" class="form-control input-large" style="width: 200px;" name="daterange-order" value="请选择日期"/>
+								<input type="hidden" id="performance-regBeginTime">
+								<input type="hidden" id="performance-regEndTime">
+								<button type="button" class="btn btn-primary btn-sm js-btn-performanceListByIf" id="performanceBut">
+		                    		<i class="fa fa-search"></i>&nbsp;&nbsp;查询
+		                		</button>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="row">
+					<div class="adv-table">
+						<table class="display table table-bordered table-striped" id="ServiceLivingListTable" style="margin-bottom: 0px;">
+							<thead>
+								<tr>
+									<th>账号</th>
+									<th>昵称</th>
+									<th>申请总数</th>
+									<th>初审人数</th>
+									<th>复审人数</th>
+									<th>终审人数</th>
+									<th>下单人数</th>
+									<th>转化率</th>
+									<th>结算金额</th>
+								</tr>
+							</thead>
+							<tbody id="performanceListContent">
+								<tr>
+									<td colspan="9" class="text-center">
+										数据载入中...
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="row panel-body">
+							<ul class="pagination" id="pagination"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+		<script type="text/html" id="performanceListTemplate">
+				{{each List as item i}}
+					<tr>
+						<td>{{item.phone}}</td>
+						<td>{{item.fullName}}</td>
+						<td>{{item.totality}}</td>
+						<td>{{item.firstTrial}}</td>
+						<td>{{item.recheck}}</td>
+						<td>{{item.lastInstance}}</td>
+						<td>{{item.placeAnOrder}}</td>
+						<td>{{item.percentConversion}}</td>
+						<td>{{item.settleAccountsFee}}</td>
+					</tr>
+				{{/each}}
+		</script>
+		
+
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../js/app/common/toast.js"></script>
+		<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/template.js"></script>
+		<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+		<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+		<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+		<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+		<script type="text/javascript" src="../js/ajaxfileupload.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+		<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+		<script type="text/javascript" src="../js/app/performance.js"></script>
+		<script type="text/javascript" src="../js/app/fun.js"></script>
+	</body>
+
+</html>

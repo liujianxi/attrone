@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row">
+				<form class="form-inline m-bot15" role="form">
+					<div class="row">
+						<div class="col-lg-12 form-group">
+							<span class="btn btn-success btn-sm export">导出报表</span>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<form class="form-inline m-bot15" role="form">
+					<div class="row">
+						<div class="col-lg-12 form-group">
+							<label class="form-label">&nbsp;&nbsp;过滤时间：</label>
+							<input type="text" class="form-control input-large" name="daterange-start" value="年/月/日" />
+							<label class="form-label">&nbsp;至&nbsp;</label>
+							<input type="text" class="form-control input-large" name="daterange-end" value="年/月/日" />
+							<input type="hidden" id="order-regBeginTime">
+							<input type="hidden" id="order-regEndTime">
+							<label class="form-label">&nbsp;&nbsp;机构过滤：&nbsp;&nbsp;</label>
+							<select class="form-control org_hos org_hide" style="padding-top: 0; padding-bottom: 0;"></select>
+							<select class="form-control org_branch org_hide" style="padding-top: 0; padding-bottom: 0;"></select>
+							<button type="button" class="btn btn-primary btn-sm" id="order-search">
+                    			<i class="fa fa-search"></i>&nbsp;&nbsp;搜索
+                   			</button>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="adv-table much-table order-pay">
+					<table class="display table table-bordered table-striped dynamic-table">
+						<thead>
+							<tr>
+								<th rowspan="2" style="width: 5%;">日期</th>
+								<th rowspan="2" style="width: 5%;">项目</th>
+								<!--<th rowspan="2"><span style="position: relative;">总计<i id="count" data-container="body" class="pop-infos" data-content="支付金额-退款金额-提现金额" data-toggle="popover" data-placement="bottom"></i></span></th>-->
+								<th rowspan="2" style="width: 5%;">总计</th>
+								<th rowspan="2" style="width: 5%;">现金</th>
+								<th colspan="5" class="order-onlineAll-th">易简医在线支付</th>
+								<th colspan="5" class="order-baofuAll-th">宝付支付</th>
+								<th colspan="6" class="order-POSAll-th">通联POS</th>
+								
+							</tr>
+							<tr>
+								<th style="width: 5%;"><a id="order-onlineAll" class="show" href="javascript:void(0);" title="总额">总额</a></th>
+								<th style="width: 5%;" class="order-onlineAll-td">APP微信</th>
+								<th style="width: 5%;" class="order-onlineAll-td">H5微信</th>
+								<th style="width: 5%;" class="order-onlineAll-td">APP支付宝</th>
+								<th style="width: 5%;" class="order-onlineAll-td">会员支付</th>
+								<th style="width: 5%;"><a id="order-baofuAll" class="show" href="javascript:void(0);" title="总额">总额</a></th>
+								<th style="width: 5%;" class="order-baofuAll-td">宝付-APP微信</th>
+								<th style="width: 5%;" class="order-baofuAll-td">宝付-H5微信</th>
+								<th style="width: 5%;" class="order-baofuAll-td">宝付-APP支付宝</th>
+								<th style="width: 5%;" class="order-baofuAll-td">宝付-H5支付宝</th>
+								<th style="width: 5%;"><a id="order-POSAll" class="show" href="javascript:void(0);" title="总额">总额</a></th>
+								<th style="width: 5%;" class="order-POSAll-td">POS-微信</th>
+								<th style="width: 5%;" class="order-POSAll-td">POS-支付宝</th>
+								<th style="width: 5%;" class="order-POSAll-td">POS-QQ钱包</th>
+								<th style="width: 5%;" class="order-POSAll-td">POS-储蓄卡</th>
+								<th style="width: 5%;" class="order-POSAll-td">POS-信用卡</th>
+							</tr>
+						</thead>
+						<tbody id="orderPayListContent">
+							<tr>
+								<td colspan="20" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/html" id="orderPayTemplate">
+		{{if orderPayArray.length > 0}} {{each orderPayArray as item i}}
+		<tr>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+			<td>{{item.date}}</td>
+		</tr>
+		{{/each}} {{/if}} {{if orderPayArray.length == 0}}
+		<tr>
+			<td colspan="20" class="text-center">
+				暂无数据
+			</td>
+		</tr>
+		{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script src="../js/app/commonFunc.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" src="../js/app/orderorg_pay.js"></script>
+</body>
+
+</html>

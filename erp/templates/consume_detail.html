@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+	<style type="text/css">
+		.row {
+			position: relative;
+		}
+
+		.sure-service {
+			position: absolute;
+			top: 50%;
+			right: 100px;
+			transform: translateY(-50%);
+		}
+
+		.sure-service i {
+			color: red;
+			font-weight: bold;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row">
+				<form class="form-inline m-bot15" role="form">
+					<div class="row">
+						<p class="sure-service">当前未确认服务：<i>0</i>条</p>
+						<div class="col-lg-12 form-group">
+							<span class="btn btn-success btn-sm">导出报表</span>
+						</div>
+						<!--<div class="form-group btn-toolbar" style="min-width:1400px;margin-left: -5px;">
+								<label class="handle_title">督导：</label>
+								<div class="btn-group js_div_channels"><button type="button" class="btn icon-angle-left btn-default js-pbc-left" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px;margin: -5px 0 0 -5px;border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(45deg);"></span></button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn js-all-btn select blue" id="-1">全部</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="24">王五</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="35">一发店长</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="1">周慧</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="23">test</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20025">搜索</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20024">34</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="3">二哥2</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20">王玮</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="19">test1111</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="26">张三</button><button type="button" class="btn icon-angle-right btn-default js-pbc-right" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px; margin: -5px 0 0 -5px; border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(-135deg);"></span></button></div>
+							</div>
+							<div class="form-group btn-toolbar" style="min-width:1400px;margin-left: -5px;">
+								<label class="handle_title">科室：</label>
+								<div class="btn-group js_div_channels"><button type="button" class="btn icon-angle-left btn-default js-pbc-left" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px;margin: -5px 0 0 -5px;border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(45deg);"></span></button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn js-all-btn select blue" id="-1">全部</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="24">王五</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="35">一发店长</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="1">周慧</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="23">test</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20025">搜索</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20024">34</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="3">二哥2</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="20">王玮</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="19">test1111</button><button type="button" style="margin:0;height:30px;padding: 0 20px;" class="btn btn-default js-pbc-btn" id="26">张三</button><button type="button" class="btn icon-angle-right btn-default js-pbc-right" style="width:34px; height:30px;margin:0;padding: 0 20px;"><span style="position:absolute; top:50%; left:50%; display:block; height:10px; width:10px; margin: -5px 0 0 -5px; border-left:2px solid rgb(102, 102, 102); border-bottom:2px solid rgb(102, 102, 102); -webkit-transform:rotate(-135deg);"></span></button></div>
+							</div>-->
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="adv-table">
+					<table class="display table table-bordered table-striped" id="dynamic-table">
+						<thead>
+							<tr>
+								<th>服务添加时间</th>
+								<th>服务日期</th>
+								<th>所属机构</th>
+								<th>所属科室</th>
+								<th>护理员</th>
+								<th>订单号</th>
+								<th>服务类型</th>
+								<th>服务名称</th>
+								<th>数量</th>
+								<th>单价</th>
+								<th>消费金额</th>
+								<th>状态</th>
+								<th>备注</th>
+							</tr>
+						</thead>
+						<tbody id="fundsContent">
+							<tr>
+								<td colspan="13" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/html" id="consumeTemplate">
+		{{if orderPayArray.length > 0}} {{each orderPayArray as item i}}
+		<tr>
+			<td>{{item.acceptTimeStr}}</td>
+			<td>
+				<a title="订单详情-{{item.kinsName}}" class="js-addTab-link" link="templates/orderDetail.html?orderId={{item.orderId}}" href="javascript:void(0);">{{item.orderId}}</a>
+			</td>
+			<td>
+				<a title="用户信息" link="templates/userInfo.html?key={{item.userId}}" class="js-addTab-link" href="javascript:void(0);">{{item.phone}}</a>
+			</td>
+			<td>{{item.feeStr}}</td>
+			<td>{{item.payTypes}}</td>
+			<td>{{item.department}}</td>
+			<td>{{item.busiTypeStr}}</td>
+			<td>
+				{{ if item.updateStaffName==undefined}}item.receiver{{/if}} {{ if item.updateStaffName!=undefined}}item.updateStaffName{{/if}}
+			</td>
+		</tr>
+		{{/each}} {{/if}} {{if orderPayArray.length
+		<=0 }} <tr>
+			<td colspan="8" class="text-center">
+				暂无数据...
+			</td>
+			</tr>
+			{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script>
+		$(function () {
+			//获取url中的参数
+			function getUrlParam(name) {
+				let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				let r = window.location.search.substr(1).match(reg); //匹配目标参数
+				if (r != null) return unescape(r[2]);
+				return null; //返回参数值
+			}
+			//实例化请求帮助类
+			var httpUtilObj = new HttpUtil();
+			var initParam = httpUtilObj.getTabParams();
+			let startDate = initParam.startDate;
+			let endDate = initParam.endDate;
+			let orderType = initParam.orderType;
+			let isAll = initParam.isAll;
+			let data = {
+				startDate: startDate,
+				endDate: endDate,
+				orderType: orderType,
+				isAll: isAll,
+			}
+			data['companyId'] = initParam.companyId;
+			data['orgId'] = initParam.orgId;;
+			data['branchId'] = initParam.branchId;;
+			httpUtilObj.ajax({
+				url: '/adminjson/SAASExpenditureDetailJG',
+				params: data
+			}).then((res) => {
+				//				refreshList(res.body);
+			})
+
+			function refreshList(data) {
+				var fundsHtml = template('fundsTemplate', data);
+				$("#fundsContent").empty().html(fundsHtml);
+			}
+		})
+	</script>
+</body>
+
+</html>

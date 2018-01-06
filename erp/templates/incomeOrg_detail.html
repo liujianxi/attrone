@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>易简医</title>
+	<link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../css/bootstrap-reset.css" rel="stylesheet" />
+	<link href="../css/bootstrap.min.css" rel="stylesheet" />
+	<link href="../css/style.css" rel="stylesheet" />
+	<link href="../js/bootstrap-editable/bootstrap-editable.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order-prepay.css" />
+	<link href="../css/newOrder.css" rel="stylesheet" />
+	<link href="../js/plugins/pagination/pagination.css" rel="stylesheet" />
+	<link href="../css/r-panel.css" rel="stylesheet" />
+	<link href="../fonts/css/font-awesome.css" />
+	<link href="../js/plugins/jquery-toast-plugin/jquery.toast.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../js/bootstrap-daterangepicker/daterangepicker.css">
+	<link href="../css/app.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="../css/order_pay.css" />
+	<style type="text/css">
+		.row {
+			position: relative;
+		}
+
+		.sure-service {
+			position: absolute;
+			top: 50%;
+			right: 100px;
+			transform: translateY(-50%);
+		}
+
+		.sure-service i {
+			color: red;
+			font-weight: bold;
+			margin-right: 5px;
+		}
+	</style>
+</head>
+
+<body style="background: #fff;">
+	<div class="container-fluid">
+		<div class="panel-body">
+			<div class="row">
+				<form class="form-inline m-bot15" role="form">
+					<div class="row">
+						<!--<p class="sure-service">当前未确认服务：<i>0</i>条</p>-->
+						<div class="col-lg-12 form-group">
+							<span class="btn btn-success btn-sm export">导出报表</span>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="row">
+				<div class="adv-table much-table">
+					<table class="display table table-bordered table-striped dynamic-table">
+						<thead>
+							<tr>
+								<th style="width: 7.69%;">支付时间</th>
+								<th style="width: 7.69%;">机构</th>
+								<th style="width: 7.69%;">科室</th>
+								<th style="width: 10.69%;">订单号</th>
+								<th style="width: 7.69%;">服务类型</th>
+								<th style="width: 7.69%;">服务名称</th>
+								<th style="width: 7.69%;">护理员</th>
+								<th style="width: 4.69%;">数量</th>
+								<th style="width: 7.69%;">单价</th>
+								<th style="width: 7.69%;">支付金额</th>
+								<th style="width: 7.69%;">订单状态</th>
+								<th style="width: 7.69%;">用户账号</th>
+								<th style="width: 7.69%;">收款人</th>
+							</tr>
+						</thead>
+						<tbody id="consumeContent">
+							<tr>
+								<td colspan="13" class="text-center">
+									数据载入中...
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<!--<ul class="pagination" id="pagination"></ul>-->
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="order-mask-bg"></div>
+	<div id="order-mask">
+		<div class="ball_spin_fade">
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+	<script type="text/html" id="consumeTemplate">
+		{{if expenditureList.length > 0}} {{each expenditureList as item i}}
+		<tr>
+			<td>{{item.payTimeStr}}</td>
+			<td>{{item.orgName}}</td>
+			<td>{{item.branchName}}</td>
+			{{if orderRight}}
+			<td><a title="订单详情-{{item.fullName}}" class="js-addTab-link" link="templates/orderDetail.html?orderId={{item.orderId}}" href="javascript:void(0);">{{item.orderId}}</a></td>
+			{{/if}}
+			{{if !orderRight}}
+			<td>{{item.orderId}}</td>
+			{{/if}}
+			<td>{{item.serviceType}}</td>
+			<td>{{item.serviceItem}}</td>
+			<td>{{item.hgName}}</td>
+			<td>{{item.num}}</td>
+			<td>{{item.priceDesc}}</td>
+			<td>{{item.feeStr}}</td>
+			<td>{{item.orderStatusStr}}</td>
+			{{if userRight}}
+			<td><a title="用户信息" link="templates/userInfo.html?key={{item.userId}}" class="js-addTab-link" href="javascript:void(0);">{{item.phone}}</a></td>
+			{{/if}}
+			{{if !userRight}}
+			<td>{{item.phone}}</td>
+			{{/if}}
+			<td>{{item.receiver}}</td>
+		</tr>
+		{{/each}} {{/if}} {{if expenditureList.length
+		<=0 }} <tr>
+			<td colspan="13" class="text-center">
+				暂无数据...
+			</td>
+			</tr>
+			{{/if}}
+	</script>
+	<script type="text/javascript" src="../js/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/app/common/toast.js"></script>
+	<script type="text/javascript" src="../js/app/common/httpUtil.js"></script>
+	<script type="text/javascript" src="../js/app/common/modalUtil.js"></script>
+	<script type="text/javascript" src="../js/plugins/template.js"></script>
+	<script type="text/javascript" src="../js/plugins/pagination/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../js/plugins/bootbox.js-4.4.0.js"></script>
+	<script type="text/javascript" src="../js/plugins/jquery-toast-plugin/jquery.toast.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/moment.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="../js/bootstrap-daterangepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/app/fun.js"></script>
+	<script type="text/javascript" src="../js/app/common/tools.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-editable/bootstrap-editable.min.js"></script>
+	<script src="../js/app/commonFunc.js" type="text/javascript" charset="utf-8"></script>
+	<script>
+		$(function () {
+			//获取url中的参数
+			function getUrlParam(name) {
+				let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+				let r = window.location.search.substr(1).match(reg); //匹配目标参数
+				if (r != null) return unescape(r[2]);
+				return null; //返回参数值
+			}
+			//实例化请求帮助类
+			var httpUtilObj = new HttpUtil();
+			var initParam = httpUtilObj.getTabParams();
+			let startDate = initParam.startDate;
+			let endDate = initParam.endDate;
+			let orderType = initParam.orderType;
+			let isAll = initParam.isAll;
+			let type = initParam.type;
+			let data = {
+				startDate: startDate,
+				endDate: endDate,
+				orderType: orderType,
+				isAll: isAll,
+				priceType: type,
+			}
+			data['companyId'] = initParam.companyId;
+			data['orgId'] = initParam.orgId;
+			data['branchId'] = initParam.branchId;
+			httpUtilObj.ajax({
+				url: '/adminjson/SAASExpenditureDetailJG',
+				params: data
+			}).then((res) => {
+				$('#order-mask-bg').css('display', 'none');
+				$('#order-mask').css('display', 'none');
+				refreshList(res.body);
+			})
+			let target = $("div.ttt_item_tit.selected", parent.document);
+			let urlStr = target.attr("data-path");
+			urlStr = urlStr.split('?')[1];
+			let _flag = true;
+			$('.export').off('click').on('click', function () {
+				if (!_flag) {
+					return false;
+				}
+				_flag = false;
+				let _url = 'https://'+window.location.host+'/getExpenditureDetailExcelServlet';
+				location.href = _url + '?' + urlStr;
+				setTimeout(function () {
+					_flag = true;
+				}, 500);
+			})
+			function refreshList(data) {
+				var fundsHtml = template('consumeTemplate', data);
+				$("#consumeContent").empty().html(fundsHtml);
+				//固定表头的方法--传入固定的table
+				commonFunc.staticTable($('.dynamic-table'));
+			}
+		})
+	</script>
+</body>
+
+</html>
