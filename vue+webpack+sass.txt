@@ -313,6 +313,11 @@ import 'echarts/lib/component/title';
 	  }
 	})
 	
+	npm cache clean # 清空缓存
+	npm run dev 报错 no such file   node sass
+	//node-sass
+	npm rebuild node-sass
+	
 	node版本问题：window下直接覆盖-----npm install
 	npm install 错误 安装 chromedriver 失败的解决办法:npm install chromedriver --chromedriver_cdnurl=http://cdn.npm.taobao.org/dist/chromedriver
 	
