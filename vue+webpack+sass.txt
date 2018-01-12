@@ -328,3 +328,36 @@ import 'echarts/lib/component/title';
     
     assetsSubDirectory: '',            //www cdn  
     assetsPublicPath: 'https://s.1-1dr.com/static/mobile/',
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//gulp
+	npm/cnpm install gulp -g
+	
+	//构建带有时间戳的文件
+	npm install --save-dev gulp-asset-rev
+	
+	
+	npm install --save-dev gulp-clean
+	
+	
+	rowspan:跨行
+	colspan:跨列
+	
+	(123456789).toLocaleString('zh-hans-CN-u-nu-hanidec',{useGrouping:false}) //"一二三四五六七八九"
+	
+	//vue查看已注册的组件
+	this.$options.components
+	
+	
+    assetsSubDirectory: 'static',  //dev
+    assetsPublicPath: '/mobile/',
+    

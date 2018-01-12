@@ -1,0 +1,59 @@
+body{
+				margin: 0;
+				padding: 0;
+			}
+			.split-box{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				background: black;
+			}
+			.bottom,.top{
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+			.bottom img{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				display: block;
+				width: 80%;
+			}
+			.top{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: calc(50vw + 1000px);
+				margin-left: -1000px;
+				transform: skew(-45deg);
+			}
+			.top .content{
+				position: absolute;
+				width: 100vw;
+				height: 100%;
+				transform: skew(45deg);
+				margin-left: 1000px;
+			}
+			.top img{
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%,-50%);
+				width: 80%;
+				display: block;
+				z-index: 2;
+			}
+			.split-hand{
+				position: absolute;
+				left: 50%;
+				top: 50%;
+				transform:rotate(45deg) translate(-50%,-50%);
+				height: 200%;
+				width: 10px;
+				background: #eaaa46;
+				transform-origin: top;
+				z-index: 3;
+			}
