@@ -333,10 +333,10 @@ import 'echarts/lib/component/title';
 	
 	
 	
+	12306````````````1968583543@qq.com---liujianxi199419
 	
 	
-	
-	
+	18026997825
 	
 	
 	//gulp
@@ -360,4 +360,46 @@ import 'echarts/lib/component/title';
 	
     assetsSubDirectory: 'static',  //dev
     assetsPublicPath: '/mobile/',
+
+
+	BFC：Block Formatting Context，块级格式化上下文
     
+	//数组解构
+	const arr = [1, 2, 3, 4];
+	const [a, b] = arr;
+	console.log(a);
+	
+	//网站收藏
+	function AddFavorite(title,url){
+		try{
+		   window.external.addFavorite(url,title);
+		 }
+		catch(e){
+		 try{
+			window.sidebar.addPanel(title,url,"");
+		  }
+		 catch(e){
+		   alert("抱歉，您所使用的浏览器无法完成此操作。\n\n请使用快捷键Ctrl+D进行添加！");
+		   }
+		 }
+	}
+
+	//用br替换\n
+	self.descriptions=self.descriptions.replace(/[\r\n]/g,"<br/>");
+	
+	jq项目加时间戳：gulp构建工具
+	jq模板引擎渲染:https://github.com/aui/art-template
+	打印:jqprint
+	画板:jSignature
+	www:13694284109--
+	dev:13691640020--88888888
+	
+	
+	
+	script  defer 属性规定是否对脚本执行进行延迟，直到页面加载为止。(只有 Internet Explorer 支持 defer 属性)
+
+
+
+
+	
+	
