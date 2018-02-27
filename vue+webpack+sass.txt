@@ -388,7 +388,7 @@ import 'echarts/lib/component/title';
 		   }
 		 }
 	}
-
+	
 	//用br替换\n
 	self.descriptions=self.descriptions.replace(/[\r\n]/g,"<br/>");
 	
@@ -402,9 +402,19 @@ import 'echarts/lib/component/title';
 	
 	
 	script  defer 属性规定是否对脚本执行进行延迟，直到页面加载为止。(只有 Internet Explorer 支持 defer 属性)
-
-
-
-
 	
+	document.body.scrollTop = 0;
+	document.documentElement.scrollTop = 0;		//还原滚动条位置
+	
+	1、避免后代选择符
+	1、每周一篇文章
+	//调整字体
+	var html = document.documentElement;
+	var w = html.getBoundingClientRect().width;
+	html.style.fontSize = w / 10 + 'px';
+	
+	@function pxrem($px) {
+	  $rem: 37.5px;
+	  @return ($px/$rem)+rem;
+	}
 	
