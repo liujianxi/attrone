@@ -81,6 +81,7 @@ git push origin master 		--推送本地修改到远程gitlab
 git branch -a 查看远程分支
 git checkout -b php 切换分支
 
+git commit -m '1234'
 //vim .gitignore配置忽略文件
 git add .//提交
 
@@ -91,10 +92,6 @@ mounted(){
     })
 },
 }
-
-长护险下单人数
-ZY010000364242
-
 
 background-image: url('../assets/hospital-img-2.png');
 background-repeat: no-repeat;
@@ -418,3 +415,29 @@ import 'echarts/lib/component/title';
 	  @return ($px/$rem)+rem;
 	}
 	
+	标准盒子模型：宽度=内容的宽度（content）+ border + padding + margin
+	低版本IE盒子模型：宽度=内容宽度（content+border+padding）+ margin
+	
+	改变placeholder的字体颜色大小
+
+	input::-webkit-input-placeholder { 
+		/* WebKit browsers */ 
+		font-size:14px;
+		color: #333;
+	} 
+	input::-moz-placeholder { 
+		/* Mozilla Firefox 19+ */ 
+		font-size:14px;
+		color: #333;
+	} 
+	input:-ms-input-placeholder { 
+		/* Internet Explorer 10+ */ 
+		font-size:14px;
+		color: #333;
+	}
+	
+	jq中$被占用：$.noConflict();
+	
+	flex布局： justify-content：center;align-items:center;
+	
+	ios中日期显示为NaN：在ios中支持"2017/12/26 19:36:00"，而不支持"2017-12-26 19:36:00"格式。

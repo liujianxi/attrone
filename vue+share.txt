@@ -1,0 +1,157 @@
+4094513
+4094513
+4030334
+4030334
+4094513
+
+
+
+autofocus:
+	微信：ios不聚焦，android聚焦拉不起键盘
+	支付宝：ios聚焦，android聚焦
+
+
+
+1、build文件夹添加----webpack.dll.config.js
+
+2、在package.json里面
+"dll": "webpack --config build/webpack.dll.config.js",
+
+3、运行npm run dll
+在static/js下生成vendor-manifest.json
+
+4、在build/webpack.base.conf.js
+	// 添加DllReferencePlugin插件
+  plugins: [
+    new webpack.DllReferencePlugin({
+      context: __dirname,
+      manifest: require('./vendor-manifest.json')
+    })
+  ],
+  
+5、在index.html
+<script type="text/javascript" src="./../vendor.dll.js"></script>
+
+
+参考资料:https://doc.webpack-china.org/plugins/dll-plugin/#dllreferenceplugin
+DLLPlugin 和 DLLReferencePlugin 用某种方法实现了拆分 bundles，同时还大大提升了构建的速度。
+
+去除console
+在build/webpack.prod.conf.js
+new webpack.optimize.UglifyJsPlugin({
+  compress: {
+	warnings: false,
+	drop_console: true,//去除console.log
+	pure_funcs: ['console.log'],//去除console.log
+  },
+  sourceMap: false,
+}),
+	
+去除打包的.map
+config/index.js
+productionSourceMap: false,
+
+vue组件按需加载
+const abc = () =>import ('@/components/abc')
+export default new Router({
+  routes: [
+    {
+      path: '/abc',
+      name: 'abc',
+      component: abc
+    },
+  ]
+})
+
+
+var path = require("path");
+var webpack = require("webpack");
+
+module.exports = {
+  // 要打包的模块的数组
+  entry: {
+    vendor: ['vue/dist/vue.esm.js','vue-router']
+  },
+  output: {
+    path: path.join(__dirname, '../static/js'), // 打包后文件输出的位置
+    filename: '[name].dll.js',// vendor.dll.js中暴露出的全局变量名。
+    library: '[name]_library' // 与webpack.DllPlugin中的`name: '[name]_library',`保持一致。
+  },
+  plugins: [
+    new webpack.DllPlugin({
+      path: path.join(__dirname, '.', '[name]-manifest.json'),
+      name: '[name]_library', 
+      context: __dirname
+    }),
+  ]
+};
+//--创建页面监听，页面加载完毕--触发音频播放
+document.addEventListener('DOMContentLoaded', function () {
+	function audioAutoPlay() {
+		var musicEle0 = document.getElementById('music_mp3_0');
+		musicEle0.play();
+	}
+	audioAutoPlay();
+});
+
+//--创建触摸监听，当浏览器打开页面时，触摸屏幕触发事件，进行音频播放
+document.addEventListener('touchstart', function () {
+	function audioAutoPlay() {
+		var musicEle0 = document.getElementById('music_mp3_0');
+			musicEle0.play();
+	}
+	audioAutoPlay();
+});
+
+
+	//--创建页面监听，等待微信端页面加载完毕 触发音频播放
+	document.addEventListener('DOMContentLoaded', function () {
+		function audioAutoPlay() {
+			var musicEle0 = document.getElementById('music_mp3_0');
+				musicEle0.play();
+			document.addEventListener("WeixinJSBridgeReady", function () {
+				musicEle0.play();
+			}, false);
+		}
+		audioAutoPlay();
+	});
+	//--创建触摸监听，当浏览器打开页面时，触摸屏幕触发事件，进行音频播放
+	document.addEventListener('touchstart', function () {
+		function audioAutoPlay() {
+			var musicEle0 = document.getElementById('music_mp3_0');
+				musicEle0.play();
+		}
+		audioAutoPlay();
+	});
+
+---------------------------2017总结------------------------------
+//https://github.com/marcuswestin/WebViewJavascriptBridge
+1、一个微信公众号开发，两个hybrid app开发，这都是移动端开发，还有一个PC端后台erp。
+2、PC端erp属于维护项目，技术栈为jq+bootstrap。
+3、移动端的技术栈是webpack+vue+sass+mint-ui。
+4、hybrid app与原生交互
+4、遇到的问题：
+	1）场景：公众号项目每次跳转的时候总会有invalid signature出现。
+	
+	解决方法：每次页面跳转的时候都initWx，在app.vue里面
+	created() {
+	this.$router.beforeEach((to, from, next) => {
+		wx.config({
+			debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+			appId: '', // 必填，公众号的唯一标识
+			timestamp: , // 必填，生成签名的时间戳
+			nonceStr: '', // 必填，生成签名的随机串
+			signature: '',// 必填，签名
+			jsApiList: [] // 必填，需要使用的JS接口列表
+		});
+	}）
+	}
+
+
+
+
+
+
+
+
+
