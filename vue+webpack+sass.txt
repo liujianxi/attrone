@@ -54,19 +54,6 @@ $(function(){
 	})
 })
 
-主机管理控制台用户名： syu3038820001
-管理控制台登录密码：wwwattrone
-FTP登录主机地址： syu3038820001.my3w.com
-FTP登录用户名： syu3038820001
-ftp登录密码：liujianxi
-mysql：liujianxi199419
-ip:120.24.169.105
-端口：3306
-数据库用户名： sdm225894292
-数据库名称： sdm225894292_db
-数据库连接地址： sdm225894292.my3w.com
-////// 举个栗子
-
 
 将本地的项目上传到GITHUB上
 
@@ -138,15 +125,9 @@ let theRequest = new Object();
 	
 	document.querySelector('.a').offsetHeight;
 	
-	
-	<span gateId="{{item.id}}" gateNo="{{item.extraNO}}" class="entrance-click damage-check">
-		损坏登记
-	</span>
-	
+
 	chrome在preview处乱码时-----chrome版本问题
-	
-	http://www.attrone.com/images/compressImage.jpg
-	http://www.attrone.com/images/18-1.png
+
 	
 	color:#32D3C3;
 	
@@ -170,10 +151,6 @@ let theRequest = new Object();
 	goList:function(event){
         console.log(event.currentTarget.getAttribute("data-id"));
     }
-	
-	
-	url(https://s.1-1dr.com/static/official/img/homeprice.png)
-	
 	
 	
 	
@@ -325,22 +302,6 @@ import 'echarts/lib/component/title';
 	
 	
 	
-	// assetsSubDirectory: 'static',         //项目本地  dev
-    // assetsPublicPath: '/mobile/',
-    
-    assetsSubDirectory: '',            //www cdn  
-    assetsPublicPath: 'https://s.1-1dr.com/static/mobile/',
-	
-	
-	
-	
-	
-	12306````````````1968583543@qq.com---liujianxi199419
-	
-	
-	18026997825
-	
-	
 	//gulp
 	npm/cnpm install gulp -g
 	
@@ -358,11 +319,6 @@ import 'echarts/lib/component/title';
 	
 	//vue查看已注册的组件
 	this.$options.components
-	
-	
-    assetsSubDirectory: 'static',  //dev
-    assetsPublicPath: '/mobile/',
-
 
 	BFC：Block Formatting Context，块级格式化上下文
     
@@ -393,10 +349,6 @@ import 'echarts/lib/component/title';
 	jq模板引擎渲染:https://github.com/aui/art-template
 	打印:jqprint
 	画板:jSignature
-	www:13694284109--
-	dev:13691640020--88888888
-	
-	
 	
 	script  defer 属性规定是否对脚本执行进行延迟，直到页面加载为止。(只有 Internet Explorer 支持 defer 属性)
 	
@@ -404,7 +356,6 @@ import 'echarts/lib/component/title';
 	document.documentElement.scrollTop = 0;		//还原滚动条位置
 	
 	1、避免后代选择符
-	1、每周一篇文章
 	//调整字体
 	var html = document.documentElement;
 	var w = html.getBoundingClientRect().width;
